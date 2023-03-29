@@ -15,5 +15,9 @@
       "dom.iterable",
       "scripthost"
     ]
+  },
+  // specify tsconfig target version (default: v3)
+  "vueCompilerOptions": {
+    "target": 2.7
   }
 }

@@ -1,4 +1,5 @@
 @import './reset.scss';
+@import './color.scss';
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC');
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 
@@ -10,8 +11,7 @@ body {
 }
 
 body {
-  // font-family: "Noto Sans TC", "Montserrat", sans-serif;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Montserrat", "Noto Sans TC", sans-serif;
   font-size: 1rem;
 }
 
