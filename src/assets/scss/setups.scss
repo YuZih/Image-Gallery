@@ -2,6 +2,7 @@
 @import './color.scss';
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC');
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap');
 
 /* basic style */
 html,
@@ -11,7 +12,7 @@ body {
 }
 
 body {
-  font-family: "Montserrat", "Noto Sans TC", sans-serif;
+  font-family: "Montserrat", "Noto Sans TC", Arial, sans-serif;
   font-size: 1rem;
 }
 
