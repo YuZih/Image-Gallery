@@ -29,12 +29,11 @@
             </li>
 
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
                 ALBUM
               </a>
-
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <ul class="dropdown-menu" id="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li>
                   <div class="dropdown-header">Wedding Series</div>
                 </li>
@@ -53,7 +52,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link">ABOUT</a>
+              <a class="nav-link" href="#">ABOUT</a>
             </li>
           </ul>
         </div>
@@ -109,6 +108,7 @@ header {
     .dropdown-menu {
       line-height: 1.5rem;
       text-align: center;
+      border: 1px green solid;
 
       .dropdown-header {
         font-style: italic;
@@ -121,6 +121,13 @@ header {
   }
 }
 
+#navbarDropdown {
+  &::after {
+    display: inline-block;
+    content: url("@/assets/images/others/caret-down.svg");
+    width: 10px;
+  }
+}
 
 // Small screen: mobile
 @media screen and (min-width: 576px) {
@@ -138,6 +145,8 @@ header {
 
   //show dropdown menu when mouse hovers
   .dropdown {
+    position: relative;
+
     .dropdown-menu {
       display: none;
 
@@ -149,7 +158,16 @@ header {
     &:hover {
       .dropdown-menu {
         display: block;
+        position: absolute;
+        left: 0;
+        top: 2.3rem;
       }
+    }
+  }
+
+  #navbarDropdown {
+    &::after {
+      content: "";
     }
   }
 }
