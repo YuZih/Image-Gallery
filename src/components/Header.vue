@@ -13,7 +13,7 @@
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-              aria-expanded="false">Dropdown</a>
+              aria-expanded="false">ALBUM</a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="#">Wedding-1</a></li>
               <li><a class="dropdown-item" href="#">Wedding-2</a></li>
@@ -38,9 +38,9 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .h {
-  // max-width: 768px;
+  max-width: 768px;
   text-align: center;
   border: 1px green solid;
 
@@ -58,4 +58,19 @@ export default {
 
   }
 }
+
+.dropdown {
+  .dropdown-menu {
+    display: none;
+  }
+
+  &:hover {
+    .dropdown-menu {
+      display: block;
+    }
+  }
+}
+
+//dropdown-toggle
+@media screen and (min-width: 768px) {}
 </style>

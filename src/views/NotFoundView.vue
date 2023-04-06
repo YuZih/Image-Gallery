@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h1>404 Page Not Found</h1>
+  <div class="container">
+    <img class="img-fluid" src="@/assets/images/others/404.jpg" alt="">
   </div>
 </template>
 
@@ -9,3 +9,5 @@ export default {
   name: "NotFoundView",
 };
 </script>
+
+
