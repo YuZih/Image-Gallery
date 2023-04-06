@@ -1,6 +1,5 @@
 @import './reset.scss';
 @import './color.scss';
-@import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC');
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap');
 
@@ -12,35 +11,11 @@ body {
 }
 
 body {
-  font-family: "Montserrat", "Noto Sans TC", Arial, sans-serif;
+  font-family: "Montserrat", Arial, sans-serif;
   font-size: 1rem;
 }
 
-/* font for numbers */
-$number-font: "Montserrat";
-
-
-// h1 {
-//   font-size: 68px;
-//   font-weight: bold;
-// }
-
-// h2 {
-//   font-size: 42px;
-//   font-weight: bold;
-// }
-
-// h3 {
-//   font-size: 28px;
-//   font-weight: 700;
-// }
-
-// h4 {
-//   font-size: 24px;
-//   font-weight: 700;
-// }
-
-// h5 {
-//   font-size: 18px;
-//   font-weight: 700;
-// }
+/* font setting */
+%logo-font {
+  font-family: "Dancing Script", cursive;
+}
