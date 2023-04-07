@@ -2,13 +2,12 @@
   <header class="container-fluid">
 
     <!-- logo -->
-    <div class="logo text-center mt-4 my-md-4">
+    <div class="logo text-center mt-4 mt-md-5 mb-md-4">
       <a href="#">Yuzu x Pic</a>
     </div>
 
-
     <!-- navbar -->
-    <nav class="navbar navbar-expand-md navbar-light">
+    <nav class="navbar navbar-expand-md navbar-light" :class="{ 'navbar-border': isSticky }">
       <div class="container-fluid justify-content-center">
 
         <!-- hamburger icon -->
@@ -32,6 +31,7 @@
               <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
                 ALBUM
+                <font-awesome-icon id="caret-icon" :icon="['fas', 'angle-down']" size="xs" style="color: #808080;" />
               </a>
               <ul class="dropdown-menu" id="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li>
@@ -58,20 +58,46 @@
         </div>
       </div>
     </nav>
-    <hr>
+
+    <div class="tt">
+      main
+    </div>
   </header>
 </template>
 
+
+
 <script>
 export default {
-  name: "Header"
+  name: "Header",
+  data() {
+    return {
+      isSticky: false,
+      navbarOffsetTop: 0,
+    };
+  },
+  mounted() {
+    this.navbarOffsetTop = this.$el.querySelector('.navbar').offsetTop;
+    this.$nextTick(() => {
+      window.addEventListener('scroll', this.handleScroll);
+    });
+  },
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.handleScroll);
+  },
+  methods: {
+    handleScroll() {
+      this.isSticky = window.pageYOffset >= this.navbarOffsetTop;
+    },
+  },
 }
 </script>
+
+
 
 <style lang="scss" scoped>
 @use "@/assets/scss/setups.scss";
 
-// XS screen
 header {
   position: relative;
 
@@ -87,15 +113,31 @@ header {
   @extend %logo-font;
   font-size: 28px;
   font-weight: 600;
-  border: 1px red solid;
+  // border: 1px red solid;
 
   :hover {
     cursor: pointer;
   }
 }
 
+.navbar {
+  // border: 1px green solid;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-border {
+  border-bottom: 2px solid #f7f7f7;
+}
+
+.tt {
+  height: 1000px;
+}
+
 #navbar1 {
-  border: 1px blue solid;
+  // border: 1px blue solid;
   max-width: 800px;
 
   .navbar-nav {
@@ -108,7 +150,7 @@ header {
     .dropdown-menu {
       line-height: 1.5rem;
       text-align: center;
-      border: 1px green solid;
+      // border: 1px green solid;
 
       .dropdown-header {
         font-style: italic;
@@ -121,13 +163,6 @@ header {
   }
 }
 
-#navbarDropdown {
-  &::after {
-    display: inline-block;
-    content: url("@/assets/images/others/caret-down.svg");
-    width: 10px;
-  }
-}
 
 // Small screen: mobile
 @media screen and (min-width: 576px) {
@@ -165,10 +200,8 @@ header {
     }
   }
 
-  #navbarDropdown {
-    &::after {
-      content: "";
-    }
+  #caret-icon {
+    display: none;
   }
 }
 </style>
