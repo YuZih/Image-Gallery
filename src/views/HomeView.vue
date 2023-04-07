@@ -1,13 +1,11 @@
 <template>
-  <div class="container-fluid">
+  <div>
     <!-- header & nav -->
     <Header />
     <div>
-      123455
-      33333
-      33333
-      33333
+      123
     </div>
+    <img class="img-fluid" src="@/assets/images/others/404.jpg" alt="">
     <!-- carousel -->
     <!-- main -->
   </div>
@@ -23,3 +21,8 @@ export default {
   }
 }
 </script>
+
+
+<style lang="scss" scoped>
+
+</style>

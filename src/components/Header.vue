@@ -1,8 +1,8 @@
 <template>
-  <header class="container-fluid">
+  <header>
 
     <!-- logo -->
-    <div class="logo text-center mt-4 mt-md-5 mb-md-4">
+    <div class="logo text-center mt-4 mb-1 my-md-4">
       <a href="#">Yuzu x Pic</a>
     </div>
 
@@ -58,10 +58,7 @@
         </div>
       </div>
     </nav>
-
-    <div class="tt">
-      main
-    </div>
+    <img class="img-fluid" src="@/assets/images/others/404.jpg" alt="">
   </header>
 </template>
 
@@ -77,17 +74,28 @@ export default {
     };
   },
   mounted() {
+    // 使用 offsetTop 來獲取 navbar 的初始位置
     this.navbarOffsetTop = this.$el.querySelector('.navbar').offsetTop;
+
+    // 使用 $nextTick 來確保在為 window 添加滾動事件監聽器前，navbar 元素已經在 DOM 中完成渲染與更新
+    // 避免在剛剛創建或更新組件時立即觸發事件，從而導致不必要的調用和渲染
     this.$nextTick(() => {
       window.addEventListener('scroll', this.handleScroll);
     });
   },
   beforeDestroy() {
+    //刪除滾動事件的監聽器，以避免內存洩漏
     window.removeEventListener('scroll', this.handleScroll);
   },
   methods: {
+    // 若當前滾動距離大於等於 navbar 的初始位置，navbar 會藉由 isSticky 新添 navbar-border 的類別
     handleScroll() {
       this.isSticky = window.pageYOffset >= this.navbarOffsetTop;
+      console.log("p:", window.pageYOffset);
+      console.log("n:", this.navbarOffsetTop)
+      if (this.isSticky) {
+        console.log('works');
+      }
     },
   },
 }
@@ -113,7 +121,6 @@ header {
   @extend %logo-font;
   font-size: 28px;
   font-weight: 600;
-  // border: 1px red solid;
 
   :hover {
     cursor: pointer;
@@ -121,23 +128,18 @@ header {
 }
 
 .navbar {
-  // border: 1px green solid;
   position: -webkit-sticky;
   position: sticky;
   top: 0;
   z-index: 1000;
+  background-color: grey;
 }
 
 .navbar-border {
   border-bottom: 2px solid #f7f7f7;
 }
 
-.tt {
-  height: 1000px;
-}
-
 #navbar1 {
-  // border: 1px blue solid;
   max-width: 800px;
 
   .navbar-nav {
@@ -150,7 +152,6 @@ header {
     .dropdown-menu {
       line-height: 1.5rem;
       text-align: center;
-      // border: 1px green solid;
 
       .dropdown-header {
         font-style: italic;
