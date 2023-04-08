@@ -1,13 +1,11 @@
 <template>
-  <div class="container-fluid">
+  <div>
     <!-- header & nav -->
     <Header />
-    <div>
-      123455
-      33333
-      33333
-      33333
-    </div>
+    <Navbar />
+    <img class="img-fluid" src="@/assets/images/others/404.jpg" alt="">
+    <img class="img-fluid" src="@/assets/images/others/404.jpg" alt="">
+    <img class="img-fluid" src="@/assets/images/others/404.jpg" alt="">
     <!-- carousel -->
     <!-- main -->
   </div>
@@ -15,11 +13,15 @@
 
 <script>
 import Header from '@/components/Header.vue'
+import Navbar from '@/components/Navbar.vue'
 
 export default {
   name: 'HomeView',
   components: {
-    Header
+    Header, Navbar
   }
 }
 </script>
+
+
+<style lang="scss" scoped></style>
