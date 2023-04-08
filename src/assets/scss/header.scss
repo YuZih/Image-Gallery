@@ -17,7 +17,12 @@ header {
     left: 10px;
     z-index: 1000;
     border: none;
-    padding: 8px; // Align the icon center to the logo 
+    padding: 8px; // Align the icon center to the logo
+    // Make default outline disappear
+    &:focus {
+        outline: none;
+        box-shadow: none;
+      }
   }
 
 // Responsive scaling icon size
