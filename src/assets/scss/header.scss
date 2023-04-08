@@ -1,6 +1,6 @@
 @use "@/assets/scss/setups.scss";
 
-// sticky header
+// Make header sticky to the top
 header {
   position: -webkit-sticky;
   position: sticky;
@@ -10,21 +10,29 @@ header {
   border-bottom: 2px solid #f7f7f7;
 }
 
-// put hamburger icon to the top left
+// Position hamburger icon to the top left
 .navbar-toggler {
-    position: absolute;
-    top: -40px;
-    left: 0px;
+    position: fixed;
+    top: 0px;
+    left: 10px;
     z-index: 1000;
     border: none;
+    padding: 8px; // Align the icon center to the logo 
   }
+
+// Responsive scaling icon size
+.navbar-toggler-icon {
+  width: calc(10px + 4vw);
+  ;
+  height: calc(10px + 4vw);
+  ;
+}
 
 .logo {
   @extend %logo-font;
-  font-size: 28px;
+  font-size: min(calc(18px + 2vw), 40px); // Responsive scaling logo size
   font-weight: 600;
-
-  :hover {
+  &:hover {
     cursor: pointer;
   }
 }
@@ -35,6 +43,7 @@ header {
     text-align: center;
     .nav-item {
       padding: 1rem;
+      font-size: calc(0.9rem + 0.15vw); // Responsive scaling the font size of nav item
     }
     .dropdown-menu {
       border: 1px solid green;
@@ -53,32 +62,39 @@ header {
 
 .divider-container {
   border: 1px solid red;
-  width: 30%;
+  width: 30%; // Make the divider shorter
   min-width: 200px;
-  margin: auto;
+  margin: auto; // Position the divider center
 }
+
+
 
 
 
 // Small screen: mobile
-@media screen and (min-width: 576px) {
-  .logo {
-    font-size: 34px;
-  }
-}
+@media screen and (min-width: 576px) {}
+
+
+
 
 
 // medium screen: iPad, PC
 @media screen and (min-width: 768px) {
   .divider-container {
-      width: 100%;
+      width: 100%; // Make the divider longer
     }
   
   #caret-icon {
     display: none;
   }
 
-  // sticky navbar
+  // Make header not sticky to the top
+  header {
+    position: relative;
+    border-bottom: none;
+  }
+  
+  // Make navbar sticky to the top
   .navbar {
     position: -webkit-sticky;
     position: sticky;
@@ -91,10 +107,6 @@ header {
   .navbar-border {
       border-bottom: 2px solid #f7f7f7;
     }
-
-  .logo {
-    font-size: 40px;
-  }
 
   //show dropdown menu when mouse hovers
   .dropdown {
