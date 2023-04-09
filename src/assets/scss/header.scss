@@ -131,8 +131,8 @@ header {
   background-color: rgba(255, 255, 255, 0.9); // Overlay background
   z-index: 999; // Make sure the overlay is on top
   display: none; // Hide the overlay by default
-  padding-top: 70px; // Avoid nav-item being covered by the header
-  /* Animation when expanded for overlay */
+  padding-top: 70px; // Avoid being covered by the header
+  /* Animation when the navbar is expanded  */
   height: 0;
   transition: height .1s ease-in-out;
 }
@@ -150,7 +150,7 @@ header {
 // medium screen: iPad, PC
 @media screen and (min-width: 768px) {
   .divider-container {
-    /* Make the divider longer for PC */
+    /* Let the divider longer for PC */
     width: 100%;
   }
 
@@ -196,5 +196,6 @@ header {
     max-width: 800px;
     position: relative;
     padding-top: 0;
+    height: 100%;
   }
 }
