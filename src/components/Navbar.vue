@@ -1,39 +1,61 @@
 <template>
   <!-- navbar -->
-  <nav ref="navbar" class="navbar navbar-expand-md navbar-light" :class="{ 'navbar-border': isSticky }">
+  <nav ref="navbar"
+       class="navbar navbar-expand-md navbar-light"
+       :class="{ 'navbar-border': isSticky }">
     <div class="container-fluid justify-content-center">
 
       <!-- hamburger icon -->
-      <button class="navbar-toggler collapsed d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbar1"
-        aria-controls="navbar1" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler collapsed d-md-none"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbar1"
+              aria-controls="navbar1"
+              aria-expanded="false"
+              aria-label="Toggle navigation">
         <div class="toggler-icon top-bar"></div>
         <div class="toggler-icon middle-bar"></div>
         <div class="toggler-icon bottom-bar"></div>
       </button>
 
-      <!-- nav tabs -->
-      <div id="navbar1" class="collapse navbar-collapse mt-5 mt-md-0">
+      <!-- navigation tabs -->
+      <div id="navbar1"
+           class="collapse navbar-collapse mt-md-2">
         <ul class="navbar-nav me-auto justify-content-evenly w-100">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active"
+               aria-current="page"
+               href="#">Home</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="#">POST</a>
+            <a class="nav-link"
+               href="#">POST</a>
           </li>
 
           <li class="nav-item dropdown">
-            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
+            <a class="nav-link"
+               href="#"
+               id="navbarDropdown"
+               role="button"
+               data-bs-toggle="dropdown"
+               aria-expanded="false">
               ALBUM
-              <font-awesome-icon id="caret-icon" :icon="['fas', 'angle-down']" size="xs" style="color: #808080;" />
+              <font-awesome-icon id="caret-icon"
+                                 :icon="['fas', 'angle-down']"
+                                 size="xs"
+                                 style="color: #808080;" />
             </a>
-            <ul class="dropdown-menu" id="dropdown-menu" aria-labelledby="navbarDropdown">
+            <ul class="dropdown-menu"
+                id="dropdown-menu"
+                aria-labelledby="navbarDropdown">
               <li>
                 <div class="dropdown-header">Wedding Series</div>
               </li>
-              <li><a class="dropdown-item" href="#">Wedding-1</a></li>
-              <li><a class="dropdown-item" href="#">Wedding-2</a></li>
+              <li><a class="dropdown-item"
+                   href="#">Wedding-1</a></li>
+              <li><a class="dropdown-item"
+                   href="#">Wedding-2</a></li>
               <li>
                 <div class="divider-container">
                   <hr class="dropdown-divider">
@@ -43,13 +65,16 @@
               <li>
                 <div class="dropdown-header">Vintage Series</div>
               </li>
-              <li><a class="dropdown-item" href="#">Vintage-1</a></li>
-              <li><a class="dropdown-item" href="#">Vintage-2</a></li>
+              <li><a class="dropdown-item"
+                   href="#">Vintage-1</a></li>
+              <li><a class="dropdown-item"
+                   href="#">Vintage-2</a></li>
             </ul>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="#">ABOUT</a>
+            <a class="nav-link"
+               href="#">ABOUT</a>
           </li>
         </ul>
       </div>

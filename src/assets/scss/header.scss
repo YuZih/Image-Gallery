@@ -1,38 +1,41 @@
 @use "@/assets/scss/setups.scss";
 
 $logo-font-size: min(calc(18px + 2vw), 40px);
-$bar-gap: calc($logo-font-size / 1.5);
+$bar-gap: calc($logo-font-size / 2);
 
-
+/* Let the header fixed to the top */
 header {
-  // Make header fixed to the top
   width: 100%;
   position: fixed;
   top: 0;
-  z-index: 999;
+  z-index: 1000;
   background-color: white;
   border-bottom: 2px solid #f7f7f7;
 }
 
-
-.navbar-toggler {
-  // Position hamburger icon to the top left
-  position: fixed;
-  top: 8px; // align distance to top with the logo
-  left: 15px;
-  z-index: 1000;
-  margin: 0;
-  padding: 0;
-
-  // Keep the icon same size with the logo
-  width: $logo-font-size;
-  height: $logo-font-size;
-
-  // Animation
-  transition: .5s ease-in-out;
+.logo {
+  @extend %logo-font;
+  font-size: $logo-font-size; // Responsive scaling logo size
+  font-weight: 600;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
-// Make the outline of toggler disappear
+.navbar-toggler {
+  margin: 0;
+  padding: 0;
+  /* Position hamburger icon to the top left */
+  position: fixed;
+  top: 8px; // Align distance to top with the logo
+  left: 15px;
+  z-index: 1000;
+  /* Keep the icon same size with the logo */
+  width: $logo-font-size;
+  height: $logo-font-size;
+}
+
+/* Let the outline of toggler disappear */
 .navbar-toggler,
 .navbar-toggler:focus,
 .navbar-toggler:active,
@@ -42,26 +45,23 @@ header {
   border: 0;
 }
 
-
 .toggler-icon {
-  // Default setting
   height: 2px;
   width: 100%;
+  margin: 0;
+  padding: 0;
   background-color: black;
   border-radius: 1px;
   opacity: 1;
   transform: rotate(0deg);
+   /* Animation when hamburger icon is clicked */
   transition: .25s ease-in-out;
-  margin: 0;
-  padding: 0;
-
-  // Let three bars of hamburger stack together
+  /* Let the 3 bars of hamburger stack together */
   position: absolute;
   left: 0px;
 }
 
-
-// When navbar is clicked
+/* When navbar is clicked */
 .navbar-toggler .top-bar {
   transform: rotate(135deg);
 }
@@ -73,10 +73,9 @@ header {
   transform: rotate(-135deg);
 }
 
-
-// State when the navbar is collapsed
+/* State when the navbar is collapsed */
 .navbar-toggler {
-  // Separate the top bar from middle bar
+  /* Separate the top bar from middle bar firstly*/
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -94,77 +93,79 @@ header {
   transform: rotate(0deg);
 }
 
-
-
-.logo {
-  @extend %logo-font;
-  font-size: $logo-font-size; // Responsive scaling logo size
-  font-weight: 600;
-  &:hover {
-    cursor: pointer;
+.navbar-nav {
+  text-align: center;
+  .nav-item {
+    padding: 1rem;
+    font-size: calc(0.9rem + 0.15vw); // Responsive scaling the font size of nav item
   }
-}
-
-#navbar1 {
-  max-width: 800px;
-  .navbar-nav {
+  .dropdown-menu {
+    border: 1px solid green;
+    line-height: 1.5rem;
     text-align: center;
-    .nav-item {
-      padding: 1rem;
-      font-size: calc(0.9rem + 0.15vw); // Responsive scaling the font size of nav item
+    .dropdown-header {
+      font-style: italic;
     }
-    .dropdown-menu {
-      border: 1px solid green;
-      line-height: 1.5rem;
-      text-align: center;
-      .dropdown-header {
-        font-style: italic;
-      }
-      .dropdown-item {
-        border: 1px solid blue;
-        margin: 1px;
-      }
+    .dropdown-item {
+      border: 1px solid blue;
+      margin: 1px;
     }
   }
 }
 
 .divider-container {
   border: 1px solid red;
-  width: 30%; // Make the divider shorter
+  width: 30%; // Let the divider shorter for mobile
   min-width: 200px;
-  margin: auto; // Position the divider center
+  margin: auto; // Position the divider center for mobile
 }
 
+/* State when navbar is collapsed */
+.navbar-collapse {
+  /* Custom bootstrap CSS for navbar-collapse overlay effect */
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.9); // Overlay background
+  z-index: 999; // Make sure the overlay is on top
+  display: none; // Hide the overlay by default
+  padding-top: 70px; // Avoid nav-item being covered by the header
+  /* Animation when expanded for overlay */
+  height: 0;
+  transition: height .1s ease-in-out;
+}
 
-
-
-
-// Small screen: mobile
-@media screen and (min-width: 576px) {}
-
-
+/* State when navbar is expanded */
+.navbar-collapse.show {
+  height: 100vh;
+  display: flex; // Show the overlay when the .show class is added //
+  align-items: start;
+  justify-content: center;
+}
 
 
 
 // medium screen: iPad, PC
 @media screen and (min-width: 768px) {
   .divider-container {
-    // Make the divider longer
+    /* Make the divider longer for PC */
     width: 100%;
   }
-  
+
   #caret-icon {
     display: none;
   }
 
   header {
-    // Make header not sticky to the top
+    /* Let the header not fixed to the top for PC */
     position: relative;
     border-bottom: none;
   }
   
   .navbar {
-    // Make navbar sticky to the top
+    /* Let the navbar sticky to the top for PC */
     position: -webkit-sticky;
     position: sticky;
     top: 0;
@@ -173,12 +174,12 @@ header {
   }
 
   .navbar-border {
-    // Show bottom border when navbar is sticky
+    /* Show bottom border when navbar is sticky */
     border-bottom: 2px solid #f7f7f7;
   }
 
   .dropdown {
-    //Show dropdown menu when mouse hovers
+    /* Show the dropdown menu when mouse hovers */
     position: relative;
     &:hover {
       .dropdown-menu {
@@ -188,5 +189,12 @@ header {
         top: 3rem;
       }
     }
+  }
+
+  /* Reset Overlay setting */
+  #navbar1 {
+    max-width: 800px;
+    position: relative;
+    padding-top: 0;
   }
 }
