@@ -1,41 +1,104 @@
 @use "@/assets/scss/setups.scss";
 
-// Make header sticky to the top
+$logo-font-size: min(calc(18px + 2vw), 40px);
+$bar-gap: calc($logo-font-size / 1.5);
+
+
 header {
-  position: -webkit-sticky;
-  position: sticky;
+  // Make header fixed to the top
+  width: 100%;
+  position: fixed;
   top: 0;
   z-index: 999;
   background-color: white;
   border-bottom: 2px solid #f7f7f7;
 }
 
-// Position hamburger icon to the top left
-.navbar-toggler {
-    position: fixed;
-    top: 0px;
-    left: 10px;
-    z-index: 1000;
-    border: none;
-    padding: 8px; // Align the icon center to the logo
-    // Make default outline disappear
-    &:focus {
-        outline: none;
-        box-shadow: none;
-      }
-  }
 
-// Responsive scaling icon size
-.navbar-toggler-icon {
-  width: calc(10px + 4vw);
-  ;
-  height: calc(10px + 4vw);
-  ;
+.navbar-toggler {
+  // Position hamburger icon to the top left
+  position: fixed;
+  top: 8px; // align distance to top with the logo
+  left: 15px;
+  z-index: 1000;
+  margin: 0;
+  padding: 0;
+
+  // Keep the icon same size with the logo
+  width: $logo-font-size;
+  height: $logo-font-size;
+
+  // Animation
+  transition: .5s ease-in-out;
 }
+
+// Make the outline of toggler disappear
+.navbar-toggler,
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.toggler-icon:focus {
+  outline: none;
+  box-shadow: none;
+  border: 0;
+}
+
+
+.toggler-icon {
+  // Default setting
+  height: 2px;
+  width: 100%;
+  background-color: black;
+  border-radius: 1px;
+  opacity: 1;
+  transform: rotate(0deg);
+  transition: .25s ease-in-out;
+  margin: 0;
+  padding: 0;
+
+  // Let three bars of hamburger stack together
+  position: absolute;
+  left: 0px;
+}
+
+
+// When navbar is clicked
+.navbar-toggler .top-bar {
+  transform: rotate(135deg);
+}
+.navbar-toggler .middle-bar {
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+.navbar-toggler .bottom-bar {
+  transform: rotate(-135deg);
+}
+
+
+// State when the navbar is collapsed
+.navbar-toggler {
+  // Separate the top bar from middle bar
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.navbar-toggler.collapsed .top-bar {
+  margin-bottom: $bar-gap;
+  transform: rotate(0deg);
+}
+.navbar-toggler.collapsed .middle-bar {
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+.navbar-toggler.collapsed .bottom-bar {
+  margin-top: $bar-gap;
+  transform: rotate(0deg);
+}
+
+
 
 .logo {
   @extend %logo-font;
-  font-size: min(calc(18px + 2vw), 40px); // Responsive scaling logo size
+  font-size: $logo-font-size; // Responsive scaling logo size
   font-weight: 600;
   &:hover {
     cursor: pointer;
@@ -86,21 +149,22 @@ header {
 // medium screen: iPad, PC
 @media screen and (min-width: 768px) {
   .divider-container {
-      width: 100%; // Make the divider longer
-    }
+    // Make the divider longer
+    width: 100%;
+  }
   
   #caret-icon {
     display: none;
   }
 
-  // Make header not sticky to the top
   header {
+    // Make header not sticky to the top
     position: relative;
     border-bottom: none;
   }
   
-  // Make navbar sticky to the top
   .navbar {
+    // Make navbar sticky to the top
     position: -webkit-sticky;
     position: sticky;
     top: 0;
@@ -108,13 +172,13 @@ header {
     background-color: white;
   }
 
-  // show bottom border when navbar is sticky
   .navbar-border {
-      border-bottom: 2px solid #f7f7f7;
-    }
+    // Show bottom border when navbar is sticky
+    border-bottom: 2px solid #f7f7f7;
+  }
 
-  //show dropdown menu when mouse hovers
   .dropdown {
+    //Show dropdown menu when mouse hovers
     position: relative;
     &:hover {
       .dropdown-menu {

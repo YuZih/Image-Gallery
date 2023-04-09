@@ -3,6 +3,7 @@
     <!-- header & nav -->
     <Header />
     <Navbar />
+  
     <img class="img-fluid" src="@/assets/images/others/404.jpg" alt="">
     <img class="img-fluid" src="@/assets/images/others/404.jpg" alt="">
     <img class="img-fluid" src="@/assets/images/others/404.jpg" alt="">

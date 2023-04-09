@@ -4,13 +4,15 @@
     <div class="container-fluid justify-content-center">
 
       <!-- hamburger icon -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar1"
+      <button class="navbar-toggler collapsed d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbar1"
         aria-controls="navbar1" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        <div class="toggler-icon top-bar"></div>
+        <div class="toggler-icon middle-bar"></div>
+        <div class="toggler-icon bottom-bar"></div>
       </button>
 
       <!-- nav tabs -->
-      <div class="collapse navbar-collapse" id="navbar1">
+      <div id="navbar1" class="collapse navbar-collapse mt-5 mt-md-0">
         <ul class="navbar-nav me-auto justify-content-evenly w-100">
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">Home</a>
