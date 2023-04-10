@@ -1,4 +1,5 @@
 @use "@/assets/scss/setups.scss";
+@import "@/assets/scss/color.scss";
 
 $logo-font-size: min(calc(18px + 2vw), 40px);
 $bar-gap: calc($logo-font-size / 2);
@@ -10,7 +11,7 @@ header {
   top: 0;
   z-index: 1000;
   background-color: white;
-  border-bottom: 2px solid #f7f7f7;
+  border-bottom: 3px solid #f7f7f7;
 }
 
 .logo {
@@ -22,6 +23,7 @@ header {
   }
 }
 
+/* Hamburger icon setting*/
 .navbar-toggler {
   margin: 0;
   padding: 0;
@@ -33,6 +35,11 @@ header {
   /* Keep the icon same size with the logo */
   width: $logo-font-size;
   height: $logo-font-size;
+}
+.nav-item {
+  .nav-link {
+  font-weight: bold;
+  }
 }
 
 /* Let the outline of toggler disappear */
@@ -100,21 +107,21 @@ header {
     font-size: calc(0.9rem + 0.15vw); // Responsive scaling the font size of nav item
   }
   .dropdown-menu {
-    border: 1px solid green;
+    // border: 1px solid green;
     line-height: 1.5rem;
     text-align: center;
     .dropdown-header {
       font-style: italic;
     }
     .dropdown-item {
-      border: 1px solid blue;
+      // border: 1px solid blue;
       margin: 1px;
     }
   }
 }
 
 .divider-container {
-  border: 1px solid red;
+  // border: 1px solid red;
   width: 30%; // Let the divider shorter for mobile
   min-width: 200px;
   margin: auto; // Position the divider center for mobile
@@ -175,7 +182,7 @@ header {
 
   .navbar-border {
     /* Show bottom border when navbar is sticky */
-    border-bottom: 2px solid #f7f7f7;
+    border-bottom: 3px solid #f7f7f7;
   }
 
   .dropdown {

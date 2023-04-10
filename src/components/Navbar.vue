@@ -108,8 +108,6 @@ export default {
     // 若當前滾動距離大於等於 navbar 的初始位置，navbar 會藉由 isSticky 新添 navbar-border 的類別
     handleScroll() {
       this.isSticky = window.pageYOffset >= this.navbarOffsetTop;
-      console.log("p:", window.pageYOffset);
-      console.log("n:", this.navbarOffsetTop)
     },
   },
 }
