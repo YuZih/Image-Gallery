@@ -41,43 +41,43 @@
     <div class="carousel-inner">
       <div class="carousel-item active"
            data-bs-interval="3000">
-        <img src="@/assets/images/others/carousel/1.jpg"
+        <img src="@/assets/images/others/carousel_images/1.jpg"
              class="d-block w-100"
              alt="...">
       </div>
       <div class="carousel-item"
            data-bs-interval="3000">
-        <img src="@/assets/images/others/carousel/2.jpg"
+        <img src="@/assets/images/others/carousel_images/2.jpg"
              class="d-block w-100"
              alt="...">
       </div>
       <div class="carousel-item"
            data-bs-interval="3000">
-        <img src="@/assets/images/others/carousel/3.jpg"
+        <img src="@/assets/images/others/carousel_images/3.jpg"
              class="d-block w-100"
              alt="...">
       </div>
       <div class="carousel-item"
            data-bs-interval="3000">
-        <img src="@/assets/images/others/carousel/4.jpg"
+        <img src="@/assets/images/others/carousel_images/4.jpg"
              class="d-block w-100"
              alt="...">
       </div>
       <div class="carousel-item"
            data-bs-interval="3000">
-        <img src="@/assets/images/others/carousel/5.jpg"
+        <img src="@/assets/images/others/carousel_images/5.jpg"
              class="d-block w-100"
              alt="...">
       </div>
       <div class="carousel-item"
            data-bs-interval="3000">
-        <img src="@/assets/images/others/carousel/6.jpg"
+        <img src="@/assets/images/others/carousel_images/6.jpg"
              class="d-block w-100"
              alt="...">
       </div>
       <div class="carousel-item"
            data-bs-interval="3000">
-        <img src="@/assets/images/others/carousel/7.jpg"
+        <img src="@/assets/images/others/carousel_images/7.jpg"
              class="d-block w-100"
              alt="...">
       </div>
