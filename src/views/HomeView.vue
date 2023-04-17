@@ -6,7 +6,7 @@
 
     <!-- carousel -->
     <div class="carousel-ctn container mt-5 mt-md-3 mx-auto">
-      <Carousel />
+      <Carousel :images="carouselImages" />
     </div>
 
     <!-- main section -->
@@ -68,6 +68,8 @@
     <Footer />
   </div>
 </template>
+webpack 
+file-loader(hash-value)  url-loader(base64)
 
 <script>
 import Header from "@/components/Header.vue"
@@ -75,12 +77,50 @@ import Navbar from "@/components/Navbar.vue"
 import Carousel from "@/components/Carousel.vue"
 import Footer from "@/components/Footer.vue"
 
+
+import img from "@/assets/images/album/V-1/cover/cover-1.jpg"
+console.log("img: ", img);
+
 export default {
   name: "HomeView",
   components: {
     Header, Navbar, Carousel, Footer
   },
+  data() {
+    return {
+      carouselImages: [],
+    };
+  },
+  created() {
+    this.carouselImages = this.loadCarouselImages();
+    console.log("Created!");
+  },
+  methods: {
+    loadCarouselImages() {
+      const carouselImageContext = require.context(
+        "@/assets/images/others/carousel_images",
+        false,
+        /\.(png|jpg|jpeg|gif|svg)$/
+      );
 
+      console.log("carouselImageContext:", carouselImageContext);
+      console.log("carouselImageContext.id:", carouselImageContext.id);
+      console.log("carouselImageContext resolve 方法: ", carouselImageContext.resolve);
+      console.log("carouselImageContext keys 方法，返回請求鍵的數組: ", carouselImageContext.keys());
+      console.log("carouselImageContext keys[0]: ", carouselImageContext.keys()[0]);
+      console.log("carouselImageContext resolve(key) 返回圖片相對路徑: ", carouselImageContext.resolve('./2.jpg'));
+      console.log("carouselImageContext(key): ", carouselImageContext('./2.jpg'));
+      console.log("require(key): ", require("/src/assets/images/others/carousel_images" + '/2.jpg'));
+
+
+
+      const imageList = carouselImageContext
+        .keys()
+        .map((image) => carouselImageContext(image));
+      console.log("imageList: ", imageList);
+      return imageList;
+    },
+  },
 }
 </script>
 

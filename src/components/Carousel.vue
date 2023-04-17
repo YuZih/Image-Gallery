@@ -5,81 +5,25 @@
 
     <!-- indicators -->
     <div class="carousel-indicators">
-      <button type="button"
-              class="active"
+      <button v-for="(image, index) in images"
+              :key="index"
+              type="button"
+              :class="{ active: index === 0 }"
               data-bs-target="#home_carousel"
-              data-bs-slide-to="0"
-              aria-current="true"
-              aria-label="Slide 1"></button>
-      <button type="button"
-              data-bs-target="#home_carousel"
-              data-bs-slide-to="1"
-              aria-label="Slide 2"></button>
-      <button type="button"
-              data-bs-target="#home_carousel"
-              data-bs-slide-to="2"
-              aria-label="Slide 3"></button>
-      <button type="button"
-              data-bs-target="#home_carousel"
-              data-bs-slide-to="3"
-              aria-label="Slide 4"></button>
-      <button type="button"
-              data-bs-target="#home_carousel"
-              data-bs-slide-to="4"
-              aria-label="Slide 5"></button>
-      <button type="button"
-              data-bs-target="#home_carousel"
-              data-bs-slide-to="5"
-              aria-label="Slide 6"></button>
-      <button type="button"
-              data-bs-target="#home_carousel"
-              data-bs-slide-to="6"
-              aria-label="Slide 7"></button>
+              :data-bs-slide-to="index"
+              :aria-current="index === 0"
+              :aria-label="'Slide ' + (index + 1)"></button>
     </div>
 
     <!-- inner -->
     <div class="carousel-inner">
-      <div class="carousel-item active"
+      <div v-for="(image, index) in images"
+           :key="index"
+           :class="{ 'carousel-item': true, active: index === 0 }"
            data-bs-interval="3000">
-        <img src="@/assets/images/others/carousel_images/1.jpg"
+        <img :src="image"
              class="d-block w-100"
-             alt="...">
-      </div>
-      <div class="carousel-item"
-           data-bs-interval="3000">
-        <img src="@/assets/images/others/carousel_images/2.jpg"
-             class="d-block w-100"
-             alt="...">
-      </div>
-      <div class="carousel-item"
-           data-bs-interval="3000">
-        <img src="@/assets/images/others/carousel_images/3.jpg"
-             class="d-block w-100"
-             alt="...">
-      </div>
-      <div class="carousel-item"
-           data-bs-interval="3000">
-        <img src="@/assets/images/others/carousel_images/4.jpg"
-             class="d-block w-100"
-             alt="...">
-      </div>
-      <div class="carousel-item"
-           data-bs-interval="3000">
-        <img src="@/assets/images/others/carousel_images/5.jpg"
-             class="d-block w-100"
-             alt="...">
-      </div>
-      <div class="carousel-item"
-           data-bs-interval="3000">
-        <img src="@/assets/images/others/carousel_images/6.jpg"
-             class="d-block w-100"
-             alt="...">
-      </div>
-      <div class="carousel-item"
-           data-bs-interval="3000">
-        <img src="@/assets/images/others/carousel_images/7.jpg"
-             class="d-block w-100"
-             alt="...">
+             alt="carousel image" />
       </div>
     </div>
 
@@ -107,6 +51,12 @@
 <script>
 export default {
   name: "Carousel",
+  props: {
+    images: {
+      type: Array,
+      required: true,
+    },
+  },
 }
 </script>
 
