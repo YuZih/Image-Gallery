@@ -89,14 +89,14 @@ export default {
   data() {
     return {
       isSticky: false,
-      navbarOffsetTop: 0,
+      navbarOffsetTop: 102, // 因 navbar.offsetTop 有可能會變動而導致 navbar-border 樣式跑掉，故直接設定其測量後的數值
     };
   },
   mounted() {
     // 使用 $nextTick 來確保 navbar 元素已經在 DOM 中完成渲染與更新
     // 避免 navbar 在還未準備好前就欲取得 offsetTop 以及添加監聽事件
     this.$nextTick(() => {
-      this.navbarOffsetTop = this.$refs.navbar.offsetTop;
+      // this.navbarOffsetTop = this.$refs.navbar.offsetTop;
       window.addEventListener('scroll', this.handleScroll);
     });
   },
@@ -108,6 +108,8 @@ export default {
     // 若當前滾動距離大於等於 navbar 的初始位置，navbar 會藉由 isSticky 新添 navbar-border 的類別
     handleScroll() {
       this.isSticky = window.pageYOffset >= this.navbarOffsetTop;
+      console.log("window.pageYOffset: ", window.pageYOffset);
+      console.log("this.navbarOffsetTop: ", this.navbarOffsetTop);
     },
   },
 }

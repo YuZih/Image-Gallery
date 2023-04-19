@@ -1,124 +1,129 @@
 <template>
   <div>
-    <!-- header & nav -->
+    <!-- Header & Navbar -->
     <Header />
     <Navbar />
 
-    <!-- carousel -->
-    <div class="carousel-ctn container mt-5 mt-md-3 mx-auto">
+    <!-- Carousel -->
+    <div class="carouselCtn container mt-5 mt-md-3 mx-auto">
       <Carousel :images="carouselImages" />
     </div>
 
-    <!-- main section -->
+    <!-- Main section -->
     <main class="mt-5">
-      <!-- Introduction for home page -->
-      <div class="introCtn container text-center mx-auto">
-        <h1>“We're more beautiful than we think.”</h1>
+      <!-- Introduction section -->
+      <section class="introSec">
+        <div class="introCtn container text-center mx-auto">
+          <h1>“We're more beautiful than we think.”</h1>
 
-        <!-- Mobile version -->
-        <h6 class="d-md-none">
-          Underneath the lace of vintage dress,<br>
-          lies my fondness for the years gone by,<br>
-          Below the satin of the bridal gown,<br>
-          my cherished joy in the present I spy.<br>
-          A keepsake for each version of me,<br>
-          in time and memory I embrace.
-        </h6>
-        <!-- iPad & PC version -->
-        <h6 class="d-none d-md-block">
-          Underneath the lace of vintage dress, lies my fondness for the years gone by,<br>
-          Below the satin of the bridal gown, my cherished joy in the present I spy.<br>
-          A keepsake for each version of me, in time and memory I embrace.
-        </h6>
-      </div>
-
-      <!-- Links for album -->
-      <div class="albumCtn container mx-auto mt-md-5 text-center">
-        <h1 class="albumCtn_header mx-auto">
-          Recent Stories
-          <div class="albumCtn_header_underline-top mx-auto"></div>
-          <div class="albumCtn_header_underline-bottom mx-auto"></div>
-        </h1>
-        <!-- Bridal Gown -->
-        <h1 class="albumCtn_title col-12 text-start">Series of Bridal Gown</h1>
-        <div class="albumCtn_wrap row">
-
-          <!--Album-->
-          <section id="album">
-            <div class="container">
-              <div class="album-wrapper container">
-
-                <div class="card">
-                  <img src="@/assets/images/album/W-1/cover/cover.jpg"
-                       alt=""
-                       class="card-img">
-                  <div class="card-text">
-                    <h3 class="card-title">W-1</h3>
-                    <p class="card-description">cover</p>
-                  </div>
-                </div>
-
-                <div class="card">
-                  <img src="@/assets/images/album/W-2/cover/cover.jpg"
-                       alt=""
-                       class="card-img">
-                  <div class="card-text">
-                    <h3 class="card-title">W-2</h3>
-                    <p class="card-description">cover</p>
-                  </div>
-                </div>
-
-                <div class="card">
-                  <img src="@/assets/images/album/W-3/cover/cover.jpg"
-                       alt=""
-                       class="card-img">
-                  <div class="card-text">
-                    <h3 class="card-title">W-3</h3>
-                    <p class="card-description">cover</p>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </section>
+          <!-- Mobile version -->
+          <h6 class="d-md-none">
+            Underneath the lace of vintage dress,<br>
+            lies my fondness for the years gone by,<br>
+            Below the satin of the bridal gown,<br>
+            my cherished joy in the present I spy.<br>
+            A keepsake for each version of me,<br>
+            in time and memory I embrace.
+          </h6>
+          <!-- iPad & PC version -->
+          <h6 class="d-none d-md-block">
+            Underneath the lace of vintage dress, lies my fondness for the years gone by,<br>
+            Below the satin of the bridal gown, my cherished joy in the present I spy.<br>
+            A keepsake for each version of me, in time and memory I embrace.
+          </h6>
         </div>
+      </section>
 
 
-        <!-- Series of Vintage Dress -->
-        <h1 class="albumCtn_title col-12 text-start">Series of Vintage dress</h1>
-        <div class="albumCtn_wrap row">
+      <!-- Series section -->
+      <section class="seriesSec">
+        <div class="albumCtn container mx-auto mt-md-5 text-center">
+          <h1 class="albumCtn_header mx-auto">
+            Recent Stories
+            <div class="albumCtn_header_underline-top mx-auto"></div>
+            <div class="albumCtn_header_underline-bottom mx-auto"></div>
+          </h1>
+          <!-- Bridal Gown -->
+          <h1 class="albumCtn_title col-12 text-start">Series of Bridal Gown</h1>
+          <div class="albumCtn_wrap row">
 
-          <!--Album-->
-          <section id="album">
-            <div class="container">
-              <div class="album-wrapper">
+            <!--Album-->
+            <section id="album">
+              <div class="container">
+                <div class="album-wrapper container">
 
-                <div class="card">
-                  <img src="@/assets/images/album/V-1/cover/cover.jpg"
-                       alt=""
-                       class="card-img">
-                  <div class="card-text">
-                    <h3 class="card-title">V-1</h3>
-                    <p class="card-description">cover</p>
+                  <div class="card">
+                    <img src="@/assets/images/album/W-1/cover/cover.jpg"
+                         alt=""
+                         class="card-img">
+                    <div class="card-text">
+                      <h3 class="card-title">W-1</h3>
+                      <p class="card-description">cover</p>
+                    </div>
                   </div>
-                </div>
 
-                <div class="card">
-                  <img src="@/assets/images/album/V-2/cover/cover.jpg"
-                       alt=""
-                       class="card-img">
-                  <div class="card-text">
-                    <h3 class="card-title">V-2</h3>
-                    <p class="card-description">cover</p>
+                  <div class="card">
+                    <img src="@/assets/images/album/W-2/cover/cover.jpg"
+                         alt=""
+                         class="card-img">
+                    <div class="card-text">
+                      <h3 class="card-title">W-2</h3>
+                      <p class="card-description">cover</p>
+                    </div>
                   </div>
+
+                  <div class="card">
+                    <img src="@/assets/images/album/W-3/cover/cover.jpg"
+                         alt=""
+                         class="card-img">
+                    <div class="card-text">
+                      <h3 class="card-title">W-3</h3>
+                      <p class="card-description">cover</p>
+                    </div>
+                  </div>
+
                 </div>
-
-
               </div>
-            </div>
-          </section>
+            </section>
+          </div>
+
+
+          <!-- Series of Vintage Dress -->
+          <h1 class="albumCtn_title col-12 text-start">Series of Vintage dress</h1>
+          <div class="albumCtn_wrap row">
+
+            <!--Album-->
+            <section id="album">
+              <div class="container">
+                <div class="album-wrapper">
+
+                  <div class="card">
+                    <img src="@/assets/images/album/V-1/cover/cover.jpg"
+                         alt=""
+                         class="card-img">
+                    <div class="card-text">
+                      <h3 class="card-title">V-1</h3>
+                      <p class="card-description">cover</p>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <img src="@/assets/images/album/V-2/cover/cover.jpg"
+                         alt=""
+                         class="card-img">
+                    <div class="card-text">
+                      <h3 class="card-title">V-2</h3>
+                      <p class="card-description">cover</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
         </div>
-      </div>
+      </section>
+
+
       <img class="img-fluid"
            src="@/assets/images/others/404.jpg"
            alt="">
@@ -178,7 +183,7 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/setups.scss";
 
-.carousel-ctn {
+.carouselCtn {
   max-width: 960px;
 }
 
