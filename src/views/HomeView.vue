@@ -5,45 +5,43 @@
     <Navbar />
 
     <!-- carousel -->
-    <!-- <div class="carousel-ctn container mt-5 mt-md-3 mx-auto">
+    <div class="carousel-ctn container mt-5 mt-md-3 mx-auto">
       <Carousel :images="carouselImages" />
-    </div> -->
+    </div>
 
     <!-- main section -->
     <main class="mt-5">
       <!-- Introduction for home page -->
       <div class="introCtn container text-center mx-auto">
-        <!-- <h1>“We're more beautiful than we think.”</h1> -->
+        <h1>“We're more beautiful than we think.”</h1>
 
         <!-- Mobile version -->
-        <!-- <h6 class="d-md-none">
+        <h6 class="d-md-none">
           Underneath the lace of vintage dress,<br>
           lies my fondness for the years gone by,<br>
           Below the satin of the bridal gown,<br>
           my cherished joy in the present I spy.<br>
           A keepsake for each version of me,<br>
           in time and memory I embrace.
-        </h6> -->
+        </h6>
         <!-- iPad & PC version -->
-        <!-- <h6 class="d-none d-md-block">
+        <h6 class="d-none d-md-block">
           Underneath the lace of vintage dress, lies my fondness for the years gone by,<br>
           Below the satin of the bridal gown, my cherished joy in the present I spy.<br>
           A keepsake for each version of me, in time and memory I embrace.
-        </h6> -->
+        </h6>
       </div>
 
       <!-- Links for album -->
-      <div class="albumCtn container mx-auto mt-5 text-center">
+      <div class="albumCtn container mx-auto mt-md-5 text-center">
         <h1 class="albumCtn_header mx-auto">
           Recent Stories
           <div class="albumCtn_header_underline-top mx-auto"></div>
           <div class="albumCtn_header_underline-bottom mx-auto"></div>
         </h1>
         <!-- Bridal Gown -->
-        <h2 class="albumCtn_title col-12 text-start">Series of Bridal Gown</h2>
+        <h1 class="albumCtn_title col-12 text-start">Series of Bridal Gown</h1>
         <div class="albumCtn_wrap row">
-          <div class="albumCtn_wrap_item col-md-6">Image 1</div>
-          <div class="albumCtn_wrap_item col-md-6">Image 2</div>
 
           <!--Album-->
           <section id="album">
@@ -87,10 +85,8 @@
 
 
         <!-- Series of Vintage Dress -->
-        <h2 class="albumCtn_title col-12 text-start">Series of Vintage dress</h2>
+        <h1 class="albumCtn_title col-12 text-start">Series of Vintage dress</h1>
         <div class="albumCtn_wrap row">
-          <div class="albumCtn_wrap_item col-md-6">Image 1</div>
-          <div class="albumCtn_wrap_item col-md-6">Image 2</div>
 
           <!--Album-->
           <section id="album">
@@ -201,7 +197,6 @@ export default {
 }
 
 .albumCtn {
-  border: 1px solid green;
   padding: 3rem;
 
   &_header {
@@ -226,12 +221,7 @@ export default {
   }
 
   &_wrap {
-    border: 1px solid rgb(128, 0, 255);
     margin-bottom: 2rem;
-
-    &_item {
-      border: 1px solid rgb(255, 0, 119);
-    }
   }
 
 
@@ -239,17 +229,17 @@ export default {
   .album-wrapper {
     display: grid;
     width: 100%;
-    grid-gap: 1.5rem;
+    grid-gap: 1rem;
     /* automatically adjust the number of columns */
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    grid-auto-flow: row;
+    grid-template-columns: 1fr; // Keep 1 column
+    grid-auto-flow: row; // Switch to new row
   }
 
   .card {
     overflow: hidden;
     position: relative;
     width: 100%;
-    height: 100%;
+    aspect-ratio: 1.5 / 1;
     background-color: #a7a7a7;
     -webkit-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
     -moz-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
@@ -323,6 +313,34 @@ export default {
   }
 }
 
+
+// XS screen: mobile
+@media screen and (min-width: 420px) {
+  #album {
+    .container {
+      .album-wrapper {
+        grid-template-columns: repeat(2, 1fr); // Keep 2 columns
+
+        .card {
+          aspect-ratio: 1 / 1;
+        }
+      }
+    }
+  }
+}
+
+// small screen: mobile
+@media screen and (min-width: 576px) {}
+
+
 // medium screen: iPad, PC
-@media screen and (min-width: 768px) {}
+@media screen and (min-width: 768px) {
+  #album {
+    .container {
+      .album-wrapper {
+        grid-template-columns: repeat(3, 1fr); // Keep 3 columns
+      }
+    }
+  }
+}
 </style>

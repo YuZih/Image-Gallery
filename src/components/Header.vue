@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header id="logo-header">
 
     <!-- logo -->
     <div class="logo text-center py-2 my-md-4">

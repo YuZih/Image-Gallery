@@ -5,7 +5,7 @@ $logo-font-size: min(calc(18px + 2vw), 40px);
 $bar-gap: calc($logo-font-size / 2);
 
 /* Let the header fixed to the top */
-header {
+#logo-header {
   width: 100%;
   position: fixed;
   top: 0;
@@ -169,7 +169,7 @@ header {
     display: none;
   }
 
-  header {
+  #logo-header {
     /* Let the header not fixed to the top for PC */
     position: relative;
     border-bottom: none;
