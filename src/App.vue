@@ -10,8 +10,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
 
 
+
 export default {
   name: "App",
+  created() {
+    this.$store.dispatch("fetchAlbums");
+  }
 };
 </script>
 

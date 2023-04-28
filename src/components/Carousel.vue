@@ -66,6 +66,9 @@ export default {
   width: 100%;
   aspect-ratio: 3 / 2; // Set the aspect ratio of the carousel
   overflow: hidden; //Hide the overflowing image
+  -webkit-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.25);
 
   .carousel-inner .carousel-item img {
     width: 100%;

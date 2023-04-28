@@ -9,7 +9,7 @@
       <Carousel :images="carouselImages" />
     </div>
 
-    <!-- Main section -->
+    <!-- Main -->
     <main class="mt-5">
       <!-- Introduction section -->
       <section class="introSec">
@@ -28,7 +28,7 @@
           <!-- iPad & PC version -->
           <h6 class="d-none d-md-block">
             Underneath the lace of vintage dress, lies my fondness for the years gone by,<br>
-            Below the satin of the bridal gown, my cherished joy in the present I spy.<br>
+            Below the satin of the wedding dress, my cherished joy in the present I spy.<br>
             A keepsake for each version of me, in time and memory I embrace.
           </h6>
         </div>
@@ -38,93 +38,34 @@
       <!-- Series section -->
       <section class="seriesSec">
         <div class="albumCtn container mx-auto mt-md-5 text-center">
+          <!-- Header for series section -->
           <h1 class="albumCtn_header mx-auto">
             Recent Stories
             <div class="albumCtn_header_underline-top mx-auto"></div>
             <div class="albumCtn_header_underline-bottom mx-auto"></div>
           </h1>
-          <!-- Bridal Gown -->
-          <h1 class="albumCtn_title col-12 text-start">Series of Bridal Gown</h1>
-          <div class="albumCtn_wrap row">
-
-            <!--Album-->
-            <section id="album">
-              <div class="container">
-                <div class="album-wrapper container">
-
-                  <div class="card">
-                    <img src="@/assets/images/album/W-1/cover/cover.jpg"
-                         alt=""
-                         class="card-img">
-                    <div class="card-text">
-                      <h3 class="card-title">W-1</h3>
-                      <p class="card-description">cover</p>
-                    </div>
-                  </div>
-
-                  <div class="card">
-                    <img src="@/assets/images/album/W-2/cover/cover.jpg"
-                         alt=""
-                         class="card-img">
-                    <div class="card-text">
-                      <h3 class="card-title">W-2</h3>
-                      <p class="card-description">cover</p>
-                    </div>
-                  </div>
-
-                  <div class="card">
-                    <img src="@/assets/images/album/W-3/cover/cover.jpg"
-                         alt=""
-                         class="card-img">
-                    <div class="card-text">
-                      <h3 class="card-title">W-3</h3>
-                      <p class="card-description">cover</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </section>
-          </div>
-
-
-          <!-- Series of Vintage Dress -->
-          <h1 class="albumCtn_title col-12 text-start">Series of Vintage dress</h1>
-          <div class="albumCtn_wrap row">
-
-            <!--Album-->
-            <section id="album">
-              <div class="container">
-                <div class="album-wrapper">
-
-                  <div class="card">
-                    <img src="@/assets/images/album/V-1/cover/cover.jpg"
-                         alt=""
-                         class="card-img">
-                    <div class="card-text">
-                      <h3 class="card-title">V-1</h3>
-                      <p class="card-description">cover</p>
-                    </div>
-                  </div>
-
-                  <div class="card">
-                    <img src="@/assets/images/album/V-2/cover/cover.jpg"
-                         alt=""
-                         class="card-img">
-                    <div class="card-text">
-                      <h3 class="card-title">V-2</h3>
-                      <p class="card-description">cover</p>
-                    </div>
+          <!-- Each album series -->
+          <div v-for="(albumNames, albumSeries, seriesIndex) in albums"
+               :key="seriesIndex">
+            <h1 class="albumCtn_title col-12 text-start">Series of {{ albumSeries }}</h1>
+            <div class="albumCtn_wrap row">
+              <div class="cardsCtn">
+                <div class="container">
+                  <div class="cards_wrap">
+                    <!-- Each album card -->
+                    <AlbumCard v-for="(albumName, index) in albumNames"
+                               :key="index"
+                               :albumName="albumName" />
                   </div>
                 </div>
               </div>
-            </section>
+            </div>
           </div>
         </div>
       </section>
 
 
-      <img class="img-fluid"
+      <!-- <img class="img-fluid"
            src="@/assets/images/others/404.jpg"
            alt="">
       <img class="img-fluid"
@@ -132,7 +73,7 @@
            alt="">
       <img class="img-fluid"
            src="@/assets/images/others/404.jpg"
-           alt="">
+           alt=""> -->
     </main>
 
     <!-- footer section -->
@@ -146,16 +87,21 @@ import Header from "@/components/Header.vue"
 import Navbar from "@/components/Navbar.vue"
 import Carousel from "@/components/Carousel.vue"
 import Footer from "@/components/Footer.vue"
+import AlbumCard from "@/components/AlbumCard.vue"
+import { mapState } from "vuex"
 
 export default {
   name: "HomeView",
   components: {
-    Header, Navbar, Carousel, Footer
+    Header, Navbar, Carousel, AlbumCard, Footer
   },
   data() {
     return {
       carouselImages: [],
     };
+  },
+  computed: {
+    ...mapState(["albums"]),
   },
   created() {
     // Load list of image URLs
@@ -229,121 +175,37 @@ export default {
     margin-bottom: 2rem;
   }
 
-
-  /*Album*/
-  .album-wrapper {
+  .cards_wrap {
     display: grid;
     width: 100%;
     grid-gap: 1rem;
     /* automatically adjust the number of columns */
-    grid-template-columns: 1fr; // Keep 1 column
+    grid-template-columns: 1fr; // Keep in 1 column
     grid-auto-flow: row; // Switch to new row
-  }
-
-  .card {
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-    aspect-ratio: 1.5 / 1;
-    background-color: #a7a7a7;
-    -webkit-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
-    -moz-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
-    box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
-  }
-
-  .card::before,
-  .card::after {
-    content: "";
-    position: absolute;
-    top: 1rem;
-    bottom: 1rem;
-    left: 1rem;
-    right: 1rem;
-    transition: transform 0.4s ease-out;
-  }
-
-  .card::before {
-    border-top: 1px solid white;
-    border-bottom: 1px solid white;
-    transform: scale(0, 1);
-  }
-
-  .card::after {
-    border-left: 1px solid white;
-    border-right: 1px solid white;
-    transform: scale(1, 0);
-  }
-
-  .card:hover::before {
-    transform: scale(1.05, 1);
-  }
-
-  .card:hover::after {
-    transform: scale(1, 1.05);
-  }
-
-  .card-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: opacity 0.2s ease-out;
-  }
-
-  .card:hover .card-img {
-    opacity: 0.4;
-  }
-
-  .card-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    opacity: 0;
-    transition: opacity 0.3s ease-out;
-  }
-
-  .card:hover .card-text {
-    opacity: 1;
-  }
-
-  .card-title {
-    font-size: 1.5rem;
-    margin-bottom: 0.2em;
-  }
-
-  .card-description {
-    font-size: 1rem;
   }
 }
 
 
 // XS screen: mobile
 @media screen and (min-width: 420px) {
-  #album {
-    .container {
-      .album-wrapper {
-        grid-template-columns: repeat(2, 1fr); // Keep 2 columns
+  .cardsCtn {
+    margin-bottom: 2rem;
 
-        .card {
-          aspect-ratio: 1 / 1;
-        }
+    .container {
+      .cards_wrap {
+        grid-template-columns: repeat(2, 1fr); // Keep in 2 columns
       }
     }
   }
 }
 
-// small screen: mobile
-@media screen and (min-width: 576px) {}
-
 
 // medium screen: iPad, PC
 @media screen and (min-width: 768px) {
-  #album {
+  .cardsCtn {
     .container {
-      .album-wrapper {
-        grid-template-columns: repeat(3, 1fr); // Keep 3 columns
+      .cards_wrap {
+        grid-template-columns: repeat(3, 1fr); // Keep in 3 columns
       }
     }
   }

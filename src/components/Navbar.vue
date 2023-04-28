@@ -49,26 +49,20 @@
             <ul class="dropdown-menu"
                 id="dropdown-menu"
                 aria-labelledby="navbarDropdown">
-              <li>
-                <div class="dropdown-header">Wedding Series</div>
-              </li>
-              <li><a class="dropdown-item"
-                   href="#">Wedding-1</a></li>
-              <li><a class="dropdown-item"
-                   href="#">Wedding-2</a></li>
-              <li>
-                <div class="divider-container">
-                  <hr class="dropdown-divider">
-                </div>
-              </li>
-
-              <li>
-                <div class="dropdown-header">Vintage Series</div>
-              </li>
-              <li><a class="dropdown-item"
-                   href="#">Vintage-1</a></li>
-              <li><a class="dropdown-item"
-                   href="#">Vintage-2</a></li>
+              <template v-for="(albumNames, albumSeries) in albums">
+                <li>
+                  <div class="dropdown-header">{{ albumSeries }}</div>
+                </li>
+                <li v-for="albumName in albumNames">
+                  <a class="dropdown-item"
+                     href="#">{{ albumName }}</a>
+                </li>
+                <li v-if="albumSeries !== Object.keys(albums).pop()">
+                  <div class="divider-container">
+                    <hr class="dropdown-divider" />
+                  </div>
+                </li>
+              </template>
             </ul>
           </li>
 
@@ -84,32 +78,35 @@
 
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "Navbar",
   data() {
     return {
       isSticky: false,
-      navbarOffsetTop: 102, // 因 navbar.offsetTop 有可能會變動而導致 navbar-border 樣式跑掉，故直接設定其測量後的數值
+      navbarOffsetTop: 104, // 因 navbar.offsetTop 會變動而導致 navbar-border 樣式跑掉，故直接設定此數值為 104（ Header 總高）
     };
+  },
+  computed: {
+    ...mapState(["albums"]),
   },
   mounted() {
     // 使用 $nextTick 來確保 navbar 元素已經在 DOM 中完成渲染與更新
-    // 避免 navbar 在還未準備好前就欲取得 offsetTop 以及添加監聽事件
+    // 避免 navbar 在還未準備好前就欲添加監聽事件以及讀取 offsetTop（＝>改直接設定數值不需再去讀取offsetTop數值）
     this.$nextTick(() => {
       // this.navbarOffsetTop = this.$refs.navbar.offsetTop;
-      window.addEventListener('scroll', this.handleScroll);
+      window.addEventListener("scroll", this.handleScroll);
     });
   },
   beforeDestroy() {
     //刪除滾動事件的監聽器，以避免內存洩漏
-    window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener("scroll", this.handleScroll);
   },
   methods: {
     // 若當前滾動距離大於等於 navbar 的初始位置，navbar 會藉由 isSticky 新添 navbar-border 的類別
     handleScroll() {
       this.isSticky = window.pageYOffset >= this.navbarOffsetTop;
-      console.log("window.pageYOffset: ", window.pageYOffset);
-      console.log("this.navbarOffsetTop: ", this.navbarOffsetTop);
     },
   },
 }
