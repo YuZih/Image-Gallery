@@ -21,7 +21,7 @@
       <!-- navigation tabs -->
       <div id="navbar1"
            class="collapse navbar-collapse mt-md-2">
-        <ul class="navbar-nav me-auto justify-content-evenly w-100">
+        <ul class="navbar-nav me-auto justify-content-between w-100">
           <li class="nav-item">
             <a class="nav-link active"
                aria-current="page"

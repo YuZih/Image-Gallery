@@ -1,10 +1,10 @@
 <template>
   <div class="card">
-    <img :src="require(`@/assets/images/album/${albumName}/cover/cover.jpg`)"
+    <img :src="imageSrc"
          alt="album cover"
          class="card-img">
     <div class="card-text">
-      <h3 class="card-title">{{ albumName }}</h3>
+      <h3 class="card-title">{{ cardTitle }}</h3>
       <p class="card-description">- Click to view more -</p>
     </div>
   </div>
@@ -14,10 +14,14 @@
 export default {
   name: "AlbumCard",
   props: {
-    albumName: {
+    imageSrc: {
       type: String,
       required: true
-    }
+    },
+    cardTitle: {
+      type: String,
+      required: true
+    },
   }
 
 }

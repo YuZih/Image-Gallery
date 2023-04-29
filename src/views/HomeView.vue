@@ -44,21 +44,27 @@
             <div class="albumCtn_header_underline-top mx-auto"></div>
             <div class="albumCtn_header_underline-bottom mx-auto"></div>
           </h1>
+
           <!-- Each album series -->
-          <div v-for="(albumNames, albumSeries, seriesIndex) in albums"
+          <div v-for="(albumNames, albumSeries, seriesIndex) in latestAlbums"
                :key="seriesIndex">
             <h1 class="albumCtn_title col-12 text-start">Series of {{ albumSeries }}</h1>
             <div class="albumCtn_wrap row">
               <div class="cardsCtn">
                 <div class="container">
                   <div class="cards_wrap">
+
                     <!-- Each album card -->
                     <AlbumCard v-for="(albumName, index) in albumNames"
                                :key="index"
-                               :albumName="albumName" />
+                               :cardTitle="albumName"
+                               :imageSrc="require(`@/assets/images/album/${albumName}/cover/cover.jpg`)" />
                   </div>
                 </div>
               </div>
+            </div>
+            <div class="albumCtn_buttonCtn">
+              <button class="viewMoreBtn"><font-awesome-icon :icon="['fas', 'angles-right']" /> View More</button>
             </div>
           </div>
         </div>
@@ -88,7 +94,7 @@ import Navbar from "@/components/Navbar.vue"
 import Carousel from "@/components/Carousel.vue"
 import Footer from "@/components/Footer.vue"
 import AlbumCard from "@/components/AlbumCard.vue"
-import { mapState } from "vuex"
+import { mapGetters } from "vuex"
 
 export default {
   name: "HomeView",
@@ -101,7 +107,11 @@ export default {
     };
   },
   computed: {
-    ...mapState(["albums"]),
+    // Show only latest 3 albums for each series
+    ...mapGetters(['latestAlbumsByN']),
+    latestAlbums() {
+      return this.latestAlbumsByN(3)
+    }
   },
   created() {
     // Load list of image URLs
@@ -171,8 +181,24 @@ export default {
     @extend %title-font;
   }
 
-  &_wrap {
-    margin-bottom: 2rem;
+  &_buttonCtn {
+    text-align: end;
+    margin-bottom: 1.5rem;
+
+    .viewMoreBtn {
+      all: unset;
+      cursor: pointer;
+      background: $green-4;
+      color: white;
+      padding: 1rem;
+      border-radius: 30px;
+      font-weight: 900;
+      box-shadow: 2px 4px 5px $green-1;
+
+      &:hover {
+        background: $green-6;
+      }
+    }
   }
 
   .cards_wrap {
