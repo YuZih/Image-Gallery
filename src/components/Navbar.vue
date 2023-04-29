@@ -33,7 +33,8 @@
                href="#">POST</a>
           </li>
 
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown"
+              @click="switchAngleIcon">
             <a class="nav-link"
                href="#"
                id="navbarDropdown"
@@ -41,15 +42,19 @@
                data-bs-toggle="dropdown"
                aria-expanded="false">
               ALBUM
-              <font-awesome-icon id="caret-icon"
+              <font-awesome-icon v-if="dropdownCollapsed"
+                                 id="angle-down"
                                  :icon="['fas', 'angle-down']"
-                                 size="xs"
-                                 style="color: #808080;" />
+                                 size="xs" />
+              <font-awesome-icon v-else
+                                 id="angle-up"
+                                 :icon="['fas', 'angle-up']"
+                                 size="xs" />
             </a>
             <ul class="dropdown-menu"
                 id="dropdown-menu"
                 aria-labelledby="navbarDropdown">
-              <template v-for="(albumNames, albumSeries) in albums">
+              <template v-for="(albumNames, albumSeries) in AlbumsInOrder">
                 <li>
                   <div class="dropdown-header">{{ albumSeries }}</div>
                 </li>
@@ -57,7 +62,7 @@
                   <a class="dropdown-item"
                      href="#">{{ albumName }}</a>
                 </li>
-                <li v-if="albumSeries !== Object.keys(albums).pop()">
+                <li v-if="albumSeries !== Object.keys(AlbumsInOrder).pop()">
                   <div class="divider-container">
                     <hr class="dropdown-divider" />
                   </div>
@@ -78,7 +83,7 @@
 
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Navbar",
@@ -86,10 +91,11 @@ export default {
     return {
       isSticky: false,
       navbarOffsetTop: 104, // 因 navbar.offsetTop 會變動而導致 navbar-border 樣式跑掉，故直接設定此數值為 104（ Header 總高）
+      dropdownCollapsed: true,
     };
   },
   computed: {
-    ...mapState(["albums"]),
+    ...mapGetters(["AlbumsInOrder"]),
   },
   mounted() {
     // 使用 $nextTick 來確保 navbar 元素已經在 DOM 中完成渲染與更新
@@ -107,6 +113,9 @@ export default {
     // 若當前滾動距離大於等於 navbar 的初始位置，navbar 會藉由 isSticky 新添 navbar-border 的類別
     handleScroll() {
       this.isSticky = window.pageYOffset >= this.navbarOffsetTop;
+    },
+    switchAngleIcon() {
+      this.dropdownCollapsed = !this.dropdownCollapsed;
     },
   },
 }

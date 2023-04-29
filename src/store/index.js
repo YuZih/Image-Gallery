@@ -8,15 +8,25 @@ export default new Vuex.Store({
     albums: {},
   },
   getters: {
-    // Filter the latest N albums 
+    // Choose the latest albums (Top N) 
     latestAlbumsByN: (state) => (n) => {
       const latestAlbums = {};
       for (const series in state.albums) {
         const seriesAlbums = state.albums[series];
-        const latestSeriesAlbums = seriesAlbums.slice(-n);
+        const latestSeriesAlbums = seriesAlbums.slice(0, n);
         latestAlbums[series] = latestSeriesAlbums;
       }
       return latestAlbums;
+    },
+    // Order albums from old to latest
+    AlbumsInOrder(state) {
+      const albumsInOrder = {}
+      for (const series in state.albums) {
+        const seriesAlbums = state.albums[series];
+        const orderedSeriesAlbums = seriesAlbums.slice().reverse();
+        albumsInOrder[series] = orderedSeriesAlbums;
+      }
+      return albumsInOrder;
     }
   },
   mutations: {
@@ -27,10 +37,11 @@ export default new Vuex.Store({
   },
   actions: {
     // Initialize the albums with default values
+    // Default order of albums: from latest to old
     fetchAlbums({ commit }) {
       const albums = {
-        "Wedding Dress": ["W-1", "W-2", "W-3"],
-        "Vintage Dress": ["V-1", "V-2"],
+        "Wedding Dress": ["W-3", "W-2", "W-1"],
+        "Vintage Dress": ["V-2", "V-1"],
       };
       commit("setAlbums", albums)
     },

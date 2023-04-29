@@ -49,7 +49,7 @@ $bar-gap: calc($logo-font-size / 2);
   left: 15px;
   z-index: 1000;
   /* Keep the icon same size with the logo */
-  width: $logo-font-size;
+  width: calc($logo-font-size * .8);
   height: $logo-font-size;
 }
 
@@ -114,6 +114,7 @@ $bar-gap: calc($logo-font-size / 2);
 .navbar-nav {
   text-align: center;
   .nav-item {
+    margin: .5rem;
     padding: 1rem;
     font-size: calc(0.9rem + 0.15vw); // Responsive scaling the font size of nav item
   }
@@ -131,7 +132,7 @@ $bar-gap: calc($logo-font-size / 2);
 
 .divider-container {
   width: 30%; // Let the divider shorter for mobile
-  min-width: 200px;
+  min-width: 100px;
   margin: auto; // Position the divider center for mobile
 }
 
@@ -143,19 +144,18 @@ $bar-gap: calc($logo-font-size / 2);
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba(255, 255, 255, 0.9); // Overlay background
+  background-color: white;
   z-index: 999; // Make sure the overlay is on top
-  display: none; // Hide the overlay by default
   padding-top: 70px; // Avoid being covered by the header
   /* Animation when the navbar is expanded  */
-  height: 0;
-  transition: height .1s ease-in-out;
+  height: 0; // Hide the overlay by default
+  transition: height .2s linear;
+  overflow-y: scroll; // mobile setting when navbar is expanded
 }
 
 /* State when navbar is expanded */
 .navbar-collapse.show {
-  height: 100vh;
-  display: flex; // Show the overlay when the .show class is added //
+  height: 100vh; // Show the overlay when the .show class is added
   align-items: start;
   justify-content: center;
 }
@@ -169,7 +169,7 @@ $bar-gap: calc($logo-font-size / 2);
     width: 100%;
   }
 
-  #caret-icon {
+  #angle-down, #angle-up {
     display: none;
   }
 
@@ -225,5 +225,6 @@ $bar-gap: calc($logo-font-size / 2);
     position: relative;
     padding-top: 0;
     height: 100%;
+    overflow-y: visible; // show dropdown when navbar is expanded
   }
 }

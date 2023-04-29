@@ -5,9 +5,9 @@
     <Navbar />
 
     <!-- Carousel -->
-    <div class="carouselCtn container mt-5 mt-md-3 mx-auto">
+    <!-- <div class="carouselCtn container mt-5 mt-md-3 mx-auto">
       <Carousel :images="carouselImages" />
-    </div>
+    </div> -->
 
     <!-- Main -->
     <main class="mt-5">
@@ -64,7 +64,9 @@
               </div>
             </div>
             <div class="albumCtn_buttonCtn">
-              <button class="viewMoreBtn"><font-awesome-icon :icon="['fas', 'angles-right']" /> View More</button>
+              <button class="viewMoreBtn">
+                <font-awesome-icon :icon="['fas', 'angles-right']"
+                                   fade /> View More</button>
             </div>
           </div>
         </div>
@@ -190,8 +192,10 @@ export default {
       cursor: pointer;
       background: $green-4;
       color: white;
-      padding: 1rem;
+      margin-top: 1rem;
+      padding: .5rem;
       border-radius: 30px;
+      font-size: .5rem;
       font-weight: 900;
       box-shadow: 2px 4px 5px $green-1;
 
@@ -223,6 +227,14 @@ export default {
       }
     }
   }
+
+  .albumCtn_buttonCtn {
+    .viewMoreBtn {
+      margin-top: 0;
+      font-size: .9rem;
+      padding: .9rem;
+    }
+  }
 }
 
 
@@ -233,6 +245,13 @@ export default {
       .cards_wrap {
         grid-template-columns: repeat(3, 1fr); // Keep in 3 columns
       }
+    }
+  }
+
+  .albumCtn_buttonCtn {
+    .viewMoreBtn {
+      font-size: 1rem;
+      padding: 1rem;
     }
   }
 }
