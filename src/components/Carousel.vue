@@ -1,5 +1,5 @@
 <template>
-  <div id="home_carousel"
+  <div id="target_carousel"
        class="carousel slide"
        data-bs-ride="carousel">
 
@@ -9,7 +9,7 @@
               :key="index"
               type="button"
               :class="{ active: index === 0 }"
-              data-bs-target="#home_carousel"
+              data-bs-target="#target_carousel"
               :data-bs-slide-to="index"
               :aria-current="index === 0"
               :aria-label="'Slide ' + (index + 1)"></button>
@@ -30,7 +30,7 @@
     <!-- control button -->
     <button class="carousel-control-prev"
             type="button"
-            data-bs-target="#home_carousel"
+            data-bs-target="#target_carousel"
             data-bs-slide="prev">
       <span class="carousel-control-prev-icon"
             aria-hidden="true"></span>
@@ -38,7 +38,7 @@
     </button>
     <button class="carousel-control-next"
             type="button"
-            data-bs-target="#home_carousel"
+            data-bs-target="#target_carousel"
             data-bs-slide="next">
       <span class="carousel-control-next-icon"
             aria-hidden="true"></span>
@@ -62,7 +62,7 @@ export default {
 
 
 <style lang="scss" scoped>
-#home_carousel {
+#target_carousel {
   width: 100%;
   aspect-ratio: 3 / 2; // Set the aspect ratio of the carousel
   overflow: hidden; //Hide the overflowing image
@@ -74,6 +74,18 @@ export default {
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  .carousel-indicators button {
+    /* 修改指示器寬度和高度 */
+    width: 10px;
+    height: 10px;
+
+    /* 添加圓角使其成為圓點 */
+    border-radius: 50%;
+
+    /* 修改未激活指示器的背景色 */
+    background-color: rgba(255, 255, 255, 0.5);
   }
 }
 </style>

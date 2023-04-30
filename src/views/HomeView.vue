@@ -127,7 +127,7 @@ export default {
 @import "@/assets/scss/setups.scss";
 
 .carouselCtn {
-  max-width: 960px;
+  max-width: 900px;
 }
 
 .introCtn {
