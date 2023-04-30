@@ -51,20 +51,21 @@
             <ul class="dropdown-menu"
                 id="dropdown-menu"
                 aria-labelledby="navbarDropdown">
-              <template v-for="(albumNames, albumSeries) in AlbumsInOrder">
-                <li>
-                  <div class="dropdown-header">{{ albumSeries }}</div>
-                </li>
-                <li v-for="albumName in albumNames">
-                  <a class="dropdown-item"
-                     href="#">{{ albumName }}</a>
-                </li>
-                <li v-if="albumSeries !== Object.keys(AlbumsInOrder).pop()">
-                  <div class="divider-container">
-                    <hr class="dropdown-divider" />
-                  </div>
-                </li>
-              </template>
+              <li>
+                <div class="dropdown-header">&lt;&lt;Choose one&gt;&gt;</div>
+              </li>
+              <li>
+                <a class="dropdown-item"
+                   href="#">All Series</a>
+              </li>
+              <div class="divider-container">
+                <hr class="dropdown-divider" />
+              </div>
+              <li v-for="(_, albumSeries) in albums"
+                  :key="albumSeries">
+                <a class="dropdown-item"
+                   href="#">{{ albumSeries }}</a>
+              </li>
             </ul>
           </li>
 
@@ -80,7 +81,7 @@
 
 
 <script>
-import { mapGetters } from "vuex";
+import { mapState } from "vuex";
 
 export default {
   name: "Navbar",
@@ -91,7 +92,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["AlbumsInOrder"]),
+    ...mapState(["albums"]),
   },
   mounted() {
     // 使用 $nextTick 來確保 navbar 元素已經在 DOM 中完成渲染與更新
