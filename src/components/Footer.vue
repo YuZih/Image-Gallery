@@ -21,7 +21,7 @@ export default {
 @import "@/assets/scss/color.scss";
 
 .footer-ctn {
-  border-top: 3px solid #f7f7f7;
+  border-top: 3px solid $main-grey;
   height: 50px;
   padding: 1rem;
 }

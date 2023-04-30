@@ -5,9 +5,9 @@
     <Navbar />
 
     <!-- Carousel -->
-    <!-- <div class="carouselCtn container mt-5 mt-md-3 mx-auto">
+    <div class="carouselCtn container mt-5 mt-md-3 mx-auto">
       <Carousel :images="carouselImages" />
-    </div> -->
+    </div>
 
     <!-- Main -->
     <main class="mt-5">
@@ -204,6 +204,7 @@ export default {
       }
     }
   }
+
 
   .cards_wrap {
     display: grid;

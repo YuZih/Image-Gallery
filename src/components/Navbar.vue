@@ -23,7 +23,7 @@
            class="collapse navbar-collapse mt-md-2">
         <ul class="navbar-nav me-auto justify-content-between w-100">
           <li class="nav-item">
-            <a class="nav-link active"
+            <a class="nav-link"
                aria-current="page"
                href="#">Home</a>
           </li>
@@ -33,8 +33,7 @@
                href="#">POST</a>
           </li>
 
-          <li class="nav-item dropdown"
-              @click="switchAngleIcon">
+          <li class="nav-item dropdown">
             <a class="nav-link"
                href="#"
                id="navbarDropdown"
@@ -42,12 +41,10 @@
                data-bs-toggle="dropdown"
                aria-expanded="false">
               ALBUM
-              <font-awesome-icon v-if="dropdownCollapsed"
-                                 id="angle-down"
+              <font-awesome-icon id="angle-down"
                                  :icon="['fas', 'angle-down']"
                                  size="xs" />
-              <font-awesome-icon v-else
-                                 id="angle-up"
+              <font-awesome-icon id="angle-up"
                                  :icon="['fas', 'angle-up']"
                                  size="xs" />
             </a>
@@ -91,7 +88,6 @@ export default {
     return {
       isSticky: false,
       navbarOffsetTop: 104, // 因 navbar.offsetTop 會變動而導致 navbar-border 樣式跑掉，故直接設定此數值為 104（ Header 總高）
-      dropdownCollapsed: true,
     };
   },
   computed: {
@@ -113,9 +109,6 @@ export default {
     // 若當前滾動距離大於等於 navbar 的初始位置，navbar 會藉由 isSticky 新添 navbar-border 的類別
     handleScroll() {
       this.isSticky = window.pageYOffset >= this.navbarOffsetTop;
-    },
-    switchAngleIcon() {
-      this.dropdownCollapsed = !this.dropdownCollapsed;
     },
   },
 }
