@@ -61,6 +61,8 @@
               <div class="divider-container">
                 <hr class="dropdown-divider" />
               </div>
+
+              <!-- Automatically generate dropdown-item -->
               <li v-for="(_, albumSeries) in albums"
                   :key="albumSeries">
                 <a class="dropdown-item"

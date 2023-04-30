@@ -156,6 +156,7 @@ export default {
 
   h6 {
     line-height: 2rem;
+    font-weight: 400;
   }
 }
 
@@ -196,7 +197,7 @@ export default {
       padding: .5rem;
       border-radius: 30px;
       font-size: .5rem;
-      font-weight: 900;
+      font-weight: 400;
       box-shadow: 2px 4px 5px $green-1;
 
       &:hover {
@@ -253,6 +254,7 @@ export default {
     .viewMoreBtn {
       font-size: 1rem;
       padding: 1rem;
+      font-weight: 500;
     }
   }
 }
