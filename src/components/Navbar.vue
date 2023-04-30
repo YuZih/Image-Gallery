@@ -23,14 +23,19 @@
            class="collapse navbar-collapse mt-md-2">
         <ul class="navbar-nav me-auto justify-content-between w-100">
           <li class="nav-item">
-            <a class="nav-link"
-               aria-current="page"
-               href="#">Home</a>
+            <router-link :to="{ name: 'home' }"
+                         class="nav-link"
+                         aria-current="page">HOME</router-link>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link"
-               href="#">POST</a>
+            <router-link :to="{ name: 'about' }"
+                         class="nav-link">ABOUT</router-link>
+          </li>
+
+          <li class="nav-item">
+            <router-link :to="{ name: 'post' }"
+                         class="nav-link">POST</router-link>
           </li>
 
           <li class="nav-item dropdown">
@@ -52,11 +57,12 @@
                 id="dropdown-menu"
                 aria-labelledby="navbarDropdown">
               <li>
-                <div class="dropdown-header">&lt;&lt;Choose one&gt;&gt;</div>
+                <div class="dropdown-header">&lt;&lt; Select One &gt;&gt;</div>
               </li>
               <li>
-                <a class="dropdown-item"
-                   href="#">All Series</a>
+                <router-link :to="{ name: 'album' }"
+                             class="dropdown-item"
+                             href="#">All Series</router-link>
               </li>
               <div class="divider-container">
                 <hr class="dropdown-divider" />
@@ -69,11 +75,6 @@
                    href="#">{{ albumSeries }}</a>
               </li>
             </ul>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link"
-               href="#">ABOUT</a>
           </li>
         </ul>
       </div>

@@ -132,8 +132,11 @@ $bar-gap: calc($logo-font-size / 2);
   text-align: center;
   .nav-item {
     margin: .5rem;
-    padding: 1rem;
+    // padding: 1rem;
     font-size: calc(0.9rem + 0.15vw); // Responsive scaling the font size of nav item
+    .nav-link {
+      padding: 1rem;
+    }
   }
   .dropdown-menu {
     margin-top: 1rem;
@@ -244,10 +247,14 @@ $bar-gap: calc($logo-font-size / 2);
     width: 200px;
     border-radius: 10px;
     cursor: pointer;
+    #navbarDropdown {
+      cursor: default;
+    }
     &:hover {
       background-color: $green-1;
       .nav-link {
         color: $green-6;
+        text-shadow: 0.1em 0.1em 0.1em $green-2
       }
     }
   }
