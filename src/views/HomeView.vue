@@ -71,17 +71,6 @@
           </div>
         </div>
       </section>
-
-
-      <!-- <img class="img-fluid"
-           src="@/assets/images/others/404.jpg"
-           alt="">
-      <img class="img-fluid"
-           src="@/assets/images/others/404.jpg"
-           alt="">
-      <img class="img-fluid"
-           src="@/assets/images/others/404.jpg"
-           alt=""> -->
     </main>
 
     <!-- footer section -->
@@ -91,11 +80,7 @@
 
 
 <script>
-import Header from "@/components/Header.vue"
-import Navbar from "@/components/Navbar.vue"
-import Carousel from "@/components/Carousel.vue"
-import Footer from "@/components/Footer.vue"
-import AlbumCard from "@/components/AlbumCard.vue"
+import { Header, Navbar, Carousel, AlbumCard, Footer } from "@/components";
 import { mapGetters } from "vuex"
 
 export default {
