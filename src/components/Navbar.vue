@@ -40,6 +40,7 @@
 
           <li class="nav-item dropdown">
             <a class="nav-link"
+               :class="{ activeLink: $route.path.includes('/album') }"
                href="#"
                id="navbarDropdown"
                role="button"
@@ -57,12 +58,11 @@
                 id="dropdown-menu"
                 aria-labelledby="navbarDropdown">
               <li>
-                <div class="dropdown-header">&lt;&lt; Select One &gt;&gt;</div>
+                <div class="dropdown-header">&lt;&lt; Select Series &gt;&gt;</div>
               </li>
               <li>
                 <router-link :to="{ name: 'album' }"
-                             class="dropdown-item"
-                             href="#">All Series</router-link>
+                             class="dropdown-item">All Series</router-link>
               </li>
               <div class="divider-container">
                 <hr class="dropdown-divider" />

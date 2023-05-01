@@ -15,6 +15,7 @@ $bar-gap: calc($logo-font-size / 2);
   border-bottom: 3px solid $main-grey;
 }
 
+/* Logo style setting */
 .logo {
   @extend %logo-font;
   font-size: $logo-font-size; // Responsive scaling logo size
@@ -28,13 +29,33 @@ $bar-gap: calc($logo-font-size / 2);
   }
 }
 
+/* Hover effect on navbar */ 
 .nav-item {
   &:hover {
     .nav-link {
-      color: $green-6; // hover effect
+      color: $green-6;
+      font-weight: 500;
+      &:hover {
+        background-color: $green-1;
+      }
     }
   }
+  #navbarDropdown {
+    cursor: default;
+  }
 }
+
+/* Active effect when route is matched  */
+.nav-item {
+  .nav-link.exactActiveLink, #navbarDropdown.activeLink {
+    color: $green-7;
+    font-weight: 500;
+  }
+  .dropdown-item.exactActiveLink {
+    font-weight: 500;
+  }
+}
+
 
 /* Switch angle icon when in mobile mode */
 .dropdown {
@@ -96,7 +117,7 @@ $bar-gap: calc($logo-font-size / 2);
   left: 0px;
 }
 
-/* When navbar toggler is clicked */
+/* State when navbar toggler is clicked */
 .navbar-toggler .top-bar {
   transform: rotate(135deg);
 }
@@ -108,7 +129,8 @@ $bar-gap: calc($logo-font-size / 2);
   transform: rotate(-135deg);
 }
 
-/* State when the navbar is collapsed */
+
+/* State when the navbar is collapsed (with .collapsed to change style) */
 .navbar-toggler {
   /* Separate the top bar from middle bar firstly*/
   display: flex;
@@ -132,7 +154,6 @@ $bar-gap: calc($logo-font-size / 2);
   text-align: center;
   .nav-item {
     margin: .5rem;
-    // padding: 1rem;
     font-size: calc(0.9rem + 0.15vw); // Responsive scaling the font size of nav item
     .nav-link {
       padding: 1rem;
@@ -157,6 +178,7 @@ $bar-gap: calc($logo-font-size / 2);
   min-width: 100px;
   margin: auto; // Position the divider center for mobile
 }
+
 
 /* State when navbar is collapsed */
 .navbar-collapse {
@@ -245,15 +267,11 @@ $bar-gap: calc($logo-font-size / 2);
   /* Hover effect for medium screen */
   .nav-item {
     width: 200px;
-    border-radius: 10px;
-    cursor: pointer;
-    #navbarDropdown {
-      cursor: default;
-    }
     &:hover {
-      background-color: $green-1;
       .nav-link {
         color: $green-6;
+        border-radius: 10px;
+        background-color: $green-1;
         text-shadow: 0.1em 0.1em 0.1em $green-2
       }
     }

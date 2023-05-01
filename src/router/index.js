@@ -1,10 +1,6 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-
-import HomeView from '../views/HomeView.vue'
-import AboutView from '../views/AboutView.vue'
-import PostView from '../views/PostView.vue'
-import AlbumView from '../views/AlbumView.vue'
+import Vue from "vue"
+import VueRouter from "vue-router"
+import HomeView from "../views/HomeView.vue"
 
 
 
@@ -12,34 +8,44 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path: "/",
+    name: "home",
+    component: HomeView 
   },
   {
-    path: '/about',
-    name: 'about',
-    component: AboutView
+    path: "/about",
+    name: "about",
+    component: () => import(/* webpackChunkName: "about" */ "../views/AboutView.vue")
   },
   {
-    path: '/post',
-    name: 'post',
-    component: PostView
+    path: "/post",
+    name: "post",
+    component: () => import(/* webpackChunkName: "post" */ "../views/PostView.vue")
   },
   {
-    path: '/album',
-    name: 'album',
-    component: AlbumView
+    path: "/album",
+    name: "album",
+    component: () => import(/* webpackChunkName: "album" */ "../views/AlbumView.vue")
   },
   {
-    path: '*',
-    name: 'not-found',
-    component: () => import('../views/NotFoundView.vue')
+    path: "*",
+    name: "notFound",
+    component: () => import(/* webpackChunkName: "notFound" */ "../views/NotFoundView.vue")
   }
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
+  mode: "hash",
+  linkActiveClass: "activeLink",
+  linkExactActiveClass: "exactActiveLink",
+  // scrollBehavior(to, from, savedPosition) {
+  //   if (savedPosition) {
+  //     return savedPosition;
+  //   } else {
+  //     return { x: 0, y: 0 };
+  //   }
+  // },
 })
 
 export default router

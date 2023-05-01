@@ -3,7 +3,7 @@
 
     <!-- logo -->
     <div class="logo text-center py-2 my-md-4">
-      <a href="#">Yuzu x Pic</a>
+      <router-link :to="{ name: 'home' }">Yuzu x Pic</router-link>
     </div>
   </header>
 </template>
