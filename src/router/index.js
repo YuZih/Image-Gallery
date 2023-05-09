@@ -1,6 +1,6 @@
 import Vue from "vue"
 import VueRouter from "vue-router"
-import HomeView from "../views/HomeView.vue"
+import HomeView from "@/views/HomeView.vue"
 
 
 
@@ -20,17 +20,17 @@ const routes = [
   {
     path: "/about",
     name: "about",
-    component: () => import(/* webpackChunkName: "about" */ "../views/AboutView.vue")
+    component: () => import(/* webpackChunkName: "about" */ "@/views/AboutView.vue")
   },
   {
     path: "/post",
     name: "post",
-    component: () => import(/* webpackChunkName: "post" */ "../views/PostView.vue")
+    component: () => import(/* webpackChunkName: "post" */ "@/views/PostView.vue")
   },
   {
     path: "/album",
     name: "album",
-    component: () => import(/* webpackChunkName: "album" */ "../views/AlbumView.vue"),
+    component: () => import(/* webpackChunkName: "album" */ "@/views/AlbumView.vue"),
     children: [
       // {
       //   path: "",
@@ -39,14 +39,14 @@ const routes = [
       {
         path: ":seriesName",
         name: "series",
-         component: () => import(/* webpackChunkName: "series" */ "../views/SeriesView.vue")
+         component: () => import(/* webpackChunkName: "series" */ "@/views/SeriesView.vue")
       }
     ]
   },
   {
     path: "*",
     name: "notFound",
-    component: () => import(/* webpackChunkName: "notFound" */ "../views/NotFoundView.vue")
+    component: () => import(/* webpackChunkName: "notFound" */ "@/views/NotFoundView.vue")
   }
 ]
 
