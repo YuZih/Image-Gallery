@@ -44,7 +44,7 @@
                href="#"
                id="navbarDropdown"
                role="button"
-               data-bs-toggle="dropdown"
+               @click="toggleDropdown"
                aria-expanded="false">
               ALBUM
               <font-awesome-icon id="angle-down"
@@ -115,6 +115,13 @@ export default {
     // If the current scroll distance is greater than or equal to the navbar's initial position 'navbar-border' class will added to the navbar through 'isSticky'.
     handleScroll() {
       this.isSticky = window.pageYOffset >= this.navbarOffsetTop;
+    },
+
+    toggleDropdown(event) {
+      if (window.innerWidth < 768) {
+        const dropdownMenu = event.target.closest('.nav-item').querySelector('.dropdown-menu');
+        dropdownMenu.classList.toggle('show');
+      }
     },
 
     // Manually bind and unbind click events to fix the Bootstrap collapsing navigation bar issue
