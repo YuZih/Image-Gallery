@@ -31,13 +31,11 @@ $bar-gap: calc($logo-font-size / 2);
 
 /* Hover effect on navbar */ 
 .nav-item {
-  &:hover {
-    .nav-link {
+  .nav-link {
+    &:hover {
       color: $green-6;
       font-weight: 500;
-      &:hover {
-        background-color: $green-1;
-      }
+      background-color: $green-1;
     }
   }
   #navbarDropdown {

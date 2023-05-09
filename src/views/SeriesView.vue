@@ -1,13 +1,13 @@
 <template>
   <div>
-    All albums of All series!
-    <router-view />
+    Each Series Albums!
   </div>
 </template>
 
 <script>
+
 export default {
-  name: "AlbumView",
+  name: "SeriesView",
 };
 </script>
 

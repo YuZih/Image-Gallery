@@ -69,10 +69,10 @@
               </div>
 
               <!-- Automatically generate dropdown-item -->
-              <li v-for="(_, albumSeries) in albums"
+              <li v-for="(_, albumSeries) in  albums "
                   :key="albumSeries">
-                <a class="dropdown-item"
-                   href="#">{{ albumSeries }}</a>
+                <router-link :to="{ name: 'series', params: { seriesName: albumSeries.replace(/\s+/g, '').toLowerCase() } }"
+                             class="dropdown-item">{{ albumSeries }}</router-link>
               </li>
             </ul>
           </li>

@@ -1,9 +1,6 @@
 <template>
   <div>
-    <!-- Header & Navbar -->
-    <Header />
-    <Navbar />
-    <main class="mt-5 mt-md-3">
+    <main>
       <div class="imgCtn mx-auto">
         <img class="imgCtn_img img-fluid"
              src="@/assets/images/others/about_image.jpg"
@@ -21,18 +18,12 @@
         </p>
       </div>
     </main>
-    <Footer />
   </div>
 </template>
 
 <script>
-import { Header, Navbar, Footer } from "@/components";
-
 export default {
   name: "AboutView",
-  components: {
-    Header, Navbar, Footer
-  },
 };
 </script>
 

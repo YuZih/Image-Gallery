@@ -9,9 +9,14 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: "/",
-    name: "home",
-    component: HomeView 
+    name: "root",
+    redirect: "home"
   },
+  {
+    path: "/home",
+    name: "home",
+    // alias: "/homepage", // Discard alias so as to keep the CSS effect of linkActiveClass
+    component: HomeView },
   {
     path: "/about",
     name: "about",
@@ -25,7 +30,18 @@ const routes = [
   {
     path: "/album",
     name: "album",
-    component: () => import(/* webpackChunkName: "album" */ "../views/AlbumView.vue")
+    component: () => import(/* webpackChunkName: "album" */ "../views/AlbumView.vue"),
+    children: [
+      // {
+      //   path: "",
+      //   component: () => import(/* webpackChunkName: "album" */ "../views/AlbumView.vue"),
+      // },
+      {
+        path: ":seriesName",
+        name: "series",
+         component: () => import(/* webpackChunkName: "series" */ "../views/SeriesView.vue")
+      }
+    ]
   },
   {
     path: "*",
@@ -36,7 +52,7 @@ const routes = [
 
 const router = new VueRouter({
   routes,
-  mode: "hash",
+  mode: "history",
   linkActiveClass: "activeLink",
   linkExactActiveClass: "exactActiveLink",
   // scrollBehavior(to, from, savedPosition) {

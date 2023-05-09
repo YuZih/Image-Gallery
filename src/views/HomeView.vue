@@ -1,11 +1,7 @@
 <template>
   <div>
-    <!-- Header & Navbar -->
-    <Header />
-    <Navbar />
-
     <!-- Carousel -->
-    <div class="carouselCtn container mt-5 mt-md-3 mx-auto">
+    <div class="carouselCtn container  mx-auto">
       <Carousel :images="carouselImages" />
     </div>
 
@@ -72,21 +68,18 @@
         </div>
       </section>
     </main>
-
-    <!-- footer section -->
-    <Footer />
   </div>
 </template>
 
 
 <script>
-import { Header, Navbar, Carousel, AlbumCard, Footer } from "@/components";
+import { Carousel, AlbumCard } from "@/components";
 import { mapGetters } from "vuex"
 
 export default {
   name: "HomeView",
   components: {
-    Header, Navbar, Carousel, AlbumCard, Footer
+    Carousel, AlbumCard
   },
   data() {
     return {
