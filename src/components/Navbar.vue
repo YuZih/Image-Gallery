@@ -24,18 +24,18 @@
         <ul class="navbar-nav me-auto justify-content-between w-100">
           <li class="nav-item">
             <router-link :to="{ name: 'home' }"
-                         class="nav-link"
+                         class="nav-link toCollapse"
                          aria-current="page">HOME</router-link>
           </li>
 
           <li class="nav-item">
             <router-link :to="{ name: 'about' }"
-                         class="nav-link">ABOUT</router-link>
+                         class="nav-link toCollapse">ABOUT</router-link>
           </li>
 
           <li class="nav-item">
             <router-link :to="{ name: 'post' }"
-                         class="nav-link">POST</router-link>
+                         class="nav-link toCollapse">POST</router-link>
           </li>
 
           <li class="nav-item dropdown">
@@ -62,7 +62,7 @@
               </li>
               <li>
                 <router-link :to="{ name: 'album' }"
-                             class="dropdown-item">All Series</router-link>
+                             class="dropdown-item toCollapse">All Series</router-link>
               </li>
               <div class="divider-container">
                 <hr class="dropdown-divider" />
@@ -72,7 +72,7 @@
               <li v-for="(_, albumSeries) in  albums "
                   :key="albumSeries">
                 <router-link :to="{ name: 'series', params: { seriesName: albumSeries.replace(/\s+/g, '').toLowerCase() } }"
-                             class="dropdown-item">{{ albumSeries }}</router-link>
+                             class="dropdown-item toCollapse">{{ albumSeries }}</router-link>
               </li>
             </ul>
           </li>
@@ -91,28 +91,46 @@ export default {
   data() {
     return {
       isSticky: false,
-      navbarOffsetTop: 104, // 因 navbar.offsetTop 會變動而導致 navbar-border 樣式跑掉，故直接設定此數值為 104（ Header 總高）
+      navbarOffsetTop: 104, // Since the 'navbar.offsetTop' value may change and cause the 'navbar-border' style to break, set this value directly to 104 (the total height of the Header).
     };
   },
   computed: {
     ...mapState(["albums"]),
   },
   mounted() {
-    // 使用 $nextTick 來確保 navbar 元素已經在 DOM 中完成渲染與更新
-    // 避免 navbar 在還未準備好前就欲添加監聽事件以及讀取 offsetTop（＝>改直接設定數值不需再去讀取offsetTop數值）
+    // Use '$nextTick' to ensure that the navbar element has finished rendering and updating in the DOM.
+    // Avoid attempting to add event listeners and reading 'offsetTop' before the navbar is ready. (=> set the value directly instead of reading the 'offsetTop' value)
     this.$nextTick(() => {
       // this.navbarOffsetTop = this.$refs.navbar.offsetTop;
       window.addEventListener("scroll", this.handleScroll);
     });
+    this.addClickListener();
   },
   beforeDestroy() {
-    //刪除滾動事件的監聽器，以避免內存洩漏
+    //Remove event listeners to prevent memory leaks
     window.removeEventListener("scroll", this.handleScroll);
+    this.removeClickListener();
   },
   methods: {
-    // 若當前滾動距離大於等於 navbar 的初始位置，navbar 會藉由 isSticky 新添 navbar-border 的類別
+    // If the current scroll distance is greater than or equal to the navbar's initial position 'navbar-border' class will added to the navbar through 'isSticky'.
     handleScroll() {
       this.isSticky = window.pageYOffset >= this.navbarOffsetTop;
+    },
+
+    // Manually bind and unbind click events to fix the Bootstrap collapsing navigation bar issue
+    onLinkClick(event) {
+      if (event.target.classList.contains("toCollapse")) {
+        const navbarToggler = this.$refs.navbar.querySelector(".navbar-toggler");
+        if (!navbarToggler.classList.contains("collapsed")) {
+          navbarToggler.click();
+        }
+      }
+    },
+    addClickListener() {
+      this.$refs.navbar.addEventListener("click", this.onLinkClick);
+    },
+    removeClickListener() {
+      this.$refs.navbar.removeEventListener("click", this.onLinkClick);
     },
   },
 }

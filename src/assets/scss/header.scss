@@ -109,7 +109,7 @@ $bar-gap: calc($logo-font-size / 2);
   opacity: 1;
   transform: rotate(0deg);
    /* Animation when hamburger icon is clicked */
-  transition: .25s ease-in-out;
+  transition: .35s ease-in-out;
   /* Let the 3 bars of hamburger stack together */
   position: absolute;
   left: 0px;
@@ -191,7 +191,7 @@ $bar-gap: calc($logo-font-size / 2);
   padding-top: 70px; // Avoid being covered by the header
   /* Animation when the navbar is expanded  */
   height: 0; // Hide the overlay by default
-  transition: height .2s linear;
+  transition: height .35s linear;
   overflow-y: scroll; // mobile setting when navbar is expanded
 }
 
