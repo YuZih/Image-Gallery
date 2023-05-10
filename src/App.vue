@@ -30,7 +30,7 @@ export default {
     Header, Navbar, Footer
   },
   created() {
-    this.$store.dispatch("fetchAlbums");
+    this.$store.dispatch("toSetAlbums");
   }
 };
 </script>

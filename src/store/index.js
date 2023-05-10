@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import {defaultAlbums} from "@/utils/defaultSetting.js"
 
 Vue.use(Vuex)
 
@@ -31,20 +32,30 @@ export default new Vuex.Store({
       return oldestAlbum;
     },
 
-    // Order albums from old to latest
-    albumsInOrder(state) {
-      const albumsInOrder = {}
+    // Convert URL param to seriesName
+    restoreSeriesName: (state) => (param) => {
       for (const series in state.albums) {
-        const seriesAlbums = state.albums[series];
-        const orderedSeriesAlbums = seriesAlbums.slice().reverse();
-        albumsInOrder[series] = orderedSeriesAlbums;
+        const seriesName = series.replace(/\s+/g, '').toLowerCase();
+        if (seriesName === param) {
+          return series;
+        }
       }
-      return albumsInOrder;
+      return null;
     },
+
+    // // Order albums from old to latest
+    // albumsInOrder(state) {
+    //   const albumsInOrder = {}
+    //   for (const series in state.albums) {
+    //     const seriesAlbums = state.albums[series];
+    //     const orderedSeriesAlbums = seriesAlbums.slice().reverse();
+    //     albumsInOrder[series] = orderedSeriesAlbums;
+    //   }
+    //   return albumsInOrder;
+    // },
   },
 
   mutations: {
-    // Change the values of albums
     setAlbums(state, payload) {
       state.albums = payload;
     },
@@ -53,12 +64,8 @@ export default new Vuex.Store({
   actions: {
     // Initialize the albums with default values
     // Default order of albums: from latest to old
-    fetchAlbums({ commit }) {
-      const albums = {
-        "Wedding Dress": ["W-3", "W-2", "W-1"],
-        "Vintage Dress": ["V-2", "V-1"],
-      };
-      commit("setAlbums", albums)
+    toSetAlbums({ commit }) {
+      commit("setAlbums", defaultAlbums)
     },
   },
 
