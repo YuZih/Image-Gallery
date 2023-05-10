@@ -19,15 +19,13 @@ export default {
   components: { SeriesCard },
   computed: {
     ...mapGetters(['oldestAlbum']),
+  },
 
-  }
 };
 </script>
 
 <style lang="scss" scoped>
 @use "@/assets/scss/setups.scss";
-
-
 
 .allSeriesCtn {
   display: grid;
@@ -49,7 +47,6 @@ export default {
     grid-template-columns: repeat(2, 1fr); // Keep in 2 columns
     grid-row-gap: 2rem;
     grid-column-gap: 3rem;
-
   }
 }
 
@@ -57,7 +54,6 @@ export default {
   .allSeriesCtn {
     grid-row-gap: 3rem;
     grid-column-gap: 6.5rem;
-
   }
 }
 </style>

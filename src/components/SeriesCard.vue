@@ -1,5 +1,6 @@
 <template>
-  <div class="card">
+  <div class="card"
+       @click="goToSeries(seriesName)">
     <div class="card_img">
       <img :src="imageSrc"
            alt="series cover">
@@ -20,7 +21,13 @@ export default {
       type: String,
       required: true
     },
-  }
+  },
+  methods: {
+    goToSeries(seriesName) {
+      const urlParam = seriesName.toLowerCase().replace(/\s+/g, '');
+      this.$router.push(`/album/${urlParam}`);
+    }
+  },
 
 }
 </script>
@@ -34,6 +41,7 @@ export default {
   width: 100%;
   aspect-ratio: 3 / 2;
   margin-bottom: 5rem;
+  cursor: pointer;
 
   &_title {
     position: absolute;

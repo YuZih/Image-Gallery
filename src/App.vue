@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- Show notFound page if URL is incorrect -->
-    <div v-if="$route.name === 'notFound'">
+    <div v-if="$route.matched.some(record => record.name === 'notFound')">
       <router-view name="notFound" />
     </div>
 

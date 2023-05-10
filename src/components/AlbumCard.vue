@@ -3,7 +3,7 @@
     <img :src="imageSrc"
          alt="album cover"
          class="card_img">
-    <div class="card_text">
+    <div class="card_text text-center">
       <h3 class="card_title">{{ cardTitle }}</h3>
       <p class="card_description">- Click to view more -</p>
     </div>

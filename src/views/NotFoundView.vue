@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <img class="img-fluid"
          src="@/assets/images/others/404.jpg"
          alt="404-image">

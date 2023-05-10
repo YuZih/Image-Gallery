@@ -12,10 +12,10 @@
               {{ currentSeries }}</router-link>
           </li>
 
-          <!-- <li class="breadcrumb-item"
+          <li class="breadcrumb-item"
               v-if="galleryName"><router-link :to="{ name: 'gallery', params: { galleryName: this.galleryName } }">{{
                 galleryName }}</router-link>
-          </li> -->
+          </li>
         </ol>
       </nav>
     </div>
@@ -42,9 +42,9 @@ export default {
       this.currentSeries = this.restoreSeriesName(this.$route.params.seriesName);
       return seriesName;
     },
-    // galleryName() {
-    //   return this.$route.params.galleryName;
-    // },
+    galleryName() {
+      return this.$route.params.galleryName;
+    },
   },
 };
 </script>
@@ -53,7 +53,16 @@ export default {
 @import "@/assets/scss/color.scss";
 
 .breadcrumb-item {
-  color: $green-5;
+  color: $green-4;
+
+  a:hover {
+    color: $green-6;
+  }
+
+  .exactActiveLink {
+    color: $green-5;
+    text-decoration: underline;
+  }
 }
 </style>
 

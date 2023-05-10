@@ -39,14 +39,21 @@ const routes = [
       {
         path: ":seriesName",
         name: "series",
-         component: () => import(/* webpackChunkName: "singleSeries" */ "@/views/SeriesSingleView.vue")
+        component: () => import(/* webpackChunkName: "singleSeries" */ "@/views/SeriesSingleView.vue"),
+      },
+      {
+        path: ":seriesName/:galleryName",
+        name: "gallery",
+        component: () => import(/* webpackChunkName: "gallery" */ "@/views/GalleryView.vue"),
       }
     ]
   },
   {
     path: "*",
     name: "notFound",
-    component: () => import(/* webpackChunkName: "notFound" */ "@/views/NotFoundView.vue")
+    components: {
+    notFound: () => import(/* webpackChunkName: "notFound" */ "@/views/NotFoundView.vue")
+  }
   }
 ]
 

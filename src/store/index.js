@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue"
+import Vuex from "vuex"
 import {defaultAlbums} from "@/utils/defaultSetting.js"
 
 Vue.use(Vuex)
@@ -43,16 +43,16 @@ export default new Vuex.Store({
       return null;
     },
 
-    // // Order albums from old to latest
-    // albumsInOrder(state) {
-    //   const albumsInOrder = {}
-    //   for (const series in state.albums) {
-    //     const seriesAlbums = state.albums[series];
-    //     const orderedSeriesAlbums = seriesAlbums.slice().reverse();
-    //     albumsInOrder[series] = orderedSeriesAlbums;
-    //   }
-    //   return albumsInOrder;
-    // },
+    // Order albums from old to latest
+    albumsInOrder(state) {
+      const albumsInOrder = {}
+      for (const series in state.albums) {
+        const seriesAlbums = state.albums[series];
+        const orderedSeriesAlbums = seriesAlbums.slice().reverse();
+        albumsInOrder[series] = orderedSeriesAlbums;
+      }
+      return albumsInOrder;
+    },
   },
 
   mutations: {
