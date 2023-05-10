@@ -148,12 +148,14 @@ export default {
 
     &_underline-top {
       width: 50%;
+      max-width: 165px;
       border: 1px solid black;
     }
 
     &_underline-bottom {
       margin-top: 3px;
       width: 35%;
+      max-width: 120px;
       border: 1px solid black;
     }
   }

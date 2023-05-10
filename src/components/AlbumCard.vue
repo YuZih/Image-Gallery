@@ -2,10 +2,10 @@
   <div class="card">
     <img :src="imageSrc"
          alt="album cover"
-         class="card-img">
-    <div class="card-text">
-      <h3 class="card-title">{{ cardTitle }}</h3>
-      <p class="card-description">- Click to view more -</p>
+         class="card_img">
+    <div class="card_text">
+      <h3 class="card_title">{{ cardTitle }}</h3>
+      <p class="card_description">- Click to view more -</p>
     </div>
   </div>
 </template>
@@ -70,7 +70,7 @@ export default {
   transform: scale(1, 1.05);
 }
 
-.card-img {
+.card_img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -78,11 +78,11 @@ export default {
   transition: opacity 0.2s ease-out;
 }
 
-.card:hover .card-img {
+.card:hover .card_img {
   opacity: 0.4;
 }
 
-.card-text {
+.card_text {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -92,15 +92,15 @@ export default {
   transition: opacity 0.3s ease-out;
 }
 
-.card:hover .card-text {
+.card:hover .card_text {
   opacity: 1;
 }
 
-.card-title {
+.card_title {
   font-size: 1.5rem;
 }
 
-.card-description {
+.card_description {
   margin-top: 1rem;
   font-size: 1rem;
 }

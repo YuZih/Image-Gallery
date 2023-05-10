@@ -29,17 +29,17 @@ const routes = [
   },
   {
     path: "/album",
-    name: "album",
     component: () => import(/* webpackChunkName: "album" */ "@/views/AlbumView.vue"),
     children: [
-      // {
-      //   path: "",
-      //   component: () => import(/* webpackChunkName: "album" */ "../views/AlbumView.vue"),
-      // },
+      {
+        path: "",
+        name: "album",
+        component: () => import(/* webpackChunkName: "allSeries" */ "@/views/SeriesAllView.vue"),
+      },
       {
         path: ":seriesName",
         name: "series",
-         component: () => import(/* webpackChunkName: "series" */ "@/views/SeriesView.vue")
+         component: () => import(/* webpackChunkName: "singleSeries" */ "@/views/SeriesSingleView.vue")
       }
     ]
   },

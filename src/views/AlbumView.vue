@@ -1,6 +1,6 @@
 <template>
-  <div>
-    All albums of All series!
+  <div class="container-md">
+    All -> series name -> album name
     <router-view />
   </div>
 </template>

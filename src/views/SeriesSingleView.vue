@@ -1,13 +1,13 @@
 <template>
   <div>
-    Each Series Albums!
+    SeriesSingleView!
   </div>
 </template>
 
 <script>
 
 export default {
-  name: "SeriesView",
+  name: "SeriesSingleView",
 };
 </script>
 

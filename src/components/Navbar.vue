@@ -41,7 +41,6 @@
           <li class="nav-item dropdown">
             <a class="nav-link"
                :class="{ activeLink: $route.path.includes('/album') }"
-               href="#"
                id="navbarDropdown"
                role="button"
                @click="toggleDropdown"
@@ -117,6 +116,7 @@ export default {
       this.isSticky = window.pageYOffset >= this.navbarOffsetTop;
     },
 
+    // Toggle dropdown after nav-item is clicked only for small screen({data-bs-toggle="dropdown"} is deleted)
     toggleDropdown(event) {
       if (window.innerWidth < 768) {
         const dropdownMenu = event.target.closest('.nav-item').querySelector('.dropdown-menu');
