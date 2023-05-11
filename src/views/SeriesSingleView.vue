@@ -5,7 +5,8 @@
       <div class="singleSeriesCtn_cards"
            v-for="(albumName, index) in targetSeries"
            :key="index">
-        <AlbumCard :cardTitle="albumName"
+        <AlbumCard :galleryName="albumName"
+                   :seriesName="seriesTitle"
                    :imageSrc="require(`@/assets/images/album/${albumName}/cover/cover.jpg`)" />
       </div>
     </div>

@@ -53,7 +53,8 @@
                     <!-- Each album card -->
                     <AlbumCard v-for="(albumName, index) in albumNames"
                                :key="index"
-                               :cardTitle="albumName"
+                               :seriesName="albumSeries"
+                               :galleryName="albumName"
                                :imageSrc="require(`@/assets/images/album/${albumName}/cover/cover.jpg`)" />
                   </div>
                 </div>

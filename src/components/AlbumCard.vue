@@ -1,11 +1,11 @@
 <template>
-  <div class="card">
+  <div class="card" @click="goToGallery(seriesName, galleryName)">
     <img :src="imageSrc"
          alt="album cover"
          class="card_img">
     <div class="card_text text-center">
-      <h3 class="card_title">{{ cardTitle }}</h3>
-      <p class="card_description">- Click to view more -</p>
+      <h3 class="card_title">{{ galleryName }}</h3>
+      <p class="card_description">- Click to view album -</p>
     </div>
   </div>
 </template>
@@ -18,9 +18,21 @@ export default {
       type: String,
       required: true
     },
-    cardTitle: {
+    seriesName: {
       type: String,
       required: true
+    },
+    galleryName: {
+      type: String,
+      required: true
+    },
+  },
+  methods: {
+    // Route to gallery page when albumCard is clicked
+    goToGallery(series, album) {
+      const seriesParam = series.toLowerCase().replace(/\s+/g, '');
+      const albumParam = album.toLowerCase().replace(/\s+/g, '');
+      this.$router.push(`/album/${seriesParam}/${albumParam}`);
     },
   }
 
@@ -37,6 +49,10 @@ export default {
   -webkit-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
   -moz-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
   box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .card::before,

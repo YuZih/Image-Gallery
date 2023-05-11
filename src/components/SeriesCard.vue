@@ -50,6 +50,7 @@ export default {
     left: 50%;
     transform: translateX(-50%);
     @extend %title-font;
+    color: #557C7C;
   }
 
   &_img {
