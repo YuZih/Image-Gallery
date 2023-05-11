@@ -62,9 +62,12 @@
             <div class="albumCtn_buttonCtn">
               <button class="viewMoreBtn">
                 <font-awesome-icon :icon="['fas', 'angles-right']"
-                                   fade /> View More</button>
+                                   fade /> <router-link
+                             :to="{ name: 'series', params: { seriesName: albumSeries.replace(/\s+/g, '').toLowerCase() } }">View
+                  More</router-link></button>
             </div>
           </div>
+
         </div>
       </section>
     </div>
