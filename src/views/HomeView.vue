@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <DefaultLayout>
     <!-- Carousel -->
     <div class="carouselCtn container  mx-auto">
       <Carousel :images="carouselImages" />
     </div>
 
     <!-- Main -->
-    <main class="mt-5">
+    <div class="mt-5">
       <!-- Introduction section -->
       <section class="introSec">
         <div class="introCtn container text-center mx-auto">
@@ -67,19 +67,19 @@
           </div>
         </div>
       </section>
-    </main>
-  </div>
+    </div>
+  </DefaultLayout>
 </template>
 
 
 <script>
-import { Carousel, AlbumCard } from "@/components";
+import { DefaultLayout, Carousel, AlbumCard } from "@/components";
 import { mapGetters } from "vuex"
 
 export default {
   name: "HomeView",
   components: {
-    Carousel, AlbumCard
+    DefaultLayout, Carousel, AlbumCard
   },
   data() {
     return {

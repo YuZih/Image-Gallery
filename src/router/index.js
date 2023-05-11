@@ -1,10 +1,20 @@
 import Vue from "vue"
 import VueRouter from "vue-router"
+import store from '@/store'
 import HomeView from "@/views/HomeView.vue"
 
 
 
 Vue.use(VueRouter)
+
+function albumGuard(to, from, next) {
+  const isValid = to.params.galleryName
+    ? store.getters.isValidAlbumParam(to.params.seriesName, to.params.galleryName)
+    : store.getters.isValidAlbumParam(to.params.seriesName);
+
+  isValid ? next() : next("*"); // use next("*") instead of using next({name: "notFound"}), in order to avoid bug of Vue Router 3 ([vue-router] missing param for named route "notFound": Expected "0" to be defined)   
+}
+
 
 const routes = [
   {
@@ -15,7 +25,6 @@ const routes = [
   {
     path: "/home",
     name: "home",
-    // alias: "/homepage", // Discard alias so as to keep the CSS effect of linkActiveClass
     component: HomeView },
   {
     path: "/about",
@@ -40,20 +49,20 @@ const routes = [
         path: ":seriesName",
         name: "series",
         component: () => import(/* webpackChunkName: "singleSeries" */ "@/views/SeriesSingleView.vue"),
+        beforeEnter: albumGuard,
       },
       {
         path: ":seriesName/:galleryName",
         name: "gallery",
         component: () => import(/* webpackChunkName: "gallery" */ "@/views/GalleryView.vue"),
+        beforeEnter: albumGuard,
       }
-    ]
+    ],
   },
   {
     path: "*",
     name: "notFound",
-    components: {
-    notFound: () => import(/* webpackChunkName: "notFound" */ "@/views/NotFoundView.vue")
-  }
+    component: () => import(/* webpackChunkName: "notFound" */ "@/views/NotFoundView.vue")
   }
 ]
 

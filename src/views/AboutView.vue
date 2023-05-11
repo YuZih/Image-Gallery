@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <main>
+  <DefaultLayout>
+    <div>
       <div class="imgCtn mx-auto">
         <img class="imgCtn_img img-fluid"
              src="@/assets/images/others/about_image.jpg"
@@ -17,13 +17,17 @@
           <br>and let's appreciate their charm together.
         </p>
       </div>
-    </main>
-  </div>
+    </div>
+  </DefaultLayout>
 </template>
 
 <script>
+import { DefaultLayout } from "@/components";
 export default {
   name: "AboutView",
+  components: {
+    DefaultLayout,
+  },
 };
 </script>
 

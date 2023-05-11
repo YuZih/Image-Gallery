@@ -1,35 +1,41 @@
 <template>
-  <div class="container-md">
+  <DefaultLayout>
 
-    <!-- breadcrumb -->
-    <div class="breadCrumbCtn">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><router-link :to="{ name: 'album' }">All Series</router-link></li>
 
-          <li class="breadcrumb-item"
-              v-if="seriesName"><router-link :to="{ name: 'series', params: { seriesName: this.seriesName } }">
-              {{ currentSeries }}</router-link>
-          </li>
+    <div class="container-md">
+      <!-- breadcrumb -->
+      <div class="breadCrumbCtn">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><router-link :to="{ name: 'album' }">All Series</router-link></li>
 
-          <li class="breadcrumb-item"
-              v-if="galleryName"><router-link :to="{ name: 'gallery', params: { galleryName: this.galleryName } }">{{
-                galleryName }}</router-link>
-          </li>
-        </ol>
-      </nav>
+            <li class="breadcrumb-item"
+                v-if="seriesName"><router-link :to="{ name: 'series', params: { seriesName: this.seriesName } }">
+                {{ currentSeries }}</router-link>
+            </li>
+
+            <li class="breadcrumb-item"
+                v-if="galleryName"><router-link :to="{ name: 'gallery', params: { galleryName: this.galleryName } }">{{
+                  galleryName }}</router-link>
+            </li>
+          </ol>
+        </nav>
+      </div>
+      <!-- Show series or album photos -->
+      <router-view />
     </div>
-
-    <!-- Show series or album photos -->
-    <router-view />
-  </div>
+  </DefaultLayout>
 </template>
 
 <script>
+import { DefaultLayout } from "@/components";
 import { mapGetters } from 'vuex';
 
 export default {
   name: "AlbumView",
+  components: {
+    DefaultLayout,
+  },
   data() {
     return {
       currentSeries: null,

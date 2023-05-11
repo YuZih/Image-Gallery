@@ -7,9 +7,19 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     albums: {},
+    albumNamesForURL: {},
   },
 
   getters: {
+    // Check if params of album path is valid
+    isValidAlbumParam: (state) => (seriesName, galleryName) => {
+      if (!state.albumNamesForURL[seriesName]) { return false; }
+      if (galleryName !== undefined && !state.albumNamesForURL[seriesName].includes(galleryName)) {
+        return false;
+      }
+      return true; 
+    },
+
     // Choose the latest albums (Top N) 
     latestAlbumsByN: (state) => (n) => {
       const latestAlbums = {};
@@ -56,16 +66,26 @@ export default new Vuex.Store({
   },
 
   mutations: {
-    setAlbums(state, payload) {
-      state.albums = payload;
+    setAlbums(state, allAlbums) {
+      state.albums = allAlbums;
     },
+    setAlbumNamesForURL(state) {
+      for (const series in state.albums) {
+        const SeriesNameForURL = series.replace(/\s+/g, '').toLowerCase();
+        const seriesAlbums = state.albums[series];
+        const galleryNamesForURL = seriesAlbums.map(albumName => albumName.replace(/\s+/g, '').toLowerCase());
+        state.albumNamesForURL[SeriesNameForURL] = galleryNamesForURL;
+      }
+    }
   },
 
   actions: {
-    // Initialize the albums with default values
     // Default order of albums: from latest to old
     toSetAlbums({ commit }) {
       commit("setAlbums", defaultAlbums)
+    },
+    toSetAlbumNamesForURL({ commit }) {
+      commit("setAlbumNamesForURL")
     },
   },
 
