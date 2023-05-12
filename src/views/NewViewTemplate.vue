@@ -1,33 +1,21 @@
 <template>
-  <div>
-    <!-- Header & Navbar -->
-    <Header />
-    <Navbar />
-    <main class="mt-5 mt-md-3">
-      <div>New page!</div>
-      <img class="img-fluid"
-           src="@/assets/images/others/404.jpg"
-           alt="">
-      <img class="img-fluid"
-           src="@/assets/images/others/404.jpg"
-           alt="">
-      <img class="img-fluid"
-           src="@/assets/images/others/404.jpg"
-           alt="">
-    </main>
-    <Footer />
-  </div>
+  <DefaultLayout>
+    <section class="container">
+      new view
+    </section>
+  </DefaultLayout>
 </template>
 
 <script>
-import { Header, Navbar, Footer, Carousel, AlbumCard } from "@/components";
+import { DefaultLayout, Carousel, AlbumCard, SeriesCard } from "@/components";
 
 export default {
   name: "NewView",
   components: {
-    Header, Navbar, Footer, Carousel, AlbumCard
+    DefaultLayout, Carousel, AlbumCard, SeriesCard
   },
 };
 </script>
 
 
+<style lang="scss" scoped></style>

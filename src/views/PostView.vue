@@ -1,17 +1,12 @@
 <template>
   <DefaultLayout>
-    <div>
-      <div>Post page!</div>
-      <img class="img-fluid"
-           src="@/assets/images/others/404.jpg"
-           alt="">
-      <img class="img-fluid"
-           src="@/assets/images/others/404.jpg"
-           alt="">
-      <img class="img-fluid"
-           src="@/assets/images/others/404.jpg"
-           alt="">
-    </div>
+    <section class="container">
+      <div class="text-center">
+        <img class="img-fluid"
+             src="@/assets/images/others/coming.jpg"
+             alt="coming-soon">
+      </div>
+    </section>
   </DefaultLayout>
 </template>
 
@@ -25,4 +20,10 @@ export default {
 };
 </script>
 
+
+<style lang="scss" scoped>
+img {
+  width: 100vh;
+}
+</style>
 
