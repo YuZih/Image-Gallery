@@ -1,6 +1,5 @@
 <template>
   <section class="gallery my-5">
-    {{ galleryName }}
     <div class="gallery_imgCtn"
          v-for="(imageSrc, index) in galleryImageList"
          :key="index">
@@ -61,13 +60,17 @@ export default {
 .gallery {
   line-height: 0; // Prevent vertical gaps
   column-count: 1;
-  column-gap: 20px;
+  column-gap: 30px;
 }
 
 .gallery img {
   width: 100%;
   height: auto;
-  padding-bottom: 20px;
+  padding-bottom: 30px;
+  transition: transform .3s ease-in-out;
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 
 @media screen and (min-width: 576px) {
@@ -79,6 +82,12 @@ export default {
 @media screen and (min-width: 768px) {
   .gallery {
     column-count: 3;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .gallery {
+    column-count: 4;
   }
 }
 </style>
