@@ -12,7 +12,7 @@ function albumGuard(to, from, next) {
     ? store.getters.isValidAlbumParam(to.params.seriesName, to.params.galleryName)
     : store.getters.isValidAlbumParam(to.params.seriesName);
 
-  isValid ? next() : next("*"); // use next("*") instead of using next({name: "notFound"}), in order to avoid bug of Vue Router 3 ([vue-router] missing param for named route "notFound": Expected "0" to be defined)   
+  isValid ? next() : next("notFound"); // use next("*") instead of using next({name: "notFound"}), in order to avoid bug of Vue Router 3 ([vue-router] missing param for named route "notFound": Expected "0" to be defined)   
 }
 
 

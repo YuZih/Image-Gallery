@@ -15,8 +15,9 @@
             </li>
 
             <li class="breadcrumb-item"
-                v-if="galleryName"><router-link :to="{ name: 'gallery', params: { galleryName: this.galleryName } }">{{
-                  galleryName }}</router-link>
+                v-if="galleryNameForURL"><router-link
+                           :to="{ name: 'gallery', params: { galleryName: this.galleryNameForURL } }">{{
+                             galleryNameForURL.toUpperCase() }}</router-link>
             </li>
           </ol>
         </nav>
@@ -48,7 +49,7 @@ export default {
       this.currentSeries = this.restoreSeriesName(this.$route.params.seriesName);
       return seriesName;
     },
-    galleryName() {
+    galleryNameForURL() {
       return this.$route.params.galleryName;
     },
   },

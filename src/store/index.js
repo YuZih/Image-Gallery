@@ -1,6 +1,7 @@
 import Vue from "vue"
 import Vuex from "vuex"
-import {defaultAlbums} from "@/utils/defaultSetting.js"
+import { defaultAlbums } from "@/utils/defaultSetting.js"
+import { db } from "@/store/firebase.js"
 
 Vue.use(Vuex)
 
@@ -82,10 +83,10 @@ export default new Vuex.Store({
   actions: {
     // Default order of albums: from latest to old
     toSetAlbums({ commit }) {
-      commit("setAlbums", defaultAlbums)
+      commit("setAlbums", defaultAlbums);
     },
     toSetAlbumNamesForURL({ commit }) {
-      commit("setAlbumNamesForURL")
+      commit("setAlbumNamesForURL");
     },
   },
 
