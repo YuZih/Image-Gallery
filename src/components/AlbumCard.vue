@@ -1,6 +1,7 @@
 <template>
-  <div class="card" @click="goToGallery(seriesName, galleryName)">
-    <img :src="imageSrc"
+  <div class="card"
+       @click="goToGallery(seriesName, galleryName)">
+    <img :src="imageSrc | emptyImage"
          alt="album cover"
          class="card_img">
     <div class="card_text text-center">
@@ -11,8 +12,10 @@
 </template>
 
 <script>
+import { emptyImageFilter } from "@/utils/mixins";
 export default {
   name: "AlbumCard",
+  mixins: [emptyImageFilter],
   props: {
     imageSrc: {
       type: String,

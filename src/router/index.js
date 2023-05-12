@@ -7,12 +7,15 @@ import HomeView from "@/views/HomeView.vue"
 
 Vue.use(VueRouter)
 
-function albumGuard(to, from, next) {
+async function albumGuard(to, from, next) {
+  // Wait for the store to be initialized
+  await store.dispatch('initializeStore');
+  
   const isValid = to.params.galleryName
     ? store.getters.isValidAlbumParam(to.params.seriesName, to.params.galleryName)
     : store.getters.isValidAlbumParam(to.params.seriesName);
 
-  isValid ? next() : next("notFound"); // use next("*") instead of using next({name: "notFound"}), in order to avoid bug of Vue Router 3 ([vue-router] missing param for named route "notFound": Expected "0" to be defined)   
+  isValid ? next() : next("notFound");  // use next("*") instead of using next({name: "notFound"}), in order to avoid bug of Vue Router 3 (error message: [vue-router] missing param for named route "notFound": Expected "0" to be defined)
 }
 
 
@@ -71,13 +74,13 @@ const router = new VueRouter({
   mode: "history",
   linkActiveClass: "activeLink",
   linkExactActiveClass: "exactActiveLink",
-  // scrollBehavior(to, from, savedPosition) {
-  //   if (savedPosition) {
-  //     return savedPosition;
-  //   } else {
-  //     return { x: 0, y: 0 };
-  //   }
-  // },
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    } else {
+      return { x: 0, y: 0 };
+    }
+  },
 })
 
 export default router

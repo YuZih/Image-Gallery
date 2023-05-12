@@ -5,20 +5,32 @@
          :key="index">
       <img :src="imageSrc"
            alt="gallery photo"
-           class="gallery_imgCtn_img">
+           class="gallery_imgCtn_img"
+           @click="lightboxIndex = index">
     </div>
+
+    <CoolLightBox :items="galleryImageList"
+                  :index="lightboxIndex"
+                  @close="lightboxIndex = null">
+    </CoolLightBox>
   </section>
 </template>
 
 
 <script>
 import { mapGetters } from 'vuex';
+import CoolLightBox from 'vue-cool-lightbox'
+import 'vue-cool-lightbox/dist/vue-cool-lightbox.min.css'
 
 export default {
   name: "GalleryView",
+  components: {
+    CoolLightBox,
+  },
   data() {
     return {
       galleryImageList: [],
+      lightboxIndex: null,
     }
   },
   computed: {
@@ -68,6 +80,7 @@ export default {
   height: auto;
   padding-bottom: 30px;
   transition: transform .3s ease-in-out;
+
   &:hover {
     transform: scale(1.1);
   }

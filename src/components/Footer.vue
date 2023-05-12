@@ -3,7 +3,7 @@
     <footer class="mx-auto d-flex">
       <span><a href="https://www.instagram.com/yuzuxpic/"
            target="_blank"><font-awesome-icon :icon="['fab', 'instagram']" />
-          <span class="d-xs-none d-sm-inline-block">&nbsp;Follow me on Instagram</span>
+          <span class="d-xs-none d-sm-inline-block instagram-text">&nbsp;Follow me on Instagram</span>
         </a></span>
       <span><font-awesome-icon :icon="['far', 'copyright']"
                            size="sm" />&nbsp;yuzuxpic</span>
@@ -39,11 +39,18 @@ footer {
     margin-right: 10px;
   }
 }
+.instagram-text {
+  text-decoration: underline;
+}
 
 @media screen and (min-width: 768px) {
   footer {
     width: 35%;
     justify-content: space-between;
+  }
+
+  .instagram-text {
+    text-decoration: none;
   }
 }
 </style>

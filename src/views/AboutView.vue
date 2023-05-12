@@ -59,8 +59,8 @@ export default {
 .textCtn {
   font-family: 'Caveat', cursive;
   font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.2rem;
+  font-size: 1.5rem;
+  line-height: 1.6rem;
 }
 
 @media screen and (min-width: 576px) {
@@ -76,8 +76,8 @@ export default {
   }
 
   .textCtn {
-    font-size: 1.3rem;
-    line-height: 1.5rem;
+    font-size: 1.6rem;
+    line-height: 1.7rem;
   }
 }
 
@@ -95,8 +95,8 @@ export default {
   }
 
   .textCtn {
-    font-size: 1.6rem;
-    line-height: 1.8rem;
+    font-size: 1.8rem;
+    line-height: 1.9rem;
   }
 }
 </style>

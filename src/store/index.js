@@ -88,6 +88,13 @@ export default new Vuex.Store({
     toSetAlbumNamesForURL({ commit }) {
       commit("setAlbumNamesForURL");
     },
+    initializeStore({ dispatch }) {
+      // Dispatch all the actions that need to be performed at startup
+      dispatch('toSetAlbums');
+      dispatch('toSetAlbumNamesForURL');
+      // Return a resolved promise
+      return Promise.resolve();
+    },
   },
 
   modules: {

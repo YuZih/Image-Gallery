@@ -41,7 +41,7 @@ export default {
 
 .title {
   @extend %title-font;
-  font-size: 3rem;
+  font-size: 2.1rem;
 }
 
 .singleSeriesCtn {
@@ -60,7 +60,23 @@ export default {
   }
 }
 
+@media screen and (min-width: 420px) {
+  .title {
+    font-size: 2.5rem;
+  }
+}
+
+@media screen and (min-width: 576px) {
+  .title {
+    font-size: 2.8rem;
+  }
+}
+
 @media screen and (min-width: 768px) {
+  .title {
+    font-size: 3rem;
+  }
+
   .singleSeriesCtn {
     grid-template-columns: repeat(2, 1fr); // Keep in 2 columns
     grid-row-gap: 2rem;

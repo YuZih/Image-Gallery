@@ -44,18 +44,22 @@ export default {
   cursor: pointer;
 
   &_title {
+    @extend %title-font;
+    color: #557C7C;
     position: absolute;
     top: 104%;
     /* horizontal centering */
     left: 50%;
     transform: translateX(-50%);
-    @extend %title-font;
-    color: #557C7C;
   }
 
   &_img {
     width: 100%;
     height: 100%;
+    transition: transform .3s ease-in-out;
+    &:hover {
+      transform: scale(1.05);
+    }
 
     img {
       width: 100%;

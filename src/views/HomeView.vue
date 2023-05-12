@@ -134,11 +134,13 @@ export default {
 
   h1 {
     @extend %logo-font;
+    font-size: 1.4rem;
   }
 
   h6 {
     line-height: 2rem;
     font-weight: 400;
+    font-size: .9rem;
   }
 }
 
@@ -148,7 +150,7 @@ export default {
   &_header {
     @extend %logo-font;
     margin-bottom: 2rem;
-    width: 50%;
+    width: 80%;
 
     &_underline-top {
       width: 50%;
@@ -166,6 +168,7 @@ export default {
 
   &_title {
     @extend %title-font;
+    font-size: 1.9rem;
   }
 
   &_buttonCtn {
@@ -180,7 +183,7 @@ export default {
       margin-top: 1rem;
       padding: .5rem;
       border-radius: 30px;
-      font-size: .5rem;
+      font-size: 1.1rem;
       font-weight: 400;
       box-shadow: 2px 4px 5px $green-1;
 
@@ -204,6 +207,16 @@ export default {
 
 // XS screen: mobile
 @media screen and (min-width: 420px) {
+  .introCtn {
+    h1 {
+      font-size: 1.6rem;
+    }
+
+    h6 {
+      font-size: 1rem;
+    }
+  }
+
   .cardsCtn {
     margin-bottom: 2rem;
 
@@ -217,15 +230,45 @@ export default {
   .albumCtn_buttonCtn {
     .viewMoreBtn {
       margin-top: 0;
-      font-size: .9rem;
-      padding: .9rem;
+      font-size: 1.1rem;
+      padding: 1.1rem;
+    }
+  }
+
+  .albumCtn {
+    &_title {
+      font-size: 2.5rem;
     }
   }
 }
 
 
+@media screen and (min-width: 576px) {
+  .introCtn {
+    h1 {
+      font-size: 2rem;
+    }
+
+    h6 {
+      font-size: 1.1rem;
+    }
+  }
+
+
+}
+
 // medium screen: iPad, PC
 @media screen and (min-width: 768px) {
+  .introCtn {
+    h1 {
+      font-size: 2rem;
+    }
+
+    h6 {
+      font-size: 1rem;
+    }
+  }
+
   .cardsCtn {
     .container {
       .cards_wrap {
@@ -236,9 +279,28 @@ export default {
 
   .albumCtn_buttonCtn {
     .viewMoreBtn {
-      font-size: 1rem;
-      padding: 1rem;
+      font-size: 1.1rem;
+      padding: 1.1rem;
       font-weight: 500;
+    }
+  }
+
+  .albumCtn {
+    &_title {
+      font-size: 2.8rem;
+    }
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .introCtn {
+    h1 {
+      font-size: 2.2rem;
+    }
+
+    h6 {
+      font-size: 1.1rem;
+      // line-height: 3rem;
     }
   }
 }
