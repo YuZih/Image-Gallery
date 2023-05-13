@@ -23,7 +23,9 @@ export default {
 
 <style lang="scss" scoped>
 img {
-  width: 100vh;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  width: 100vw;
 }
 </style>
 
