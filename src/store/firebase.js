@@ -11,9 +11,8 @@ const firebaseConfig = {
   projectId: "vue-galley-yuzuxpic",
   storageBucket: "vue-galley-yuzuxpic.appspot.com",
   messagingSenderId: "14812577310",
-  appId: "1:14812577310:web:f12156d5816acb1af2b80f"
+  appId: "1:14812577310:web:7082ce97bfc115eef2b80f"
 };
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
