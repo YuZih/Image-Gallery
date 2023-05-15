@@ -77,7 +77,7 @@ npm run build
 
 2. Place the Album Folder into the Project
    Follow the directory structure outlined below to place your album folder into the project folder:
-   Project Root Folder -> src folder -> assets folder -> images folder -> album folder -> "Album1" folder -> All image files
+   Project Root Folder -> [src] folder -> [assets] folder -> [images] folder -> [album] folder -> [Album1] folder -> All image files
 
 3. Update the Album Settings of the Project
    Open the defaultSetting.js file in the utils folder and update all your series and album names following this rule: {'Series Name': ['Album Name']}.
