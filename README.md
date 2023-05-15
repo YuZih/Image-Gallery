@@ -82,3 +82,9 @@ npm run build
 3. Update the Album Settings of the Project
    Open the defaultSetting.js file in the utils folder and update all your series and album names following this rule: {'Series Name': ['Album Name']}.
    For example: {'Series1':['Album1', 'Album2'], 'Series2':['Album1', 'Album2', 'Album3']}
+
+## Website Screenshot
+
+### For screen size
+
+### For mobile size
