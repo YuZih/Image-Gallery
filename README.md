@@ -6,9 +6,9 @@ https://vue-galley-yuzuxpic.firebaseapp.com/home
 
 ## Introduction
 
-This is an image gallery website where you can browse all the photos and view them in detail through a lightbox. The site is designed and built from scratch by me, including layout design, route planning, database design, style design, and more.
+This is an image gallery website where you can browse all the photos and view them in detail through a lightbox. This website is also designed with a focus on user experience across a variety of devices. The site employs Responsive Web Design (RWD) to ensure seamless browsing whether you're using a desktop, tablet, or mobile phone. It dynamically adjusts the layout based on the device screen size for optimal viewing and navigation.
 
-One of the key features of this project is its dynamic photo loading design. You can freely replace or add photos on the site by following the replacement rules provided below.
+From layout design to route planning, database design, and style design, every aspect of this site has been meticulously crafted from scratch by me. A key feature of this project is its dynamic photo loading design. You can freely replace or add photos on the site by following the replacement rules provided below. This flexibility, combined with the responsive design, makes this image gallery a versatile tool for displaying and exploring photos.
 
 ## Features
 
@@ -85,10 +85,10 @@ npm run build
 
 ## Website Screenshot
 
-### For screen size
+### Example for screen size
 
-![HOME page](https://github.com/YuZih/Image-Gallery/blob/main/src/assets/images/others/screenshot/forScreen/1_Home.png)
+![screen HOME page](https://github.com/YuZih/Image-Gallery/blob/main/src/assets/images/others/screenshot/forScreen/1_Home.png)
 
-![About page](https://github.com/YuZih/Image-Gallery/blob/main/src/assets/images/others/screenshot/forScreen/2_About.png)
+### Example for mobile size
 
-### For mobile size
+![mobile HOME page](https://github.com/YuZih/Image-Gallery/blob/main/src/assets/images/others/screenshot/forMobile/1_home.png)
