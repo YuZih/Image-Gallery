@@ -87,6 +87,8 @@ npm run build
 
 ### For screen size
 
-![HOME page](@/assets/images/others/screenshot/forMobile/1_home.png)
+![HOME page](https://github.com/YuZih/Image-Gallery/blob/main/src/assets/images/others/screenshot/forScreen/1_Home.png)
+
+![About page](https://github.com/YuZih/Image-Gallery/blob/main/src/assets/images/others/screenshot/forScreen/2_About.png)
 
 ### For mobile size
