@@ -87,4 +87,6 @@ npm run build
 
 ### For screen size
 
+![HOME page](@/assets/images/others/screenshot/forMobile/1_home.png)
+
 ### For mobile size
