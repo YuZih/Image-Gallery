@@ -72,22 +72,29 @@ npm run build
 
 ## How to Replace or Add Photos
 
-1. Prepare Your Album Folder
-   Begin by creating a new album folder (for example, an "Album1" folder) and placing all the photos you want to display for this album into it. Next, select a cover photo for this album. In the "Album1" folder, create another folder named "cover" and place your chosen cover photo into the "cover" folder. Please note that your cover photo should be a jpg file and named "cover.jpg".
+### 1. Prepare Your Album Folder
 
-2. Place the Album Folder into the Project
-   Follow the directory structure outlined below to place your album folder into the project folder:
-   Project Root Folder -> [src] folder -> [assets] folder -> [images] folder -> [album] folder -> [Album1] folder -> All image files
+Begin by creating a new album folder (for example, an "Album1" folder) and placing all the photos you want to display for this album into it. Next, select a cover photo for this album. In the "Album1" folder, create another folder named "cover" and place your chosen cover photo into the "cover" folder. Please note that your cover photo should be a jpg file and named "cover.jpg".
 
-3. Update the Album Settings of the Project
-   Open the defaultSetting.js file in the utils folder and update all your series and album names following this rule: {'Series Name': ['Album Name']}.
-   For example: {'Series1':['Album1', 'Album2'], 'Series2':['Album1', 'Album2', 'Album3']}
+### 2. Place the Album Folder into the Project
+
+Follow the directory structure outlined below to place your album folder into the project folder:
+Project Root Folder -> [src] folder -> [assets] folder -> [images] folder -> [album] folder -> [Album1] folder -> All image files + [cover] folder
+
+### 3. Update the Album Settings of the Project
+
+Open the defaultSetting.js file in the utils folder and update all your series and album names following this rule: {'Series Name': ['Album Name']}.
+For example: {'Series1':['Album1', 'Album2'], 'Series2':['Album1', 'Album2', 'Album3']}
 
 ## Website Screenshot
 
 ### Example for screen size
 
 ![screen HOME page](https://github.com/YuZih/Image-Gallery/blob/main/src/assets/images/others/screenshot/forScreen/1_Home.png)
+
+##
+
+##
 
 ### Example for mobile size
 
