@@ -23,11 +23,11 @@ From layout design to route planning, database design, and style design, every a
 
 ## Tech Stack
 
-firebase@9.21.0
-vue@2.6.14
-vue-router@3.5.1
-vuex@3.6.2
-vue-cool-lightbox@2.7.5
+firebase@9.21.0  
+vue@2.6.14  
+vue-router@3.5.1  
+vuex@3.6.2  
+vue-cool-lightbox@2.7.5  
 bootstrap@5.1.3
 
 ## Installation
