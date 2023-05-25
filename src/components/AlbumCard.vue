@@ -3,7 +3,8 @@
        @click="goToGallery(seriesName, galleryName)">
     <img :src="imageSrc | emptyImage"
          alt="album cover"
-         class="card_img">
+         class="card_img"
+         @contextmenu.prevent>
     <div class="card_text text-center">
       <h3 class="card_title">{{ galleryName }}</h3>
       <p class="card_description">- Click to view album -</p>

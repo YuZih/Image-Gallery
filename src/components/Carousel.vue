@@ -23,7 +23,8 @@
            data-bs-interval="3000">
         <img :src="image"
              class="d-block w-100"
-             alt="carousel image" />
+             alt="carousel image"
+             @contextmenu.prevent />
       </div>
     </div>
 

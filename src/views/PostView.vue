@@ -10,44 +10,47 @@
 
     <section class="container postSec">
       <div class="row postCtn mx-auto">
-        <div class="col-md-7 postText">
+        <div class="col-md-8 postText">
           <h3>1 Post Title</h3>
           <p>May 24, 2023</p>
           <p>Gunne Sax is a beloved vintage clothing label known for its enchanting, prairie-inspired dresses. Founded in
             San Francisco in the late 1960s by designer Jessica McClintock, the brand became famous for its distinctive
             blend of romantic styles, rich fabrics, and intricate detailing.</p>
         </div>
-        <div class="col-md-5 postImg">
+        <div class="col-md-4 postImg">
           <img src="https://rudstonbrownvintage.com/cdn/shop/products/IMG_4708_1200x1200.jpg?v=1668206273"
-               alt="post-image">
+               alt="post-image"
+               @contextmenu.prevent>
         </div>
       </div>
 
       <div class="row postCtn mx-auto">
-        <div class="col-md-7 postText order-md-5">
+        <div class="col-md-8 postText order-md-5">
           <h3>2 Post Title</h3>
           <p>May 24, 2023</p>
           <p>Gunne Sax is a beloved vintage clothing label known for its enchanting, prairie-inspired dresses. Founded in
             San Francisco in the late 1960s by designer Jessica McClintock, the brand became famous for its distinctive
             blend of romantic styles, rich fabrics, and intricate detailing.</p>
         </div>
-        <div class="col-md-5 postImg order-md-1">
+        <div class="col-md-4 postImg order-md-1">
           <img src="https://rudstonbrownvintage.com/cdn/shop/products/IMG_4708_1200x1200.jpg?v=1668206273"
-               alt="post-image">
+               alt="post-image"
+               @contextmenu.prevent>
         </div>
       </div>
 
       <div class="row postCtn mx-auto">
-        <div class="col-md-7 postText">
+        <div class="col-md-8 postText">
           <h3>3 Post Title</h3>
           <p>May 24, 2023</p>
           <p>Gunne Sax is a beloved vintage clothing label known for its enchanting, prairie-inspired dresses. Founded in
             San Francisco in the late 1960s by designer Jessica McClintock, the brand became famous for its distinctive
             blend of romantic styles, rich fabrics, and intricate detailing.</p>
         </div>
-        <div class="col-md-5 postImg">
+        <div class="col-md-4 postImg">
           <img src="https://rudstonbrownvintage.com/cdn/shop/products/IMG_4708_1200x1200.jpg?v=1668206273"
-               alt="post-image">
+               alt="post-image"
+               @contextmenu.prevent>
         </div>
       </div>
     </section>
@@ -75,9 +78,9 @@ export default {
 .postSec {
   .postCtn {
     max-width: 960px;
-    min-height: 300px;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    min-height: 250px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     border-bottom: 1px solid grey;
 
     .postText {
@@ -86,7 +89,7 @@ export default {
     }
 
     .postImg {
-      height: 250px;
+      height: 230px;
 
       img {
         width: 100%;

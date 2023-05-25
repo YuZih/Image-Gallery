@@ -6,7 +6,8 @@
       <img :src="imageSrc"
            alt="gallery photo"
            class="gallery_imgCtn_img"
-           @click="lightboxIndex = index">
+           @click="lightboxIndex = index"
+           @contextmenu.prevent>
     </div>
 
     <CoolLightBox :items="galleryImageList"

@@ -4,7 +4,8 @@
       <div class="imgCtn mx-auto">
         <img class="imgCtn_img img-fluid"
              src="@/assets/images/others/about_image.jpg"
-             alt="about-image">
+             alt="about-image"
+             @contextmenu.prevent>
       </div>
 
       <div class="container textCtn mx-auto my-5 pb-5 text-center">

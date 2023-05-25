@@ -3,7 +3,8 @@
        @click="goToSeries(seriesName)">
     <div class="card_img">
       <img :src="imageSrc"
-           alt="series cover">
+           alt="series cover"
+           @contextmenu.prevent>
     </div>
     <h1 class="card_title">{{ seriesName }}</h1>
   </div>
@@ -57,6 +58,7 @@ export default {
     width: 100%;
     height: 100%;
     transition: transform .3s ease-in-out;
+
     &:hover {
       transform: scale(1.05);
     }
