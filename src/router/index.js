@@ -9,13 +9,14 @@ Vue.use(VueRouter)
 
 async function albumGuard(to, from, next) {
   // Wait for the store to be initialized
+  // Make sure that getter isValidAlbumParam works correctly
   await store.dispatch('initializeStore');
   
   const isValid = to.params.galleryName
     ? store.getters.isValidAlbumParam(to.params.seriesName, to.params.galleryName)
     : store.getters.isValidAlbumParam(to.params.seriesName);
 
-  isValid ? next() : next("notFound");  // use next("*") instead of using next({name: "notFound"}), in order to avoid bug of Vue Router 3 (error message: [vue-router] missing param for named route "notFound": Expected "0" to be defined)
+  isValid ? next() : next("notFound");  // use next("notFound") instead of using next({name: "notFound"}), in order to avoid bug of Vue Router 3 (error message: [vue-router] missing param for named route "notFound": Expected "0" to be defined)
 }
 
 

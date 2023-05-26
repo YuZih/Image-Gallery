@@ -2,6 +2,7 @@ import Vue from "vue"
 import Vuex from "vuex"
 import { defaultAlbums } from "@/utils/defaultSetting.js"
 import { db } from "@/store/firebase.js"
+import { collection, getDocs, addDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 
 Vue.use(Vuex)
 
@@ -90,11 +91,62 @@ export default new Vuex.Store({
     },
     initializeStore({ dispatch }) {
       // Dispatch all the actions that need to be performed at startup
-      dispatch('toSetAlbums');
-      dispatch('toSetAlbumNamesForURL');
+      dispatch("toSetAlbums");
+      dispatch("toSetAlbumNamesForURL");
       // Return a resolved promise
       return Promise.resolve();
     },
+
+    // Read doc data from Firestore database
+    toFetchPosts: async ({ commit }) => {
+      const Ref = collection(db, "Posts");// Ref Prototype: Object
+      try {
+        const querySnapshot = await getDocs(Ref);// Docs Prototype: Object
+        let payload = [];// Prototype: Array [{post1}, {post2},...]
+        querySnapshot.forEach(doc => {
+          payload.push({ id: doc.id, ...doc.data() });
+        });
+        // commit("fetchPosts", payload);
+      } catch (error) {
+        console.error("Error fetching documents: ", error);
+      }
+    },
+
+    // Add doc data to Firestore database
+    toAddPost: async ({ commit }, payload) => {
+      const Ref = collection(db, "Posts");
+      try {
+        const docRef = await addDoc(Ref, payload);
+        console.log("Document written with ID: ", docRef.id);
+        // commit("AddPost", {id: docRef.id, ...payload});
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
+    },
+
+    // Update doc data in Firestore database
+    toUpdatePost: async ({ commit }, payload) => {
+      const docRef = doc(db, "Posts", payload.id);
+      try {
+        await updateDoc(docRef, payload.newPost);
+        console.log("Document updated with new post: ", docRef.id);
+        // commit("updatePost", payload);
+      } catch (e) {
+        console.error("Error updating document: ", e);
+      }
+    },
+
+    // Delete doc data in Firestore database
+    toDeletePost: async ({ commit }, id) => {
+      const docRef = doc(db, "Posts", id);
+      try {
+        await deleteDoc(docRef);
+        console.log("Document deleted: ", id);
+        // commit("deletePost", id);
+      } catch (e) {
+        console.error("Error deleting document: ", e);
+      }
+    }
   },
 
   modules: {
