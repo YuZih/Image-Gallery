@@ -86,7 +86,7 @@ export default {
     min-height: 250px;
     padding-top: 2rem;
     padding-bottom: 2rem;
-    border-bottom: 1px solid grey;
+    border-top: 1px solid grey;
 
     .postText {
       padding-left: 1rem;
