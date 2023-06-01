@@ -18,6 +18,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch("toSetAlbumNamesForURL");
+    this.$store.dispatch("toFetchPosts");
   }
 };
 </script>

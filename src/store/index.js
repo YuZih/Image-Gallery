@@ -10,6 +10,7 @@ export default new Vuex.Store({
   state: {
     albums: {},
     albumNamesForURL: {},
+    posts: [],
   },
 
   getters: {
@@ -78,7 +79,10 @@ export default new Vuex.Store({
         const galleryNamesForURL = seriesAlbums.map(albumName => albumName.replace(/\s+/g, '').toLowerCase());
         state.albumNamesForURL[SeriesNameForURL] = galleryNamesForURL;
       }
-    }
+    },
+    fetchPosts: (state, payload) => {
+      state.posts = payload;
+    },
   },
 
   actions: {
@@ -106,7 +110,7 @@ export default new Vuex.Store({
         querySnapshot.forEach(doc => {
           payload.push({ id: doc.id, ...doc.data() });
         });
-        // commit("fetchPosts", payload);
+        commit("fetchPosts", payload);
       } catch (error) {
         console.error("Error fetching documents: ", error);
       }
