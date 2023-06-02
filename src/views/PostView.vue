@@ -6,6 +6,8 @@
       <Spinner />
     </div>
 
+
+
     <!-- Show posts section after mapState[posts] has completed-->
     <div v-else>
       <!-- If no post exits-->
@@ -14,7 +16,6 @@
 
         <div class="textCtn">
           <h5>There's no post yet.</h5>
-          <router-link :to="{ name: '' }"></router-link>
           <h6>*For admin, please <button>login</button> to add new post.</h6>
         </div>
         <div class="imgCtn">
@@ -39,8 +40,10 @@
                     type="submit">Search</button>
           </form>
         </div>
+
         <!-- post -->
         <article v-for="(post, index) in posts"
+                 @click="toDetailPage(post.id)"
                  class="row postCtn mx-auto"
                  :key="index">
           <div class="col-md-8 postText"
@@ -90,6 +93,9 @@ export default {
     filteredContent(content) {
       let replacedContent = content.replace(/<br>/g, ' ');
       return replacedContent.length >= 200 ? replacedContent.slice(0, 200) + "..." : replacedContent;
+    },
+    toDetailPage(postID) {
+      this.$router.push({ name: "postDetail", params: { id: postID } });
     },
   }
 };

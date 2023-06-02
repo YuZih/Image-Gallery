@@ -10,7 +10,7 @@ export default new Vuex.Store({
   state: {
     albums: {},
     albumNamesForURL: {},
-    posts: [],
+    posts: [], // [post{id, title, content, image}]
   },
 
   getters: {
