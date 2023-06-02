@@ -38,8 +38,13 @@ const routes = [
   {
     path: "/post",
     name: "post",
-    component: () => import(/* webpackChunkName: "post" */ "@/views/PostView.vue")
+    component: () => import(/* webpackChunkName: "post" */ "@/views/PostView.vue"),
   },
+  // {
+  //   path: "/post/:id",
+  //   name: "postDetail",
+  //   component: () => import(/* webpackChunkName: "postDetail" */ "@/views/PostDetailView.vue"),
+  // }, 
   {
     path: "/album",
     component: () => import(/* webpackChunkName: "album" */ "@/views/AlbumView.vue"),

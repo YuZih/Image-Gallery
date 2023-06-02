@@ -1,74 +1,89 @@
 <template>
   <DefaultLayout>
-    <section v-if="posts.length === 0"
-             class="comingSec container mx-auto">
+    <!-- Show spinner if mapState[posts] has not completed yet  -->
+    <div v-if="isLoading"
+         class="spinnerCtn">
+      <Spinner />
+    </div>
 
-      <div class="textCtn">
-        <h5>There's no post yet.</h5>
-        <h6>*For admin, please <button>login</button> to add new post.</h6>
-      </div>
-      <div class="imgCtn">
-        <img class="img-fluid"
-             src="@/assets/images/others/coming.jpg"
-             alt="coming-soon-image">
-      </div>
-    </section>
+    <!-- Show posts section after mapState[posts] has completed-->
+    <div v-else>
+      <!-- If no post exits-->
+      <section v-if="noPost"
+               class="comingSec container mx-auto">
 
-
-    <section v-else
-             class="container postSec">
-
-      <!-- search bar -->
-      <div class="searchCtn mx-auto">
-        <form class="searchBar">
-          <input class="form-control me-2"
-                 id="searchInput"
-                 type="search"
-                 placeholder="Type to search"
-                 aria-label="Search">
-          <button class="searchBtn btn btn-outline-success"
-                  type="submit">Search</button>
-        </form>
-      </div>
-
-      <!-- post -->
-      <article v-for="(post, index) in posts"
-               class="row postCtn mx-auto"
-               :key="index">
-        <div class="col-md-8 postText"
-             :class="{ 'order-md-5': isOdd(index) }">
-          <h3>{{ post.title }}</h3>
-          <p>May 24, 2023</p>
-          <p>{{ filteredContent(post.content) }}</p>
+        <div class="textCtn">
+          <h5>There's no post yet.</h5>
+          <router-link :to="{ name: '' }"></router-link>
+          <h6>*For admin, please <button>login</button> to add new post.</h6>
         </div>
-
-        <div class="col-md-4 postImg">
-          <img :src="post.image"
-               alt="post-image"
-               @contextmenu.prevent>
+        <div class="imgCtn">
+          <img class="img-fluid"
+               src="@/assets/images/others/coming.jpg"
+               alt="coming-soon-image">
         </div>
-      </article>
-    </section>
+      </section>
+
+      <!-- If any post exits -->
+      <section v-else
+               class="container postSec">
+        <!-- search bar -->
+        <div class="searchCtn mx-auto">
+          <form class="searchBar">
+            <input class="form-control me-2"
+                   id="searchInput"
+                   type="search"
+                   placeholder="Type to search"
+                   aria-label="Search">
+            <button class="searchBtn btn btn-outline-success"
+                    type="submit">Search</button>
+          </form>
+        </div>
+        <!-- post -->
+        <article v-for="(post, index) in posts"
+                 class="row postCtn mx-auto"
+                 :key="index">
+          <div class="col-md-8 postText"
+               :class="{ 'order-md-5': isOdd(index) }">
+            <h3>{{ post.title }}</h3>
+            <p>May 24, 2023</p>
+            <p>{{ filteredContent(post.content) }}</p>
+          </div>
+
+          <div class="col-md-4 postImg">
+            <img :src="post.image"
+                 alt="post-image"
+                 @contextmenu.prevent>
+          </div>
+        </article>
+      </section>
+    </div>
+
+
+
+
   </DefaultLayout>
 </template>
 
 <script>
-import { DefaultLayout } from "@/components";
-import { mapState, mapActions } from "vuex";
+import { DefaultLayout, Spinner } from "@/components";
+import { mapState } from "vuex";
 
 export default {
   name: "PostView",
   components: {
-    DefaultLayout,
+    DefaultLayout, Spinner
   },
   computed: {
+    isLoading() {
+      return !this.posts;
+    },
     ...mapState(["posts"]),
-  },
-  created() {
-    this.toFetchPosts();
+    noPost() {
+      return this.posts.length === 0;
+    }
   },
   methods: {
-    ...mapActions(["toFetchPosts"]),
     isOdd(index) {
       return index % 2 !== 0;
     },
@@ -105,6 +120,7 @@ export default {
 
 .postSec {
   min-height: 70vh;
+  margin-bottom: 2rem;
 
   .searchCtn {
     display: flex;
@@ -116,11 +132,53 @@ export default {
       display: flex;
       width: 300px;
 
-      #searchInput {
-        outline: none;
+      .searchBtn {
+        border-color: $green-3;
+        color: $green-6;
+
+        &:hover {
+          color: white;
+          background-color: $green-6;
+        }
+      }
+
+      .form-control {
+        font-style: italic;
+
+        &:focus {
+          // box-shadow: none;
+          box-shadow: 0 0 5px $green-4;
+          border-color: $green-3;
+        }
+
+        /* Chrome, Firefox, Opera, Safari 10.1+ */
+        &::-webkit-input-placeholder {
+          color: $shadow-grey;
+        }
+
+        /* Firefox 19+ */
+        &::-moz-placeholder {
+          color: $shadow-grey;
+        }
+
+        /* IE 10+ */
+        &:-ms-input-placeholder {
+          color: $shadow-grey;
+        }
+
+        /* Edge 18+ */
+        &::-ms-input-placeholder {
+          color: $shadow-grey;
+        }
+
+        /* Safari 12+ & Chrome (Not including Android) */
+        &::placeholder {
+          color: $shadow-grey;
+        }
       }
     }
   }
+
 
   .postCtn {
     max-width: 900px;

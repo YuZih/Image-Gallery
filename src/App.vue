@@ -14,10 +14,10 @@ export default {
   name: "App",
   created() {
     this.$store.dispatch("toSetAlbums");
-    this.$store.dispatch("toFetchPosts");
   },
   mounted() {
     this.$store.dispatch("toSetAlbumNamesForURL");
+    this.$store.dispatch("toFetchPosts");
   }
 };
 </script>
