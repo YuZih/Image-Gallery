@@ -13,6 +13,7 @@ export default new Vuex.Store({
     posts: [], // [post{id, title, content, image}]
     searchKey: "",
     isLoadingPost: true, // check if fetching posts is completed
+    isAdmin: true,
   },
 
   getters: {

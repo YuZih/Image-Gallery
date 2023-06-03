@@ -57,6 +57,17 @@ const routes = [
     ],
   },
   {
+    path: "/login",
+    name: "login",
+    component: () => import(/* webpackChunkName: "login" */ "@/views/LoginView.vue")
+  },
+  {
+    path: "/admin",
+    name: "admin",
+    component: () => import(/* webpackChunkName: "admin" */ "@/views/AdminView.vue"),
+    beforeEnter: adminGuard,
+  },
+  {
     path: "*",
     name: "notFound",
     component: () => import(/* webpackChunkName: "notFound" */ "@/views/NotFoundView.vue")
@@ -103,5 +114,11 @@ async function postDetailGuard(to, from, next) {
   const isValid = store.getters.isValidPostParam(to.params.id);
   isValid ? next() : next("notFound"); 
 }
+
+function adminGuard(to, from, next) {
+  store.state.isAdmin ? next() : next({ name: "login" });
+}
+
+
 
 

@@ -6,8 +6,6 @@
       <Spinner />
     </div>
 
-
-
     <!-- Show posts section after mapState[posts] has completed-->
     <div v-else>
       <!-- If no post exits-->
@@ -16,7 +14,9 @@
 
         <div class="textCtn">
           <h5>There's no post yet.</h5>
-          <h6>*For admin, please <button>login</button> to add new post.</h6>
+          <h6>*For admin, please <router-link :to="{
+            name: 'login'
+          }"><button>login</button></router-link> to add new post.</h6>
         </div>
         <div class="imgCtn">
           <img class="img-fluid"
@@ -28,30 +28,37 @@
       <!-- If any post exits -->
       <section v-else
                class="container postSec">
-        <!-- search bar -->
+        <!-- Search Bar Section -->
         <div class="searchCtn mx-auto">
+
+          <div class="manageBtn"><router-link :to="{
+            name: 'admin'
+          }"><font-awesome-icon :icon="['fas', 'user-pen']"
+                                 class="manageIcon" /> Manage</router-link></div>
+
           <form class="searchBar">
             <input v-model="searchKey"
+                   name="searchKeyInput"
                    class="form-control me-2"
                    type="search"
                    placeholder="Type something to search..."
                    aria-label="Search">
-            <button @click.prevent="toChangeSearchKey(searchKey)"
+            <button @click.stop.prevent="toChangeSearchKey(searchKey)"
                     class="searchBtn btn btn-outline-success"
                     type="submit">Search</button>
           </form>
         </div>
 
-        <!-- post -->
+        <!-- Post Section-->
         <div v-if="postsFilterBySearchKey && postsFilterBySearchKey.length">
-          <article v-for="(post, index) in postsFilterBySearchKey"
+          <article v-for="( post, index ) in  postsFilterBySearchKey "
                    @click="toDetailPage(post.id)"
                    class="row postCtn mx-auto"
                    :key="index">
             <div class="col-md-8 postText"
                  :class="{ 'order-md-5': isOdd(index) }">
               <h3>{{ post.title }}</h3>
-              <p>May 24, 2023</p>
+              <p class="postDate">May 24, 2023</p>
               <p>{{ filteredContent(post.content) }}</p>
             </div>
 
@@ -70,9 +77,6 @@
         </div>
       </section>
     </div>
-
-
-
 
   </DefaultLayout>
 </template>
@@ -95,7 +99,7 @@ export default {
     isLoading() {
       return this.isLoadingPost || !this.posts;
     },
-    ...mapState(["isLoadingPost", "posts"]),
+    ...mapState(["isLoadingPost", "posts", "isAdmin"]),
     ...mapGetters(["postsFilterBySearchKey"]),
     noPost() {
       return !this.isLoadingPost && this.posts && this.posts.length === 0; // Make sure fetching posts and mapping posts state are completed first
@@ -115,7 +119,7 @@ export default {
     },
     filteredContent(content) {
       let replacedContent = content.replace(/<br>/g, ' ');
-      return replacedContent.length >= 200 ? replacedContent.slice(0, 200) + "..." : replacedContent;
+      return replacedContent.length >= 250 ? replacedContent.slice(0, 250) + "..." : replacedContent;
     },
     toDetailPage(postID) {
       this.$router.push({ name: "postDetail", params: { id: postID } });
@@ -153,10 +157,23 @@ export default {
 
   .searchCtn {
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
+    align-items: flex-end;
     max-width: 900px;
-    padding: 1rem;
+    padding: 1rem 0 1rem 0;
     border-bottom: 4px groove $green-2;
+
+    .manageBtn {
+      font-weight: bold;
+      color: $green-4;
+
+      &:hover {
+        a {
+          color: $green-6;
+          text-decoration: underline;
+        }
+      }
+    }
 
     .searchBar {
       display: flex;
@@ -176,7 +193,6 @@ export default {
         font-style: italic;
 
         &:focus {
-          // box-shadow: none;
           box-shadow: 0 0 5px $green-4;
           border-color: $green-3;
         }
@@ -213,8 +229,8 @@ export default {
   .postCtn {
     max-width: 900px;
     min-height: 200px;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
     border-top: 1.5px solid $shadow-grey;
     word-wrap: break-word;
 
@@ -229,8 +245,12 @@ export default {
       line-height: 1.5rem;
     }
 
+    .postDate {
+      font-size: 0.8rem;
+    }
+
     .postImg {
-      height: 230px;
+      height: 200px;
 
       img {
         width: 100%;
