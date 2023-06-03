@@ -95,7 +95,11 @@ async function albumGuard(to, from, next) {
 async function postDetailGuard(to, from, next) {
   // Wait for the store(posts) to be initialized
   // Make sure that getter isValidPostParam works correctly
-  await store.dispatch("toFetchPosts");
+  const isFetchSuccessful = await store.dispatch("toFetchPosts");
+  if (!isFetchSuccessful) {
+    next("notFound"); // Direct to NotFound page ｉf failed to fetch posts
+    return; // Return immediately to prevent further execution
+  }
   const isValid = store.getters.isValidPostParam(to.params.id);
   isValid ? next() : next("notFound"); 
 }

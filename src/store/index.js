@@ -12,9 +12,22 @@ export default new Vuex.Store({
     albumNamesForURL: {},
     posts: [], // [post{id, title, content, image}]
     searchKey: "",
+    isLoadingPost: true, // check if fetching posts is completed
   },
 
   getters: {
+    // Filter posts by search key
+    postsFilterBySearchKey: (state) => {
+      if (state.posts.length) { // if any post exists
+        if (!state.searchKey) { // if searchKey is empty
+          return state.posts;
+        } else { // if searchKey is not empty
+          const keyword = state.searchKey.toLowerCase();
+          return state.posts.filter(post => post.title.toLowerCase().includes(keyword) || post.content.toLowerCase().includes(keyword))
+        }
+      }
+    },
+
     // Check if params of album path is valid
     isValidAlbumParam: (state) => (seriesName, galleryName) => {
       if (!state.albumNamesForURL[seriesName]) { return false; }
@@ -42,7 +55,7 @@ export default new Vuex.Store({
     },
 
     // Choose the oldest album of each series
-    oldestAlbum(state) {
+    oldestAlbum: (state) => {
       const oldestAlbum = {}
       for (const series in state.albums) {
         const seriesAlbums = state.albums[series];
@@ -64,7 +77,7 @@ export default new Vuex.Store({
     },
 
     // Order albums from old to latest
-    albumsInOrder(state) {
+    albumsInOrder: (state) => {
       const albumsInOrder = {}
       for (const series in state.albums) {
         const seriesAlbums = state.albums[series];
@@ -74,6 +87,7 @@ export default new Vuex.Store({
       return albumsInOrder;
     },
   },
+
 
   mutations: {
     setAlbums(state, allAlbums) {
@@ -87,25 +101,39 @@ export default new Vuex.Store({
         state.albumNamesForURL[SeriesNameForURL] = galleryNamesForURL;
       }
     },
-    fetchPosts: (state, payload) => {
+    setIsLoadingPost(state, payload) {
+      state.isLoadingPost = payload;
+    },
+    fetchPosts(state, payload) {
       state.posts = payload;
     },
+    changeSearchKey(state, payload) {
+      state.searchKey = payload;
+    },
   },
+
 
   actions: {
     // Default order of albums: from latest to old
     toSetAlbums({ commit }) {
       commit("setAlbums", defaultAlbums);
     },
+
+    // To initialize albumNamesForURL state
     toSetAlbumNamesForURL({ commit }) {
       commit("setAlbumNamesForURL");
     },
+
+    // Dispatch all the actions that need to be performed at startup
     initializeStore({ dispatch }) {
-      // Dispatch all the actions that need to be performed at startup
       dispatch("toSetAlbums");
       dispatch("toSetAlbumNamesForURL");
-      // Return a resolved promise
-      return Promise.resolve();
+      return Promise.resolve(); // Return a resolved promise, to make albumGuard wait for this action
+    },
+
+    // To change searchKey state
+    toChangeSearchKey({ commit }, payload) {
+      commit("changeSearchKey", payload);
     },
 
     // Read doc data from Firestore database
@@ -118,8 +146,12 @@ export default new Vuex.Store({
           payload.push({ id: doc.id, ...doc.data() });
         });
         commit("fetchPosts", payload);
+        commit("setIsLoadingPost", false);
+        return true; 
       } catch (error) {
+        commit("setIsLoadingPost", true);
         console.error("Error fetching documents: ", error);
+        return false;
       }
     },
 

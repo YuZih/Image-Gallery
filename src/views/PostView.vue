@@ -34,31 +34,40 @@
             <input v-model="searchKey"
                    class="form-control me-2"
                    type="search"
-                   placeholder="Type to search"
+                   placeholder="Type something to search..."
                    aria-label="Search">
-            <button class="searchBtn btn btn-outline-success"
+            <button @click.prevent="toChangeSearchKey(searchKey)"
+                    class="searchBtn btn btn-outline-success"
                     type="submit">Search</button>
           </form>
         </div>
 
         <!-- post -->
-        <article v-for="(post, index) in posts"
-                 @click="toDetailPage(post.id)"
-                 class="row postCtn mx-auto"
-                 :key="index">
-          <div class="col-md-8 postText"
-               :class="{ 'order-md-5': isOdd(index) }">
-            <h3>{{ post.title }}</h3>
-            <p>May 24, 2023</p>
-            <p>{{ filteredContent(post.content) }}</p>
-          </div>
+        <div v-if="postsFilterBySearchKey && postsFilterBySearchKey.length">
+          <article v-for="(post, index) in postsFilterBySearchKey"
+                   @click="toDetailPage(post.id)"
+                   class="row postCtn mx-auto"
+                   :key="index">
+            <div class="col-md-8 postText"
+                 :class="{ 'order-md-5': isOdd(index) }">
+              <h3>{{ post.title }}</h3>
+              <p>May 24, 2023</p>
+              <p>{{ filteredContent(post.content) }}</p>
+            </div>
 
-          <div class="col-md-4 postImg">
-            <img :src="post.image"
-                 alt="post-image"
-                 @contextmenu.prevent>
-          </div>
-        </article>
+            <div class="col-md-4 postImg">
+              <img :src="post.image"
+                   alt="post-image"
+                   @contextmenu.prevent>
+            </div>
+          </article>
+        </div>
+
+        <div v-else
+             class="noMatchCtn mx-auto text-center">
+          <p>We're sorry, but there is no post matched your search.</p>
+          <p>Please try search other words or clear the search field.</p>
+        </div>
       </section>
     </div>
 
@@ -70,7 +79,7 @@
 
 <script>
 import { DefaultLayout, Spinner } from "@/components";
-import { mapState } from "vuex";
+import { mapState, mapGetters, mapActions } from "vuex";
 
 export default {
   name: "PostView",
@@ -84,14 +93,23 @@ export default {
   },
   computed: {
     isLoading() {
-      return !this.posts;
+      return this.isLoadingPost || !this.posts;
     },
-    ...mapState(["posts"]),
+    ...mapState(["isLoadingPost", "posts"]),
+    ...mapGetters(["postsFilterBySearchKey"]),
     noPost() {
-      return this.posts.length === 0;
+      return !this.isLoadingPost && this.posts && this.posts.length === 0; // Make sure fetching posts and mapping posts state are completed first
+    }
+  },
+  watch: {
+    searchKey() {
+      if (!this.searchKey) {
+        this.toChangeSearchKey("");
+      }
     }
   },
   methods: {
+    ...mapActions(["toChangeSearchKey"]),
     isOdd(index) {
       return index % 2 !== 0;
     },
@@ -138,10 +156,11 @@ export default {
     justify-content: end;
     max-width: 900px;
     padding: 1rem;
+    border-bottom: 4px groove $green-2;
 
     .searchBar {
       display: flex;
-      width: 300px;
+      width: 350px;
 
       .searchBtn {
         border-color: $green-3;
@@ -222,8 +241,15 @@ export default {
   }
 }
 
-.postCtn:nth-child(2) {
+// No top border for the first post
+.postCtn:nth-child(1) {
   border-top: none;
+}
+
+.noMatchCtn {
+  max-width: 900px;
+  padding: 1rem;
+  color: $green-6;
 }
 
 @media screen and (min-width: 768px) {
