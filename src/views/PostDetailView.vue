@@ -1,16 +1,11 @@
 <template>
   <DefaultLayout>
-    <section v-if="targetPost">
+    <section>
       <h1>{{ targetPost.title }}</h1>
       <h3 v-html="targetPost.content"></h3>
       <img :src="targetPost.image"
            alt="post-image">
     </section>
-
-    <div v-else
-         class="spinnerCtn">
-      <Spinner />
-    </div>
   </DefaultLayout>
 </template>
 

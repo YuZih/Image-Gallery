@@ -2,13 +2,12 @@
   <section>
 
     <div class="imgCtn text-center">
-
-      <img class="img-fluid"
-           src="@/assets/images/others/404.jpg"
-           alt="404-image">
       <router-link :to="{ name: 'home' }">
         <div class="homeBtn">GO HOME</div>
       </router-link>
+      <img class="img-fluid"
+           src="@/assets/images/others/404.jpg"
+           alt="404-image">
     </div>
   </section>
 </template>

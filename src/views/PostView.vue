@@ -31,8 +31,8 @@
         <!-- search bar -->
         <div class="searchCtn mx-auto">
           <form class="searchBar">
-            <input class="form-control me-2"
-                   id="searchInput"
+            <input v-model="searchKey"
+                   class="form-control me-2"
                    type="search"
                    placeholder="Type to search"
                    aria-label="Search">
@@ -76,6 +76,11 @@ export default {
   name: "PostView",
   components: {
     DefaultLayout, Spinner
+  },
+  data() {
+    return {
+      searchKey: "",
+    }
   },
   computed: {
     isLoading() {

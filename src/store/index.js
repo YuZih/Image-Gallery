@@ -11,6 +11,7 @@ export default new Vuex.Store({
     albums: {},
     albumNamesForURL: {},
     posts: [], // [post{id, title, content, image}]
+    searchKey: "",
   },
 
   getters: {
@@ -21,6 +22,12 @@ export default new Vuex.Store({
         return false;
       }
       return true; 
+    },
+
+    // Check if params of post path is valid
+    isValidPostParam: (state) => (postID) => {
+      const postExists = state.posts.find(post => post.id === postID);
+      return postExists ? true : false;
     },
 
     // Choose the latest albums (Top N) 

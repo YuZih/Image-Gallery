@@ -7,19 +7,6 @@ import HomeView from "@/views/HomeView.vue"
 
 Vue.use(VueRouter)
 
-async function albumGuard(to, from, next) {
-  // Wait for the store to be initialized
-  // Make sure that getter isValidAlbumParam works correctly
-  await store.dispatch('initializeStore');
-  
-  const isValid = to.params.galleryName
-    ? store.getters.isValidAlbumParam(to.params.seriesName, to.params.galleryName)
-    : store.getters.isValidAlbumParam(to.params.seriesName);
-
-  isValid ? next() : next("notFound");  // use next("notFound") instead of using next({name: "notFound"}), in order to avoid bug of Vue Router 3 (error message: [vue-router] missing param for named route "notFound": Expected "0" to be defined)
-}
-
-
 const routes = [
   {
     path: "/",
@@ -44,6 +31,7 @@ const routes = [
     path: "/post/:id",
     name: "postDetail",
     component: () => import(/* webpackChunkName: "postDetail" */ "@/views/PostDetailView.vue"),
+    beforeEnter: postDetailGuard,
   }, 
   {
     path: "/album",
@@ -88,5 +76,28 @@ const router = new VueRouter({
     }
   },
 })
-
 export default router
+
+
+async function albumGuard(to, from, next) {
+  // Wait for the store(albums) to be initialized
+  // Make sure that getter isValidAlbumParam works correctly
+  await store.dispatch('initializeStore');
+  
+  const isValid = to.params.galleryName
+    ? store.getters.isValidAlbumParam(to.params.seriesName, to.params.galleryName)
+    : store.getters.isValidAlbumParam(to.params.seriesName);
+
+  isValid ? next() : next("notFound");  // use next("notFound") instead of using next({name: "notFound"}), in order to avoid bug of Vue Router 3 (error message: [vue-router] missing param for named route "notFound": Expected "0" to be defined)
+}
+
+
+async function postDetailGuard(to, from, next) {
+  // Wait for the store(posts) to be initialized
+  // Make sure that getter isValidPostParam works correctly
+  await store.dispatch("toFetchPosts");
+  const isValid = store.getters.isValidPostParam(to.params.id);
+  isValid ? next() : next("notFound"); 
+}
+
+
