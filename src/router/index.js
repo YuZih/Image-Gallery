@@ -68,6 +68,16 @@ const routes = [
     beforeEnter: adminGuard,
   },
   {
+    path: "/admin/add",
+    name: "adminAdd",
+    component: () => import(/* webpackChunkName: "adminAdd" */ "@/views/AdminAddView.vue"),
+  },
+  {
+    path: "/admin/edit/:id",
+    name: "adminEdit",
+    component: () => import(/* webpackChunkName: "adminEdit" */ "@/views/AdminEditView.vue"),
+  },
+  {
     path: "*",
     name: "notFound",
     component: () => import(/* webpackChunkName: "notFound" */ "@/views/NotFoundView.vue")

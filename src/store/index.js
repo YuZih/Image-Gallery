@@ -105,11 +105,11 @@ export default new Vuex.Store({
     setIsLoadingPost(state, payload) {
       state.isLoadingPost = payload;
     },
-    fetchPosts(state, payload) {
-      state.posts = payload;
-    },
     changeSearchKey(state, payload) {
       state.searchKey = payload;
+    },
+    fetchPosts(state, payload) {
+      state.posts = payload;
     },
   },
 

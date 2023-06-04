@@ -164,6 +164,7 @@ export default {
     border-bottom: 4px groove $green-2;
 
     .manageBtn {
+      font-size: 1.1rem;
       font-weight: bold;
       color: $green-4;
 
