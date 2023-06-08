@@ -63,8 +63,8 @@
             </div>
 
             <div class="col-md-4 postImg">
-              <img :src="post.image"
-                   alt="post-image"
+              <img :src="post.cover | emptyImage"
+                   alt="post-cover"
                    @contextmenu.prevent>
             </div>
           </article>
@@ -84,9 +84,11 @@
 <script>
 import { DefaultLayout, Spinner } from "@/components";
 import { mapState, mapGetters, mapActions } from "vuex";
+import { emptyImageFilter } from "@/utils/mixins";
 
 export default {
   name: "PostView",
+  mixins: [emptyImageFilter],
   components: {
     DefaultLayout, Spinner
   },

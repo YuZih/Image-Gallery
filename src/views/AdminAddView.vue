@@ -6,100 +6,107 @@
 
         <h3 class="container text-center">Add New Post</h3>
         <!-- Title field -->
-        <div class="mb-3 mb-md-4 row">
+        <div class="row">
           <label for="inputTitle"
                  class="col-sm-2 col-form-label">Title<span>*</span></label>
-          <div class="col-sm-10">
-            <input v-model="title"
+          <div class="field col-sm-10">
+            <input v-model="formData.title"
                    type="text"
-                   required
                    class="form-control"
                    id="inputTitle"
                    name="title"
                    placeholder="Enter post title here">
+            <div v-show="showErrorMsg && !title.trim()"
+                 class="errorMsg">Title is required.</div>
           </div>
-          <div class="col-sm-10 offset-sm-2">Title is required.</div>
+
         </div>
 
         <!-- Content field -->
-        <div class="mb-3 mb-md-4 row">
+        <div class="row">
           <label for="contentArea"
                  class="col-sm-2 col-form-label">Content<span>*</span></label>
-          <div class="col-sm-10">
-            <textarea v-model="content"
-                      required
+          <div class="field col-sm-10">
+            <textarea v-model="formData.content"
                       class="form-control"
                       id="contentArea"
                       name="content"
                       rows="10"
                       placeholder="Enter what you want to share here"></textarea>
+            <div v-show="showErrorMsg && !content.trim()"
+                 class="errorMsg">Content is required.</div>
           </div>
-          <div class="col-sm-10 offset-sm-2">Content is required.</div>
+
         </div>
 
         <!-- Post Cover Image field -->
-        <div class="mb-3 mb-md-4 row">
+        <div class="row">
           <label for="inputCover"
                  class="col-sm-2 col-form-label">Cover Image<span>*</span></label>
-          <div class="col-sm-2 d-flex">
+          <div class="field col-sm-4 ">
             <!-- Hide fileInput to replace default displaying with custom text -->
-            <input type="file"
+            <input class="d-none"
+                   type="file"
                    accept="image/*"
-                   class="d-none"
                    id="inputCover"
                    name="cover"
                    ref="fileInput"
                    @change="updateFileName">
             <!-- button for choosing file -->
-            <button class="form-control"
+            <button class="chooseBtn form-control"
                     type="button"
                     @click="triggerFileInput">{{ fileName ? "Reselect file" : "Choose file" }}</button>
+            <div v-show="showErrorMsg && !fileName"
+                 class="errorMsg">Cover image is required.</div>
           </div>
-          <div class="col-sm-8">
+          <div class="col-sm-6">
             <input type="text"
                    readonly
                    class="form-control"
                    :value="fileName"
                    placeholder="No file chosen">
           </div>
-          <div class="col-sm-10 offset-sm-2">Cover image is required.</div>
-        </div>
-
-        <!-- image preview -->
-        <div v-if="coverPreviewURL"
-             class="mb-3 mb-md-4 row">
-          <div class="col-sm-10 offset-sm-2">
-            <img :src="coverPreviewURL"
-                 alt="cover-preview"
-                 class="coverPreview">
+          <!-- image preview -->
+          <div v-if="coverPreviewURL"
+               class="coverCtn">
+            <div class="col-sm-10 offset-sm-2">
+              <img :src="coverPreviewURL"
+                   alt="cover-preview"
+                   class="coverPreview">
+            </div>
           </div>
         </div>
 
         <!-- Album field -->
-        <div class="mb-3 mb-md-4 row">
+        <div class="row">
           <label for="selectAlbum"
                  class="col-sm-2 col-form-label">Album (Optional)</label>
           <div class="col-sm-10">
-            <select v-model="album"
+            <select v-model="formData.album"
                     class="form-control"
                     id="selectAlbum"
                     name="albums">
               <option value=""
-                      selected>--Choose which album you want to show on the post--</option>
-              <option value="V-1">V-1</option>
-              <option value="V-2">V-2</option>
-              <option value="W-1">W-1</option>
-              <option value="W-2">W-2</option>
-              <option value="W-3">W-3</option>
+                      class="text-center"
+                      selected>- Choose which album you want to show on the post -</option>
+              <option v-for="(albumName, index) in albumNames"
+                      :key="index"
+                      :value="albumName">{{ albumName }}</option>
             </select>
           </div>
         </div>
 
         <!-- Post button -->
         <div class="container text-center">
+          <button @click="handleReset"
+                  class="resetBtn"
+                  type="button">
+            Reset
+          </button>
           <button class="postBtn"
                   type="submit"
-                  :disabled="isProcessing">
+                  :disabled="isProcessing"
+                  :style="{ cursor: isProcessing ? 'not-allowed' : 'pointer' }">
             {{ isProcessing ? "Processing" : "Post" }}
           </button>
         </div>
@@ -111,6 +118,7 @@
 
 <script>
 import { DefaultLayout } from "@/components";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "AdminAddView",
@@ -120,12 +128,23 @@ export default {
   data() {
     return {
       isProcessing: false,
-      title: "",
-      content: "",
-      album: "",
+      showErrorMsg: false,
       fileName: null, // for file name showing
       coverPreviewURL: null, // for preview showing
+      formData: {
+        date: "",
+        title: "",
+        content: "",
+        album: "",
+        cover: "",
+      },
     }
+  },
+  computed: {
+    ...mapGetters(["albumsInOrder"]),
+    albumNames() {
+      return Object.values(this.albumsInOrder).flat();
+    },
   },
   methods: {
     triggerFileInput() {
@@ -140,13 +159,38 @@ export default {
         console.log(this.coverPreviewURL);
       }
     },
-    handleSubmit(e) {
-      const form = e.target;
-      const formData = new FormData(form);
-      console.log(formData);
-      for (let [key, value] of formData.entries()) {
-        console.log(key, value);
+    handleReset() {
+      this.isProcessing = false;
+      this.showErrorMsg = false;
+      this.fileName = null;
+      this.coverPreviewURL = null;
+      this.$refs.fileInput.value = ""; // Clear value of fileInput
+      this.formData.date = "";
+      this.formData.title = "";
+      this.formData.content = "";
+      this.formData.album = "";
+    },
+    ...mapActions(["toAddPost"]),
+    handleSubmit() {
+      // Step 1: Validate form: Ensure all required fields and cover photo are provided.
+      if (!this.formData.title.trim() || !this.formData.content.trim() || !this.fileName) {
+        this.showErrorMsg = true;
+        return;
       }
+
+      // Step 2: Update states of post button and error message 
+      this.isProcessing = true;
+      this.showErrorMsg = false;
+
+      // Step 3: Upload cover image to Cloud Storage and get the url of uploaded cover image
+      // Todo: Write your code here.
+
+      // Step 4: Send data back to Firestore database
+      //  Todo: Write your code here.
+      // this.formData.cover = coverURL; // 
+      this.formData.date = new Date().getTime();
+      console.log(this.formData);
+      this.toAddPost(this.formData);
     },
   }
 }
@@ -174,7 +218,7 @@ export default {
   color: $green-6;
 
   &>span {
-    color: rgb(241, 169, 226);
+    color: rgb(218, 90, 165);
     font-size: 1.1rem;
   }
 }
@@ -183,24 +227,39 @@ export default {
   box-shadow: 0 0 10px $green-4;
 }
 
-.postBtn {
+.postBtn,
+.resetBtn {
   width: 110px;
   height: 2rem;
   font-size: 1.1rem;
   font-weight: 600;
   margin: 1rem;
   color: white;
-  background-color: $green-3;
   border: none;
   border-radius: 10px;
+}
+
+.postBtn {
+  background-color: $green-3;
 
   &:hover {
-    color: white;
     background-color: $green-6;
   }
 
   &:active {
     box-shadow: 0 0 20px $green-4;
+  }
+}
+
+.resetBtn {
+  background-color: rgb(242, 194, 222);
+
+  &:hover {
+    background-color: rgb(218, 90, 165);
+  }
+
+  &:active {
+    box-shadow: 0 0 20px rgb(192, 107, 156);
   }
 }
 
@@ -212,9 +271,29 @@ textarea::placeholder {
 .row {
   display: flex;
   align-items: center;
+  margin-bottom: 2.2rem;
 }
 
-.coverPreview {
-  width: 50%;
+.coverCtn {
+  margin-top: .8rem;
+
+  .coverPreview {
+    width: 50%;
+  }
+}
+
+
+
+.field {
+  position: relative;
+
+  .errorMsg {
+    position: absolute;
+    left: 12px;
+    bottom: -20px;
+    color: rgb(218, 90, 165);
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
 }
 </style>

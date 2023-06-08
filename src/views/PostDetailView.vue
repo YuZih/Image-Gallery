@@ -5,8 +5,8 @@
       <div class="postSec_contentCtn">
         <div class="postSec_contentCtn_imageCtn">
           <img class="postSec_contentCtn_imageCtn_image"
-               :src="postFilterByID.image"
-               alt="post-image">
+               :src="postFilterByID.cover | emptyImage"
+               alt="post-cover">
         </div>
         <p class="postSec_contentCtn_date">May, 3, 2023</p>
         <p class="postSec_contentCtn_content"
@@ -19,9 +19,11 @@
 <script>
 import { DefaultLayout } from "@/components";
 import { mapState } from "vuex";
+import { emptyImageFilter } from "@/utils/mixins"
 
 export default {
   name: "PostDetailView",
+  mixins: [emptyImageFilter],
   components: {
     DefaultLayout
   },

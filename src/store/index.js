@@ -1,7 +1,7 @@
 import Vue from "vue"
 import Vuex from "vuex"
 import { defaultAlbums } from "@/utils/defaultSetting.js"
-import { db } from "@/store/firebase.js"
+import { db, storage } from "@/store/firebase.js"
 import { collection, getDocs, addDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 
 Vue.use(Vuex)
@@ -10,7 +10,7 @@ export default new Vuex.Store({
   state: {
     albums: {},
     albumNamesForURL: {},
-    posts: [], // [post{id, title, content, image}]
+    posts: [], // [post{id, date, title, content, cover, album}]
     searchKey: "",
     isLoadingPost: true, // check if fetching posts is completed
     isAdmin: true,
@@ -111,6 +111,9 @@ export default new Vuex.Store({
     fetchPosts(state, payload) {
       state.posts = payload;
     },
+    addPost(state, payload) {
+      state.posts = [payload, ...state.posts];
+    },
   },
 
 
@@ -162,7 +165,8 @@ export default new Vuex.Store({
       try {
         const docRef = await addDoc(Ref, payload);
         console.log("Document written with ID: ", docRef.id);
-        // commit("AddPost", {id: docRef.id, ...payload});
+        console.log("payload: ", { id: docRef.id, ...payload });
+        commit("addPost", {id: docRef.id, ...payload});
       } catch (e) {
         console.error("Error adding document: ", e);
       }
