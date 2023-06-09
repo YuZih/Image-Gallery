@@ -14,6 +14,8 @@ export default new Vuex.Store({
     searchKey: "",
     isLoadingPost: true, // check if fetching posts is completed
     isAdmin: true,
+    focusPostID: "", // for edit mode
+    postChanged: false,
   },
 
   getters: {
@@ -25,6 +27,17 @@ export default new Vuex.Store({
         } else { // if searchKey is not empty
           const keyword = state.searchKey.toLowerCase();
           return state.posts.filter(post => post.title.toLowerCase().includes(keyword) || post.content.toLowerCase().includes(keyword))
+        }
+      }
+    },
+
+    // Filter posts by focusPostID when in edit mode
+    postFilterByPostID: (state) => {
+      if (state.posts.length) { // if any post exists
+        if (!state.focusPostID) { // if no post is focused
+          return null;
+        } else { // if a post is focused
+          return state.posts.filter(post => post.id === state.focusPostID)[0];
         }
       }
     },
@@ -108,11 +121,25 @@ export default new Vuex.Store({
     changeSearchKey(state, payload) {
       state.searchKey = payload;
     },
+    changeFocusPostID(state, payload) {
+      state.focusPostID = payload;
+    },
     fetchPosts(state, payload) {
       state.posts = payload;
     },
     addPost(state, payload) {
+      // payload: {id, date, title, content, cover, album}
       state.posts = [payload, ...state.posts];
+      state.postChanged = !state.postChanged;
+    },
+    updatePost(state, {id, newPost}) {
+      const index = state.posts.map(post => post.id).indexOf(id);
+      state.posts[index] = { id, ...newPost };
+      state.postChanged = !state.postChanged;
+    },
+    deletePost(state, postID) {
+      const index = state.posts.map(post => post.id).indexOf(postID);
+      state.posts.splice(index, 1);
     },
   },
 
@@ -140,6 +167,11 @@ export default new Vuex.Store({
       commit("changeSearchKey", payload);
     },
 
+    // change focus ID when editing post
+    toChangeFocusPostID({ commit }, payload) {
+      commit("changeFocusPostID", payload);
+    },
+
     // Read doc data from Firestore database
     toFetchPosts: async ({ commit }) => {
       const Ref = collection(db, "Posts");// Ref Prototype: Object
@@ -161,11 +193,13 @@ export default new Vuex.Store({
 
     // Add doc data to Firestore database
     toAddPost: async ({ commit }, payload) => {
+      // payload: {date, title, content, cover, album}
       const Ref = collection(db, "Posts");
       try {
+        // Add post document into posts collection with an automatically generated ID
         const docRef = await addDoc(Ref, payload);
-        console.log("Document written with ID: ", docRef.id);
-        console.log("payload: ", { id: docRef.id, ...payload });
+        console.log("3.1 Document written with ID: ", docRef.id);
+        console.log("3.2 addPost payload: ", { id: docRef.id, ...payload });
         commit("addPost", {id: docRef.id, ...payload});
       } catch (e) {
         console.error("Error adding document: ", e);
@@ -176,21 +210,23 @@ export default new Vuex.Store({
     toUpdatePost: async ({ commit }, payload) => {
       const docRef = doc(db, "Posts", payload.id);
       try {
+        // Update post document with an existing ID
         await updateDoc(docRef, payload.newPost);
         console.log("Document updated with new post: ", docRef.id);
-        // commit("updatePost", payload);
+        console.log("UpdatePost payload: ", { id: docRef.id, ...payload });
+        commit("updatePost", payload);
       } catch (e) {
         console.error("Error updating document: ", e);
       }
     },
 
     // Delete doc data in Firestore database
-    toDeletePost: async ({ commit }, id) => {
-      const docRef = doc(db, "Posts", id);
+    toDeletePost: async ({ commit }, postID) => {
+      const docRef = doc(db, "Posts", postID);
       try {
         await deleteDoc(docRef);
-        console.log("Document deleted: ", id);
-        // commit("deletePost", id);
+        console.log("Document deleted: ", postID);
+        commit("deletePost", postID);
       } catch (e) {
         console.error("Error deleting document: ", e);
       }

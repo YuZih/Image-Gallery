@@ -24,9 +24,10 @@
               <td>{{ post.title }}</td>
               <td>May, 23, 2023</td>
               <td>{{ filteredContent(post.content) }}</td>
-              <td class="iconCtn"><button @click="toAddPostPage()"
-                        class="btn btn-light"><font-awesome-icon :icon="['fas', 'pen']" /></button>
-                <button class="btn btn-light"><font-awesome-icon :icon="['fas', 'xmark']" /></button>
+              <td class="iconCtn"><button @click="toAdminEditPage(post.id)"
+                        class="editBtb btn btn-light"><font-awesome-icon :icon="['fas', 'pen']" /></button>
+                <button @click="deletePost(post.id)"
+                        class="deleteBtn btn btn-light"><font-awesome-icon :icon="['fas', 'xmark']" /></button>
               </td>
             </tr>
           </tbody>
@@ -42,7 +43,7 @@
 
 <script>
 import { DefaultLayout, Spinner } from "@/components";
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "AdminView",
@@ -56,12 +57,20 @@ export default {
     ...mapState(["isLoadingPost", "posts"]),
   },
   methods: {
+    ...mapActions(["toDeletePost"]),
     filteredContent(content) {
       let replacedContent = content.replace(/<br>/g, ' ');
       return replacedContent.length >= 40 ? replacedContent.slice(0, 40) + "..." : replacedContent;
     },
-    toAddPostPage() {
-      this.$router.push({ name: "adminEdit" });
+    toAdminEditPage(postID) {
+      this.$router.push({ name: "adminEdit", params: { id: postID } });
+    },
+    deletePost(postID) {
+      console.log("Delete post with ID: ", postID);
+      const ensure = confirm("Are you sure you want to delete this post?");
+      if (ensure) {
+        this.toDeletePost(postID);
+      }
     },
   },
 };

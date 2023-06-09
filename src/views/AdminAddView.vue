@@ -118,7 +118,9 @@
 
 <script>
 import { DefaultLayout } from "@/components";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapState } from "vuex";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { storage } from "@/store/firebase.js";
 
 export default {
   name: "AdminAddView",
@@ -127,8 +129,10 @@ export default {
   },
   data() {
     return {
+      mode: "add",
       isProcessing: false,
       showErrorMsg: false,
+      fileChanged: false, // for edit mode
       fileName: null, // for file name showing
       coverPreviewURL: null, // for preview showing
       formData: {
@@ -140,38 +144,73 @@ export default {
       },
     }
   },
+  mounted() {
+    if (this.$route.name === "adminEdit") {
+      this.mode = "edit";
+      const id = this.$route.params.id;
+      this.$store.dispatch("toChangeFocusPostID", id);
+    }
+  },
+  beforeRouteLeave(to, from, next) {
+    // Reset focusPostID if leaving to other pages from edit page
+    if (to.name !== "adminAdd" && to.name !== "adminEdit") {
+      this.toChangeFocusPostID("");
+    }
+    next();
+  },
   computed: {
-    ...mapGetters(["albumsInOrder"]),
+    ...mapState(["postChanged"]),
+    ...mapGetters(["albumsInOrder", "postFilterByPostID"]),
     albumNames() {
       return Object.values(this.albumsInOrder).flat();
     },
   },
+  watch: {
+    postFilterByPostID() {
+      if (this.mode === "edit") {
+        console.log("postFilterByPostID: ", this.postFilterByPostID);
+        this.formData.title = this.postFilterByPostID.title;
+        this.formData.content = this.postFilterByPostID.content;
+        this.formData.album = this.postFilterByPostID.album;
+        this.formData.cover = this.postFilterByPostID.cover;
+        this.coverPreviewURL = this.postFilterByPostID.cover;
+        this.fileName = "original post cover";
+      }
+    },
+    postChanged() {
+      // redirect to admin page after clicking submit button
+      this.$router.push({ name: "admin" });
+    }
+  },
   methods: {
+    ...mapActions(["toChangeFocusPostID", "toAddPost", "toUpdatePost"]),
     triggerFileInput() {
       this.$refs.fileInput.click();
     },
-    updateFileName(e) {
-      if (e.target.files[0]) {
-        this.fileName = e.target.files[0].name;
-        // create a blob URL representing the file
-        this.coverPreviewURL = URL.createObjectURL(e.target.files[0]);
-        console.log(e.target.files[0]);
+    updateFileName(event) {
+      // Access to the image file object
+      const file = event.target.files[0];
+      if (file) {
+        this.fileChanged = true;
+        this.fileName = file.name; // Change fileName to show
+        // Create a blob URL representing the file
+        this.coverPreviewURL = URL.createObjectURL(file);
+        console.log(file);
         console.log(this.coverPreviewURL);
       }
     },
     handleReset() {
+      this.$refs.fileInput.value = ""; // Clear the value of fileInput
       this.isProcessing = false;
       this.showErrorMsg = false;
       this.fileName = null;
       this.coverPreviewURL = null;
-      this.$refs.fileInput.value = ""; // Clear value of fileInput
       this.formData.date = "";
       this.formData.title = "";
       this.formData.content = "";
       this.formData.album = "";
     },
-    ...mapActions(["toAddPost"]),
-    handleSubmit() {
+    async handleSubmit() {
       // Step 1: Validate form: Ensure all required fields and cover photo are provided.
       if (!this.formData.title.trim() || !this.formData.content.trim() || !this.fileName) {
         this.showErrorMsg = true;
@@ -182,15 +221,45 @@ export default {
       this.isProcessing = true;
       this.showErrorMsg = false;
 
-      // Step 3: Upload cover image to Cloud Storage and get the url of uploaded cover image
-      // Todo: Write your code here.
+      // Step 3: Check if cover URL needs to update or not
+      if (this.fileChanged) {
+        const file = this.$refs.fileInput.files[0];
+        if (file) {
+          const storageRef = ref(storage, 'post-cover/' + file.name);
+          const uploadTask = uploadBytesResumable(storageRef, file);
 
-      // Step 4: Send data back to Firestore database
-      //  Todo: Write your code here.
-      // this.formData.cover = coverURL; // 
-      this.formData.date = new Date().getTime();
-      console.log(this.formData);
-      this.toAddPost(this.formData);
+          // Create a promise to handle the upload process
+          const uploadPromise = new Promise((resolve, reject) => {
+            uploadTask.on('state_changed', null,
+              (error) => {
+                // Handle uploading error
+                console.log("Error uploading cover image: ", error);
+                reject(error);
+              },
+              () => {
+                // Upload completed, get the download URL
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                  this.formData.cover = downloadURL; // Update cover URL
+                  console.log('1. File available at', downloadURL);
+                  resolve();
+                });
+              }
+            );
+          });
+          // Wait for the upload and URL fetching to finish
+          await uploadPromise;
+        }
+      }
+
+      // Step 4: Send back to database
+      this.formData.date = new Date().getTime(); // Update post date
+      if (this.mode === "edit") {
+        console.log("2. toUpdatePost payload: ", this.formData);
+        this.toUpdatePost({ id: this.$route.params.id, newPost: this.formData });
+      } else {
+        console.log("2. toAddPost payload: ", this.formData);
+        this.toAddPost(this.formData);
+      }
     },
   }
 }
