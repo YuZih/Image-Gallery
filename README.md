@@ -10,6 +10,20 @@ This is an image gallery website where you can browse all the photos and view th
 
 From layout design to route planning, database design, and style design, every aspect of this site has been meticulously crafted from scratch by me. A key feature of this project is its dynamic photo loading design. You can freely replace or add photos on the site by following the replacement rules provided below. This flexibility, combined with the responsive design, makes this image gallery a versatile tool for displaying and exploring photos.
 
+## Highlights for Teck Stack & Feature:
+
+1. Used Vue CLI to create reusable components.
+2. Utilized Vue Router for SPA development.
+3. Employed Vuex for global state management.
+4. Utilized Webpack API for dynamic loading of folders and images.
+5. Deployed website using Firebase Hosting.
+6. Established a post CRUD CMS with Firestore.
+7. Verified user and admin identities via Firebase Authentication.
+8. Integrated the Google Maps API using Axios for location display.
+9. Applied RWD principles for a device-friendly UI.
+10. Leveraged Bootstrap & SCSS for quick, elegant interface design.
+11. Used the third-party package Vue Cool Lightbox for photo browsing.
+
 ## Features
 
 ### For users:
