@@ -88,7 +88,7 @@
                     name="albums">
               <option value=""
                       class="text-center"
-                      selected>- Choose which album you want to show on the post -</option>
+                      selected>- Choose album if you want it to show on the post -</option>
               <option v-for="(albumName, index) in albumNames"
                       :key="index"
                       :value="albumName">{{ albumName }}</option>
@@ -100,7 +100,9 @@
         <div class="container text-center">
           <button @click="handleReset"
                   class="resetBtn"
-                  type="button">
+                  type="button"
+                  :disabled="isProcessing"
+                  :style="{ cursor: isProcessing ? 'not-allowed' : 'pointer' }">
             Reset
           </button>
           <button class="postBtn"
@@ -240,7 +242,7 @@ export default {
                 // Upload completed, get the download URL
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                   this.formData.cover = downloadURL; // Update cover URL
-                  console.log('1. File available at', downloadURL);
+                  console.log('File available at', downloadURL);
                   resolve();
                 });
               }
@@ -254,10 +256,10 @@ export default {
       // Step 4: Send back to database
       this.formData.date = new Date().getTime(); // Update post date
       if (this.mode === "edit") {
-        console.log("2. toUpdatePost payload: ", this.formData);
+        console.log("toUpdatePost payload: ", this.formData);
         this.toUpdatePost({ id: this.$route.params.id, newPost: this.formData });
       } else {
-        console.log("2. toAddPost payload: ", this.formData);
+        console.log("toAddPost payload: ", this.formData);
         this.toAddPost(this.formData);
       }
     },
@@ -321,14 +323,14 @@ export default {
 }
 
 .resetBtn {
-  background-color: rgb(242, 194, 222);
+  background-color: $pink-0;
 
   &:hover {
-    background-color: rgb(218, 90, 165);
+    background-color: $pink-2;
   }
 
   &:active {
-    box-shadow: 0 0 20px rgb(192, 107, 156);
+    box-shadow: 0 0 20px $pink-1;
   }
 }
 
@@ -360,7 +362,7 @@ textarea::placeholder {
     position: absolute;
     left: 12px;
     bottom: -20px;
-    color: rgb(218, 90, 165);
+    color: $pink-2;
     font-size: 0.9rem;
     font-weight: bold;
   }

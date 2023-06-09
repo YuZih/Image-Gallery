@@ -198,8 +198,8 @@ export default new Vuex.Store({
       try {
         // Add post document into posts collection with an automatically generated ID
         const docRef = await addDoc(Ref, payload);
-        console.log("3.1 Document written with ID: ", docRef.id);
-        console.log("3.2 addPost payload: ", { id: docRef.id, ...payload });
+        console.log("Document written with ID: ", docRef.id);
+        console.log("addPost payload: ", { id: docRef.id, ...payload });
         commit("addPost", {id: docRef.id, ...payload});
       } catch (e) {
         console.error("Error adding document: ", e);

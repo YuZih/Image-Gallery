@@ -18,24 +18,73 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(post, index) in posts"
+            <tr @click="openThisPostPage(post.id)"
+                v-for="(post, index) in posts"
                 :key="index">
               <th scope="row">{{ index + 1 }}</th>
               <td>{{ post.title }}</td>
               <td>May, 23, 2023</td>
               <td>{{ filteredContent(post.content) }}</td>
-              <td class="iconCtn"><button @click="toAdminEditPage(post.id)"
+              <td class="iconCtn"><button @click.stop="toAdminEditPage(post.id)"
                         class="editBtb btn btn-light"><font-awesome-icon :icon="['fas', 'pen']" /></button>
-                <button @click="deletePost(post.id)"
-                        class="deleteBtn btn btn-light"><font-awesome-icon :icon="['fas', 'xmark']" /></button>
+                <button @click.stop="pressDeleteBtn(post)"
+                        class="deleteBtn btn btn-light"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"><font-awesome-icon :icon="['fas', 'xmark']" /></button>
               </td>
             </tr>
           </tbody>
         </table>
-        <router-link :to="{
-          name: 'adminAdd'
-        }"><button class="plusBtn">+</button></router-link>
+        <div v-if="!posts.length"
+             class="noPostMsg">No post yet. Please click the button in the bottom right to add a new post!
+        </div>
       </main>
+
+      <!-- Plus button for adding post -->
+      <router-link :to="{
+        name: 'adminAdd'
+      }"><button class="plusBtn">+</button></router-link>
+
+      <!-- Modal -->
+      <div @click="cancelDelete"
+           class="modal fade"
+           id="exampleModal"
+           tabindex="-1"
+           aria-labelledby="exampleModalLabel"
+           aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"
+                  id="exampleModalLabel"><font-awesome-icon :icon="['fas', 'circle-exclamation']" /> Confirm Delete</h5>
+              <button @click.stop="cancelDelete"
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="modalQuestion">Are you sure you want to delete this post?</div>
+              <div class="modalPostTitle">【 Post Title 】 <span>{{ postTitleToDelete }}</span></div>
+              <div class="modalPostCoverCtn">
+                <img :src="postCoverToDelete | emptyImage"
+                     class="modalPostCoverCtn_img"
+                     alt="cover-image">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button @click.stop="cancelDelete"
+                      type="button"
+                      class="btn btn-secondary cancelDeleteBtn"
+                      data-bs-dismiss="modal">Cancel</button>
+              <button @click.stop="confirmDelete"
+                      type="button"
+                      class="btn btn-primary confirmDeleteBtn"
+                      data-bs-dismiss="modal">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </DefaultLayout>
 </template>
@@ -44,11 +93,20 @@
 <script>
 import { DefaultLayout, Spinner } from "@/components";
 import { mapState, mapActions } from "vuex";
+import { emptyImageFilter } from "@/utils/mixins";
 
 export default {
   name: "AdminView",
+  mixins: [emptyImageFilter],
   components: {
     DefaultLayout, Spinner
+  },
+  data() {
+    return {
+      postIDToDelete: null,
+      postTitleToDelete: null,
+      postCoverToDelete: null,
+    }
   },
   computed: {
     isLoading() {
@@ -62,15 +120,30 @@ export default {
       let replacedContent = content.replace(/<br>/g, ' ');
       return replacedContent.length >= 40 ? replacedContent.slice(0, 40) + "..." : replacedContent;
     },
+    openThisPostPage(postID) {
+      console.log("open: ", postID);
+      // Direct to the page page by opening a new tab
+      window.open('/post/' + postID, '_blank');
+
+    },
     toAdminEditPage(postID) {
       this.$router.push({ name: "adminEdit", params: { id: postID } });
     },
-    deletePost(postID) {
-      console.log("Delete post with ID: ", postID);
-      const ensure = confirm("Are you sure you want to delete this post?");
-      if (ensure) {
-        this.toDeletePost(postID);
-      }
+    pressDeleteBtn(post) {
+      // Save the post ID that the user wants to delete
+      this.postIDToDelete = post.id;
+      this.postTitleToDelete = post.title;
+      this.postCoverToDelete = post.cover;
+    },
+    cancelDelete() {
+      // Reset modal content
+      this.postIDToDelete = null;
+      this.postTitleToDelete = null;
+      this.postCoverToDelete = null;
+    },
+    confirmDelete() {
+      console.log("Delete post with ID: ", this.postIDToDelete);
+      this.toDeletePost(this.postIDToDelete);
     },
   },
 };
@@ -93,27 +166,34 @@ export default {
 .table-hover>tbody>tr:hover>td,
 .table-hover>tbody>tr:hover>th {
   background-color: #edfaf9;
-}
-
-.table>tbody {
-  border-top: 2px groove $green-6;
+  text-decoration: underline;
 }
 
 .table>thead {
   font-weight: 500;
+  border-bottom: 3px groove $green-6;
 }
 
 .iconCtn {
   button {
     margin: 3px 3px 3px 3px;
   }
+
+  .editBtb:hover {
+    color: #f8f9fa;
+    background-color: $green-6;
+  }
+
+  .deleteBtn:hover {
+    color: #f8f9fa;
+    background-color: $pink-2;
+  }
 }
 
-
 .plusBtn {
-  position: fixed;
-  bottom: 120px;
-  right: 170px;
+  position: absolute;
+  bottom: 5vh;
+  right: 5vw;
   width: 3.5rem;
   height: 3.5rem;
   font-size: 3.5rem;
@@ -129,6 +209,77 @@ export default {
 
   &:active {
     box-shadow: 0 0 20px $green-4;
+  }
+}
+
+.modal-title {
+  color: $pink-2;
+  font-weight: 600;
+}
+
+.modalQuestion {
+  color: $green-6;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.modalPostTitle {
+  color: $green-6;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.modalPostTitle>span {
+  color: black;
+  font-weight: 400;
+}
+
+.modalPostCoverCtn {
+  width: 100%;
+
+  &_img {
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+.cancelDeleteBtn {
+  background-color: $green-6;
+  border: none;
+
+  &:active {
+    box-shadow: 0 0 20px $green-4;
+  }
+}
+
+.confirmDeleteBtn {
+  background-color: $pink-2;
+  border: none;
+
+  &:active {
+    box-shadow: 0 0 20px $green-1;
+  }
+}
+
+.noPostMsg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50vh;
+  color: $green-6;
+  background-color: $green-0;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+@media screen and (min-width: 992px) {
+  .plusBtn {
+    bottom: 15vh;
+    right: 10vw;
   }
 }
 </style>

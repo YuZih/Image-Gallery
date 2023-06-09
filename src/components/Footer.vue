@@ -39,6 +39,7 @@ footer {
     margin-right: 10px;
   }
 }
+
 .instagram-text {
   text-decoration: underline;
 }
@@ -51,6 +52,10 @@ footer {
 
   .instagram-text {
     text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 </style>

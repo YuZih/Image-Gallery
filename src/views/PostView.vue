@@ -15,7 +15,7 @@
         <div class="textCtn">
           <h5>There's no post yet.</h5>
           <h6>*For admin, please <router-link :to="{
-            name: 'login'
+            name: 'admin'
           }"><button>login</button></router-link> to add new post.</h6>
         </div>
         <div class="imgCtn">
@@ -166,9 +166,9 @@ export default {
     border-bottom: 4px groove $green-2;
 
     .manageBtn {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: bold;
-      color: $green-4;
+      color: $green-6;
 
       &:hover {
         a {
@@ -258,7 +258,7 @@ export default {
       img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain;
       }
     }
   }
