@@ -11,7 +11,7 @@
              alt="post-cover">
 
         <!-- Post Date -->
-        <p class="postSec_contentCtn_date">May, 3, 2023</p>
+        <p class="postSec_contentCtn_date">{{ postFilterByID.date | toDate }}</p>
 
         <!-- Post Content -->
         <p class="postSec_contentCtn_content"
@@ -24,11 +24,11 @@
 <script>
 import { DefaultLayout, AlbumCard } from "@/components";
 import { mapState } from "vuex";
-import { emptyImageFilter } from "@/utils/mixins"
+import { emptyImageFilter, toDateFilter } from "@/utils/mixins"
 
 export default {
   name: "PostDetailView",
-  mixins: [emptyImageFilter],
+  mixins: [emptyImageFilter, toDateFilter],
   components: {
     DefaultLayout, AlbumCard
   },

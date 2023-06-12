@@ -23,7 +23,7 @@
                 :key="index">
               <th scope="row">{{ index + 1 }}</th>
               <td>{{ post.title }}</td>
-              <td>May, 23, 2023</td>
+              <td>{{ post.date | toDate }}</td>
               <td>{{ filteredContent(post.content) }}</td>
               <td class="iconCtn"><button @click.stop="toAdminEditPage(post.id)"
                         class="editBtb btn btn-light"><font-awesome-icon :icon="['fas', 'pen']" /></button>
@@ -93,11 +93,11 @@
 <script>
 import { DefaultLayout, Spinner } from "@/components";
 import { mapState, mapActions } from "vuex";
-import { emptyImageFilter } from "@/utils/mixins";
+import { emptyImageFilter, toDateFilter } from "@/utils/mixins";
 
 export default {
   name: "AdminView",
-  mixins: [emptyImageFilter],
+  mixins: [emptyImageFilter, toDateFilter],
   components: {
     DefaultLayout, Spinner
   },
@@ -154,7 +154,7 @@ export default {
 @import "@/assets/scss/color.scss";
 
 .tableCtn {
-  max-width: 960px;
+  max-width: 1200px;
   min-height: 75vh;
 }
 

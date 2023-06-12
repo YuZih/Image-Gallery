@@ -179,8 +179,10 @@ export default new Vuex.Store({
         const querySnapshot = await getDocs(Ref);// Docs Prototype: Object
         let payload = [];// Prototype: Array [{post1}, {post2},...]
         querySnapshot.forEach(doc => {
+          console.log("doc: ", doc);
           payload.push({ id: doc.id, ...doc.data() });
         });
+        console.log("posts: ", payload);
         commit("fetchPosts", payload);
         commit("setIsLoadingPost", false);
         return true; 

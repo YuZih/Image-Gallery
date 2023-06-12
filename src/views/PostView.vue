@@ -58,7 +58,7 @@
             <div class="col-md-8 postText"
                  :class="{ 'order-md-5': isOdd(index) }">
               <h3>{{ post.title }}</h3>
-              <p class="postDate">May 24, 2023</p>
+              <p class="postDate">{{ post.date | toDate }}</p>
               <p>{{ filteredContent(post.content) }}</p>
             </div>
 
@@ -84,11 +84,11 @@
 <script>
 import { DefaultLayout, Spinner } from "@/components";
 import { mapState, mapGetters, mapActions } from "vuex";
-import { emptyImageFilter } from "@/utils/mixins";
+import { emptyImageFilter, toDateFilter } from "@/utils/mixins";
 
 export default {
   name: "PostView",
-  mixins: [emptyImageFilter],
+  mixins: [emptyImageFilter, toDateFilter],
   components: {
     DefaultLayout, Spinner
   },
