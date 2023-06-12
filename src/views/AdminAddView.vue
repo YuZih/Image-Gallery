@@ -272,7 +272,7 @@ export default {
 @import "@/assets/scss/color.scss";
 
 .formCtn {
-  width: 900px;
+  max-width: 900px;
   min-height: 65vh;
 
   h3 {
@@ -285,7 +285,7 @@ export default {
 
 .col-form-label {
   font-weight: 600;
-  text-align: end;
+  text-align: start;
   color: $green-6;
 
   &>span {
@@ -365,6 +365,12 @@ textarea::placeholder {
     color: $pink-2;
     font-size: 0.9rem;
     font-weight: bold;
+  }
+}
+
+@media screen and (min-width: 576px) {
+  .col-form-label {
+    text-align: end;
   }
 }
 </style>
