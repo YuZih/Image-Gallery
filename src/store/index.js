@@ -2,7 +2,7 @@ import Vue from "vue"
 import Vuex from "vuex"
 import { defaultAlbums } from "@/utils/defaultSetting.js"
 import { db, storage } from "@/store/firebase.js"
-import { collection, getDocs, addDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { collection, getDocs, addDoc, doc, updateDoc, deleteDoc, query, orderBy } from 'firebase/firestore';
 
 Vue.use(Vuex)
 
@@ -10,7 +10,7 @@ export default new Vuex.Store({
   state: {
     albums: {},
     albumNamesForURL: {},
-    posts: [], // [post{id, date, title, content, cover, album}]
+    posts: [], //Ordered by date timestamp in descending order: [post{id, date, title, content, cover, album}]
     searchKey: "",
     isLoadingPost: true, // check if fetching posts is completed
     isAdmin: true,
@@ -19,6 +19,11 @@ export default new Vuex.Store({
   },
 
   getters: {
+    // Sort the posts by the date timestamp in ascending order
+    sortedPostsAsc: (state) => {
+      return [...state.posts].sort((a, b) => a.date - b.date);
+    },
+
     // Filter posts by search key
     postsFilterBySearchKey: (state) => {
       if (state.posts.length) { // if any post exists
@@ -174,15 +179,14 @@ export default new Vuex.Store({
 
     // Read doc data from Firestore database
     toFetchPosts: async ({ commit }) => {
-      const Ref = collection(db, "Posts");// Ref Prototype: Object
+      const Ref = query(collection(db, "Posts"), orderBy("date", "desc"));
+      // const Ref = collection(db, "Posts");// Ref Prototype: Object
       try {
         const querySnapshot = await getDocs(Ref);// Docs Prototype: Object
         let payload = [];// Prototype: Array [{post1}, {post2},...]
         querySnapshot.forEach(doc => {
-          console.log("doc: ", doc);
           payload.push({ id: doc.id, ...doc.data() });
         });
-        console.log("posts: ", payload);
         commit("fetchPosts", payload);
         commit("setIsLoadingPost", false);
         return true; 

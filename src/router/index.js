@@ -125,6 +125,7 @@ async function postDetailGuard(to, from, next) {
   isValid ? next() : next("notFound"); 
 }
 
+
 function adminGuard(to, from, next) {
   store.state.isAdmin ? next() : next({ name: "login" });
 }

@@ -12,14 +12,18 @@
             <tr>
               <th scope="col">#</th>
               <th scope="col">Post Title</th>
-              <th scope="col">Date</th>
+              <th scope="col">Date <span @click="oderPosts"
+                      v-show="postsInDesc"><font-awesome-icon :icon="['fas', 'caret-down']" /></span><span
+                      @click="oderPosts"
+                      v-show="!postsInDesc"><font-awesome-icon :icon="['fas', 'caret-down']"
+                                     rotation=180 /></span></th>
               <th scope="col">Content</th>
               <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
             <tr @click="openThisPostPage(post.id)"
-                v-for="(post, index) in posts"
+                v-for="(post, index) in orderedPosts"
                 :key="index">
               <th scope="row">{{ index + 1 }}</th>
               <td>{{ post.title }}</td>
@@ -92,7 +96,7 @@
 
 <script>
 import { DefaultLayout, Spinner } from "@/components";
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
 import { emptyImageFilter, toDateFilter } from "@/utils/mixins";
 
 export default {
@@ -106,6 +110,7 @@ export default {
       postIDToDelete: null,
       postTitleToDelete: null,
       postCoverToDelete: null,
+      postsInDesc: true,
     }
   },
   computed: {
@@ -113,9 +118,16 @@ export default {
       return this.isLoadingPost || !this.posts;
     },
     ...mapState(["isLoadingPost", "posts"]),
+    ...mapGetters(["sortedPostsAsc"]),
+    orderedPosts() {
+      return this.postsInDesc ? this.posts : this.sortedPostsAsc;
+    },
   },
   methods: {
     ...mapActions(["toDeletePost"]),
+    oderPosts() {
+      this.postsInDesc = !this.postsInDesc;
+    },
     filteredContent(content) {
       let replacedContent = content.replace(/<br>/g, ' ');
       return replacedContent.length >= 40 ? replacedContent.slice(0, 40) + "..." : replacedContent;

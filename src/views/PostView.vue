@@ -35,7 +35,6 @@
             name: 'admin'
           }"><font-awesome-icon :icon="['fas', 'user-pen']"
                                  class="manageIcon" /> Manage</router-link></div>
-
           <form class="searchBar">
             <input v-model="searchKey"
                    name="searchKeyInput"
@@ -101,7 +100,7 @@ export default {
     isLoading() {
       return this.isLoadingPost || !this.posts;
     },
-    ...mapState(["isLoadingPost", "posts", "isAdmin"]),
+    ...mapState(["isLoadingPost", "posts"]),
     ...mapGetters(["postsFilterBySearchKey"]),
     noPost() {
       return !this.isLoadingPost && this.posts && this.posts.length === 0; // Make sure fetching posts and mapping posts state are completed first
