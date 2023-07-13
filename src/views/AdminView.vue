@@ -7,7 +7,6 @@
 
     <div v-else>
       <main class="tableCtn container">
-
         <!-- Table section -->
         <table class="table table-striped table-hover">
           <thead>
@@ -44,12 +43,18 @@
         <div v-if="!posts.length"
              class="noPostMsg">No post yet. Please click the button in the bottom right to add a new post!
         </div>
+        <!-- Plus button for adding post -->
+        <div class="plusBtnCtn">
+          <router-link :to="{
+            name: 'adminAdd'
+          }"><button class="plusBtn">+</button></router-link>
+        </div>
       </main>
 
       <!-- Plus button for adding post -->
-      <router-link :to="{
+      <!-- <router-link :to="{
         name: 'adminAdd'
-      }"><button class="plusBtn">+</button></router-link>
+      }"><button class="plusBtn">+</button></router-link> -->
 
       <!-- Modal -->
       <div @click="cancelDelete"
@@ -170,6 +175,7 @@ export default {
 .tableCtn {
   max-width: 1200px;
   min-height: 75vh;
+  margin-top: 5rem;
 }
 
 .table-striped>tbody>tr:nth-child(2n+1)>td,
@@ -204,27 +210,31 @@ export default {
   }
 }
 
-.plusBtn {
-  position: absolute;
-  bottom: 5vh;
-  right: 5vw;
-  width: 3.5rem;
-  height: 3.5rem;
-  font-size: 3.5rem;
-  border-radius: 50%;
-  color: white;
-  background-color: $green-3;
-  border: none;
+.plusBtnCtn {
+  margin-top: 4rem;
+  margin-bottom: 6rem;
+  text-align: center;
 
-  &:hover {
+  .plusBtn {
+    width: 50px;
+    height: 50px;
+    font-size: 50px;
+    border-radius: 50%;
     color: white;
-    background-color: $green-6;
-  }
+    background-color: $green-3;
+    border: none;
 
-  &:active {
-    box-shadow: 0 0 20px $green-4;
+    &:hover {
+      color: white;
+      background-color: $green-6;
+    }
+
+    &:active {
+      box-shadow: 0 0 20px $green-4;
+    }
   }
 }
+
 
 .modal-title {
   color: $pink-2;
@@ -290,10 +300,9 @@ export default {
   font-size: 1.2rem;
 }
 
-@media screen and (min-width: 992px) {
-  .plusBtn {
-    bottom: 15vh;
-    right: 10vw;
+@media screen and (min-width: 768px) {
+  .tableCtn {
+    margin-top: 2rem;
   }
 }
 </style>

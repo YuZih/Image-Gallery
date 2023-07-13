@@ -34,7 +34,8 @@
           <div class="manageBtn"><router-link :to="{
             name: 'admin'
           }"><font-awesome-icon :icon="['fas', 'user-pen']"
-                                 class="manageIcon" /> Manage</router-link></div>
+                                 class="manageIcon mx-4 mx-md-1" /><span class="d-none d-md-inline">
+                Manage</span></router-link></div>
           <form class="searchBar">
             <input v-model="searchKey"
                    name="searchKeyInput"
