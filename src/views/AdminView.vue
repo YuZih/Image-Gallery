@@ -7,6 +7,8 @@
 
     <div v-else>
       <main class="tableCtn container">
+
+        <!-- Table section -->
         <table class="table table-striped table-hover">
           <thead>
             <tr>
