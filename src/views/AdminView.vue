@@ -51,10 +51,6 @@
         </div>
       </main>
 
-      <!-- Plus button for adding post -->
-      <!-- <router-link :to="{
-        name: 'adminAdd'
-      }"><button class="plusBtn">+</button></router-link> -->
 
       <!-- Modal -->
       <div @click="cancelDelete"
