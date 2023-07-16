@@ -76,9 +76,9 @@
             </div>
           </div>
         </div>
-
+        
         <!-- Album field -->
-        <div class="row">
+        <!-- <div class="row">
           <label for="selectAlbum"
                  class="col-sm-2 col-form-label">Album (Optional)</label>
           <div class="col-sm-10">
@@ -94,7 +94,7 @@
                       :value="albumName">{{ albumName }}</option>
             </select>
           </div>
-        </div>
+        </div> -->
 
         <!-- Post button -->
         <div class="container text-center">

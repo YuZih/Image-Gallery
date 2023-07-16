@@ -34,7 +34,7 @@
           <div class="manageBtn"><router-link :to="{
             name: 'admin'
           }"><font-awesome-icon :icon="['fas', 'user-pen']"
-                                 class="manageIcon mx-4 mx-md-1" /><span class="d-none d-md-inline">
+                                 class="mx-4 mx-md-1" /><span class="d-none d-md-inline">
                 Manage</span></router-link></div>
           <form class="searchBar">
             <input v-model="searchKey"
@@ -43,7 +43,7 @@
                    type="search"
                    placeholder="Type something to search..."
                    aria-label="Search">
-            <button @click.stop.prevent="toChangeSearchKey(searchKey)"
+            <button @click.stop.prevent="toChangeSearchKey(searchKey.trim())"
                     class="searchBtn btn btn-outline-success"
                     type="submit">Search</button>
           </form>
@@ -72,8 +72,7 @@
 
         <div v-else
              class="noMatchCtn mx-auto text-center">
-          <p>We're sorry, but there is no post matched your search.</p>
-          <p>Please try search other words or clear the search field.</p>
+          <p>Sorry, no posts found. Please Try different keywords or clear the search field.</p>
         </div>
       </section>
     </div>
@@ -109,7 +108,7 @@ export default {
   },
   watch: {
     searchKey() {
-      if (!this.searchKey) {
+      if (!this.searchKey.trim()) {
         this.toChangeSearchKey("");
       }
     }

@@ -20,8 +20,9 @@ export default new Vuex.Store({
 
   getters: {
     // Sort the posts by the date timestamp in ascending order
-    sortedPostsAsc: (state) => {
-      return [...state.posts].sort((a, b) => a.date - b.date);
+    sortedPostsAsc: (state, getters) => {
+      let copyPosts = [...getters.postsFilterBySearchKey];
+      return copyPosts.sort((a, b) => a.date - b.date);
     },
 
     // Filter posts by search key
