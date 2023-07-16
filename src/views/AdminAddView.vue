@@ -16,10 +16,9 @@
                    id="inputTitle"
                    name="title"
                    placeholder="Enter post title here">
-            <div v-show="showErrorMsg && !title.trim()"
+            <div v-show="showErrorMsg && !formData.title.trim()"
                  class="errorMsg">Title is required.</div>
           </div>
-
         </div>
 
         <!-- Content field -->
@@ -33,7 +32,7 @@
                       name="content"
                       rows="10"
                       placeholder="Enter what you want to share here"></textarea>
-            <div v-show="showErrorMsg && !content.trim()"
+            <div v-show="showErrorMsg && !formData.content.trim()"
                  class="errorMsg">Content is required.</div>
           </div>
 
@@ -76,7 +75,7 @@
             </div>
           </div>
         </div>
-        
+
         <!-- Album field -->
         <!-- <div class="row">
           <label for="selectAlbum"

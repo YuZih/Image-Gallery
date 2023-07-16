@@ -72,7 +72,7 @@
 
         <div v-else
              class="noMatchCtn mx-auto text-center">
-          <p>Sorry, no posts found. Please Try different keywords or clear the search field.</p>
+          <p>Sorry, no posts found. Please try different keywords or clear the search field.</p>
         </div>
       </section>
     </div>
