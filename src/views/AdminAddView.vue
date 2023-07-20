@@ -63,6 +63,7 @@
                    readonly
                    class="form-control"
                    :value="fileName"
+                   id="fileNameInput"
                    placeholder="No file chosen">
           </div>
           <!-- image preview -->
@@ -95,6 +96,52 @@
           </div>
         </div> -->
 
+        <!-- Map field -->
+        <div class="row">
+          <label for="latitudeInput"
+                 class="col-sm-2 col-form-label">Location (optional)</label>
+          <div class="field col-sm-5">
+            <div class="input-group">
+              <span class="input-group-text"
+                    id="latitudeLabel">Latitude</span>
+              <input v-model="latInput"
+                     id="latitudeInput"
+                     type="text"
+                     class="form-control"
+                     placeholder="Enter latitude here"
+                     aria-label="latitudeTitle"
+                     aria-describedby="latitudeLabel">
+            </div>
+          </div>
+          <div class="field col-sm-5">
+            <div class="input-group">
+              <span class="input-group-text"
+                    id="longitudeLabel">Longitude</span>
+              <input v-model="lngInput"
+                     id="longitudeInput"
+                     type="text"
+                     class="form-control"
+                     placeholder="Enter longitude here"
+                     aria-label="longitudeTitle"
+                     aria-describedby="longitudeLabel">
+            </div>
+          </div>
+          <div class="col-sm-10 offset-2 mapNote">
+            *Please input coordinates or move the red marker to your photo location.
+          </div>
+          <div v-if="formData.geopoint.lat && formData.geopoint.lng"
+               class="col-sm-10 offset-2 mt-4">
+            <Map @markerDragged="GeopointAfterDragged"
+                 :center="formData.geopoint"
+                 :initialMarker="{ position: formData.geopoint }"></Map>
+          </div>
+          <div v-else
+               class="col-sm-10 offset-2 mt-4">
+            <Map @markerDragged="GeopointAfterDragged"></Map>
+          </div>
+        </div>
+
+
         <!-- Post button -->
         <div class="container text-center">
           <button @click="handleReset"
@@ -118,7 +165,7 @@
 
 
 <script>
-import { DefaultLayout } from "@/components";
+import { DefaultLayout, Map } from "@/components";
 import { mapGetters, mapActions, mapState } from "vuex";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "@/store/firebase.js";
@@ -126,7 +173,7 @@ import { storage } from "@/store/firebase.js";
 export default {
   name: "AdminAddView",
   components: {
-    DefaultLayout
+    DefaultLayout, Map
   },
   data() {
     return {
@@ -136,12 +183,18 @@ export default {
       fileChanged: false, // for edit mode
       fileName: null, // for file name showing
       coverPreviewURL: null, // for preview showing
+      latInput: null,
+      lngInput: null,
       formData: {
         date: "",
         title: "",
         content: "",
-        album: "",
         cover: "",
+        album: "",
+        geopoint: {
+          lat: null,
+          lng: null,
+        },
       },
     }
   },
@@ -176,12 +229,37 @@ export default {
         this.formData.cover = this.postFilterByPostID.cover;
         this.coverPreviewURL = this.postFilterByPostID.cover;
         this.fileName = "original post cover";
+        if (this.postFilterByPostID.geopoint && this.postFilterByPostID.geopoint.lat && this.postFilterByPostID.geopoint.lng) {
+          this.formData.geopoint = this.postFilterByPostID.geopoint;
+          this.latInput = this.postFilterByPostID.geopoint.lat;
+          this.lngInput = this.postFilterByPostID.geopoint.lng;
+        } else {
+          this.formData.geopoint = { lat: null, lng: null };
+          this.latInput = null;
+          this.lngInput = null;
+        }
+
       }
     },
     postChanged() {
       // redirect to admin page after clicking submit button
       this.$router.push({ name: "admin" });
-    }
+    },
+    latInput(newString) {
+      let latInputNumber = Number(newString);
+      this.formData.geopoint.lat = latInputNumber;
+    },
+    lngInput(newString) {
+      let lngInputNumber = Number(newString);
+      this.formData.geopoint.lng = lngInputNumber;
+    },
+    'formData.geopoint': {
+      deep: true,
+      handler(newVal) {
+        this.latInput = newVal.lat;
+        this.lngInput = newVal.lng;
+      }
+    },
   },
   methods: {
     ...mapActions(["toChangeFocusPostID", "toAddPost", "toUpdatePost"]),
@@ -200,6 +278,9 @@ export default {
         console.log(this.coverPreviewURL);
       }
     },
+    GeopointAfterDragged(newPosition) {
+      this.formData.geopoint = newPosition;
+    },
     handleReset() {
       this.$refs.fileInput.value = ""; // Clear the value of fileInput
       this.isProcessing = false;
@@ -210,6 +291,7 @@ export default {
       this.formData.title = "";
       this.formData.content = "";
       this.formData.album = "";
+      this.formData.geopoint = "";
     },
     async handleSubmit() {
       // Step 1: Validate form: Ensure all required fields and cover photo are provided.
@@ -365,6 +447,12 @@ textarea::placeholder {
     font-size: 0.9rem;
     font-weight: bold;
   }
+}
+
+.mapNote {
+  font-style: italic;
+  font-weight: bold;
+  color: $green-5;
 }
 
 @media screen and (min-width: 576px) {

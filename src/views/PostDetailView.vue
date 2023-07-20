@@ -1,6 +1,6 @@
 <template>
   <DefaultLayout>
-    <section class="postSec container mx-auto">
+    <section class="postSec container mx-auto mb-5">
       <!-- Post Title -->
       <h3 class="postSec_title">{{ postFilterByID.title }}</h3>
       <div class="postSec_contentCtn">
@@ -18,11 +18,25 @@
            v-html="replacedContent"></p>
       </div>
     </section>
+
+    <section v-if="postFilterByID && postFilterByID.geopoint"
+             class="mapSec container my-5">
+      <h3 class="mapSec_title text-center">Photo Location</h3>
+
+      <div class="my-3">
+        <Map :center="postFilterByID.geopoint" :markerDraggable="false"
+             :initialMarker="{position: postFilterByID.geopoint }"></Map>
+      </div>
+      <div class="text-end">(Latitude: {{ postFilterByID.geopoint.lat }}, longitude: {{ postFilterByID.geopoint.lng }})
+      </div>
+    </section>
   </DefaultLayout>
 </template>
 
+
+
 <script>
-import { DefaultLayout, AlbumCard } from "@/components";
+import { DefaultLayout, AlbumCard, Map } from "@/components";
 import { mapState } from "vuex";
 import { emptyImageFilter, toDateFilter } from "@/utils/mixins"
 
@@ -30,7 +44,7 @@ export default {
   name: "PostDetailView",
   mixins: [emptyImageFilter, toDateFilter],
   components: {
-    DefaultLayout, AlbumCard
+    DefaultLayout, AlbumCard, Map
   },
   computed: {
     ...mapState(["posts"]),
@@ -52,11 +66,12 @@ export default {
 </script>
 
 
+
 <style lang="scss" scoped>
 @import "@/assets/scss/color.scss";
 
 .postSec {
-  max-width: 960px;
+  // max-width: 960px;
   min-height: 70vh;
 
   &_title {
@@ -86,13 +101,14 @@ export default {
 
 @media screen and (min-width: 576px) {
   .postSec {
-    min-height: 85vh;
+    min-height: 55vh;
   }
 
   .postSec_contentCtn_image {
     width: 50%;
-    max-height: 70vh;
+    max-height: 50vh;
     padding: 0 20px 10px 10px;
+    object-fit: contain;
   }
 }
 

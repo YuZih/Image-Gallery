@@ -384,7 +384,8 @@ export default {
 
   &_img {
     width: 100%;
-    object-fit: cover;
+    max-height: 400px;
+    object-fit: contain;
   }
 }
 

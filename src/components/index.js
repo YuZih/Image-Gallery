@@ -14,3 +14,5 @@ export { default as Footer } from "@/components/Footer.vue";
 export { default as DefaultLayout } from "@/components/DefaultLayout.vue";
 
 export { default as Spinner } from "@/components/Spinner.vue";
+
+export { default as Map } from "@/components/Map.vue";
