@@ -8,7 +8,7 @@ import { getStorage } from "firebase/storage";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDG0a-piEqyZK94Ym8K3Gwyh9wb3kL67bQ",
+  apiKey: "your API key",
   authDomain: "vue-galley-yuzuxpic.firebaseapp.com",
   projectId: "vue-galley-yuzuxpic",
   storageBucket: "vue-galley-yuzuxpic.appspot.com",

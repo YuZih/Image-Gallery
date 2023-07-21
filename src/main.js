@@ -27,7 +27,7 @@ import GmapMap from 'vue2-google-maps/src/components/map';
 import GmapInfoWindow from 'vue2-google-maps/src/components/infoWindow';
 Vue.use(VueGoogleMaps, {
   load: {
-    key: 'AIzaSyDG0a-piEqyZK94Ym8K3Gwyh9wb3kL67bQ',
+    key: 'your API token',
     libraries: 'places',
     region: 'TW',
     language: 'en',
