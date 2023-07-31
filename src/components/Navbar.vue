@@ -98,7 +98,7 @@ export default {
   },
   mounted() {
     // Use '$nextTick' to ensure that the navbar element has finished rendering and updating in the DOM.
-    // Avoid attempting to add event listeners and reading 'offsetTop' before the navbar is ready. (=> set the value directly instead of reading the 'offsetTop' value)
+    // Avoid attempting to add event listeners and reading 'offsetTop' before the navbar is ready. (=> set the value (navbarOffsetTop) directly instead of reading the 'offsetTop' value)
     this.$nextTick(() => {
       // this.navbarOffsetTop = this.$refs.navbar.offsetTop;
       window.addEventListener("scroll", this.handleScroll);
@@ -125,6 +125,7 @@ export default {
     },
 
     // Manually bind and unbind click events to fix the Bootstrap collapsing navigation bar issue
+    // This issue is probably because I use Bootstrap 5 instead of Bootstrap 4.
     onLinkClick(event) {
       if (event.target.classList.contains("toCollapse")) {
         const navbarToggler = this.$refs.navbar.querySelector(".navbar-toggler");

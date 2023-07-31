@@ -109,7 +109,9 @@ async function albumGuard(to, from, next) {
     ? store.getters.isValidAlbumParam(to.params.seriesName, to.params.galleryName)
     : store.getters.isValidAlbumParam(to.params.seriesName);
 
-  isValid ? next() : next("notFound");  // use next("notFound") instead of using next({name: "notFound"}), in order to avoid bug of Vue Router 3 (error message: [vue-router] missing param for named route "notFound": Expected "0" to be defined)
+  // isValid ? next() : next({ name: "notFound", params: { '0': to.path } });
+  isValid ? next() : next({ name: "notFound", params: [to.path], replace: true })
+  // There is no need to add params to notFound page, but we need to do this in order to avoid the bug of Vue Router 3 (Warn message: [vue-router] missing param for named route "notFound": Expected "0" to be defined), which might be solved by using path: '/:catchAll(.*)' in Vue Router 4.
 }
 
 

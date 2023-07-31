@@ -2,6 +2,9 @@
 node_modules
 /dist
 images/
+src/main.js
+src/store/firebase.js
+
 
 # local env files
 .env.local

@@ -1,7 +1,5 @@
 <template>
   <DefaultLayout>
-
-
     <div class="container-md">
       <!-- breadcrumb -->
       <div class="breadCrumbCtn">
@@ -22,8 +20,10 @@
           </ol>
         </nav>
       </div>
+
       <!-- Show series or album photos -->
       <router-view />
+
     </div>
   </DefaultLayout>
 </template>
